@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping(path = "api/v1/customer")
@@ -23,6 +24,11 @@ public class CustomerController {
     @PostMapping
     public void addCustomer(@RequestBody Customer customer) {
         this.customerService.addCustomer(customer);
+    }
+
+    @GetMapping(path = "{customerId}")
+    public Customer getCustomer(@PathVariable UUID customerId) {
+        return this.customerService.getCustomer(customerId);
     }
 
 }

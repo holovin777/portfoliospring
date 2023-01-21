@@ -32,4 +32,11 @@ public class CustomerService {
         this.customerRepository.save(customer);
     }
 
+    public Customer getCustomer(UUID customerId) {
+        Optional<Customer> customerOptional = customerRepository.findById(customerId);
+        if (customerOptional.isPresent()) {
+            return customerOptional.get();
+        }
+        throw new IllegalStateException("Customer with UUID " + customerId + " doesn't exists");
+    }
 }
