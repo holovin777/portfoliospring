@@ -60,7 +60,6 @@ public class Customer {
 
     @Column(
             name = "birthday",
-            nullable = false,
             columnDefinition = "DATE"
     )
     private LocalDate birthday;
@@ -97,6 +96,10 @@ public class Customer {
     )
     private List<WorkingExperience> workingExperiences = new ArrayList<>();
 
+    @Column(
+            name = "password",
+            columnDefinition = "TEXT"
+    )
     private String password;
 
 
@@ -234,7 +237,6 @@ public class Customer {
                 ", website='" + website + '\'' +
                 ", drivingLicense='" + drivingLicense + '\'' +
                 ", workingExperiences=" + workingExperiences +
-                ", password='" + password + '\'' +
                 '}';
     }
 }
