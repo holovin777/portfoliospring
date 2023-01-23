@@ -1,35 +1,24 @@
-package ninja.curriculum.portfoliospring.university;
+package ninja.curriculum.portfoliospring.institution.college;
 
 import jakarta.persistence.*;
-
 import java.util.Objects;
 
-import static jakarta.persistence.GenerationType.SEQUENCE;
-
-@Entity(name = "University")
-@Table(
-        name = "university",
+@Entity(name = "Collage")
+@Table(name = "collage",
         uniqueConstraints = {
                 @UniqueConstraint(
-                        name = "university_location_unique",
+                        name = "collage_location_unique",
                         columnNames = "location"
                 )
         }
 )
-public class University {
+public class College {
     @Id
-    @SequenceGenerator(
-            name = "university_sequence",
-            sequenceName = "university_sequence",
-            allocationSize = 1
-    )
-    @GeneratedValue(
-            strategy = SEQUENCE,
-            generator = "university_sequence"
-    )
     @Column(
             name = "id",
-            updatable = false
+            nullable = false,
+            updatable = false,
+            columnDefinition = "BIGINT"
     )
     private Long id;
 
@@ -47,12 +36,12 @@ public class University {
     )
     private String location;
 
-    public University(String name, String location) {
+    public College(String name, String location) {
         this.name = name;
         this.location = location;
     }
 
-    public University() {
+    public College() {
     }
 
     public Long getId() {
@@ -83,8 +72,8 @@ public class University {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        University that = (University) o;
-        return name.equals(that.name) && location.equals(that.location);
+        College college = (College) o;
+        return name.equals(college.name) && location.equals(college.location);
     }
 
     @Override
@@ -94,10 +83,11 @@ public class University {
 
     @Override
     public String toString() {
-        return "University{" +
+        return "College{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", location='" + location + '\'' +
                 '}';
     }
+
 }

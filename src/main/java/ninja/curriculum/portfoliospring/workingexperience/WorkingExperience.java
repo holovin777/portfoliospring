@@ -15,7 +15,7 @@ import java.util.Objects;
 public class WorkingExperience {
 
     @EmbeddedId
-    WorkingExperienceId id;
+    private WorkingExperienceId id;
 
     @ManyToOne
     @MapsId("customerId")

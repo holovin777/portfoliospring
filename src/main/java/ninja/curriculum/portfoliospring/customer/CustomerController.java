@@ -33,9 +33,18 @@ public class CustomerController {
         return this.customerService.getCustomer(customerId);
     }
 
-    @PutMapping(path = "{customerId}")
+    @PutMapping(path = "{customerId}/add-working-experience")
     public void addWorkingExperience(@PathVariable UUID customerId, @RequestParam Long positionAtWorkId, @RequestParam Long companyId, @RequestParam LocalDate startedWork, @RequestParam(required = false) LocalDate finishedWork) {
         this.customerService.addWorkingExperience(customerId, positionAtWorkId, companyId, startedWork, finishedWork);
     }
 
+    @PutMapping(path = "{customerId}/add-school-qualification")
+    public void addSchoolQualification(@PathVariable UUID customerId, @RequestParam Long schoolId, @RequestParam LocalDate startedStudying, @RequestParam(required = false) LocalDate finishedStudying) {
+        this.customerService.addSchoolQualification(customerId, schoolId, startedStudying, finishedStudying);
+    }
+
+    @PutMapping(path = "{customerId}/add-collage-qualification")
+    public void addCollageQualification(@PathVariable UUID customerId, @RequestParam Long collageId, @RequestParam LocalDate startedStudying, @RequestParam(required = false) LocalDate finishedStudying) {
+        this.customerService.addCollegeQualification(customerId, collageId, startedStudying, finishedStudying);
+    }
 }
