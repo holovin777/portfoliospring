@@ -1,5 +1,6 @@
 package ninja.curriculum.portfoliospring.customer;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import ninja.curriculum.portfoliospring.workingexperience.WorkingExperience;
 
@@ -100,6 +101,7 @@ public class Customer {
             name = "password",
             columnDefinition = "TEXT"
     )
+    @JsonIgnore
     private String password;
 
 

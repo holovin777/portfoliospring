@@ -1,5 +1,6 @@
 package ninja.curriculum.portfoliospring.workingexperience;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import ninja.curriculum.portfoliospring.company.Company;
 import ninja.curriculum.portfoliospring.company.positionatwork.PositionAtWork;
@@ -22,6 +23,7 @@ public class WorkingExperience {
             name = "customer_id",
             foreignKey = @ForeignKey(name = "working_experience_customer_id_fk")
     )
+    @JsonIgnore
     private Customer customer;
 
     @ManyToOne
@@ -60,6 +62,14 @@ public class WorkingExperience {
         this.company = company;
         this.startedWork = startedWork;
         this.finishedWork = finishedWork;
+    }
+
+    public WorkingExperience(WorkingExperienceId id, Customer customer, PositionAtWork positionAtWork, Company company, LocalDate startedWork) {
+        this.id = id;
+        this.customer = customer;
+        this.positionAtWork = positionAtWork;
+        this.company = company;
+        this.startedWork = startedWork;
     }
 
     public WorkingExperience() {

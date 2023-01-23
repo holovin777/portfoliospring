@@ -1,4 +1,4 @@
-package ninja.curriculum.portfoliospring.company;
+package ninja.curriculum.portfoliospring.university;
 
 import jakarta.persistence.*;
 
@@ -6,27 +6,26 @@ import java.util.Objects;
 
 import static jakarta.persistence.GenerationType.SEQUENCE;
 
-
-@Entity(name = "Company")
+@Entity(name = "University")
 @Table(
-        name = "company",
+        name = "university",
         uniqueConstraints = {
                 @UniqueConstraint(
-                        name = "company_location_unique",
+                        name = "university_location_unique",
                         columnNames = "location"
                 )
         }
 )
-public class Company {
+public class University {
     @Id
     @SequenceGenerator(
-            name = "company_sequence",
-            sequenceName = "company_sequence",
+            name = "university_sequence",
+            sequenceName = "university_sequence",
             allocationSize = 1
     )
     @GeneratedValue(
             strategy = SEQUENCE,
-            generator = "company_sequence"
+            generator = "university_sequence"
     )
     @Column(
             name = "id",
@@ -48,12 +47,13 @@ public class Company {
     )
     private String location;
 
-    public Company(String name, String location) {
+    public University(String name, String location) {
         this.name = name;
         this.location = location;
     }
 
-    public Company() {}
+    public University() {
+    }
 
     public Long getId() {
         return id;
@@ -83,18 +83,18 @@ public class Company {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Company company = (Company) o;
-        return Objects.equals(id, company.id) && Objects.equals(name, company.name) && Objects.equals(location, company.location);
+        University that = (University) o;
+        return name.equals(that.name) && location.equals(that.location);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, location);
+        return Objects.hash(name, location);
     }
 
     @Override
     public String toString() {
-        return "Company{" +
+        return "University{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", location='" + location + '\'' +
