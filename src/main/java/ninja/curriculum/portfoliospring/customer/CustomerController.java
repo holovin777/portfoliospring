@@ -44,7 +44,7 @@ public class CustomerController {
     }
 
     @PutMapping(path = "{customerId}/add-collage-qualification")
-    public void addCollageQualification(@PathVariable UUID customerId, @RequestParam Long collageId, @RequestParam LocalDate startedStudying, @RequestParam(required = false) LocalDate finishedStudying) {
-        this.customerService.addCollegeQualification(customerId, collageId, startedStudying, finishedStudying);
+    public void addCollageQualification(@PathVariable UUID customerId, @RequestParam Long collegeId, @RequestParam LocalDate startedStudying, @RequestParam(required = false) LocalDate finishedStudying) {
+        this.customerService.addCollegeQualification(customerId, collegeId, startedStudying, finishedStudying);
     }
 }

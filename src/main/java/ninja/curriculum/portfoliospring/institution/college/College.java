@@ -3,6 +3,8 @@ package ninja.curriculum.portfoliospring.institution.college;
 import jakarta.persistence.*;
 import java.util.Objects;
 
+import static jakarta.persistence.GenerationType.SEQUENCE;
+
 @Entity(name = "Collage")
 @Table(name = "collage",
         uniqueConstraints = {
@@ -14,11 +16,18 @@ import java.util.Objects;
 )
 public class College {
     @Id
+    @SequenceGenerator(
+            name = "college_sequence",
+            sequenceName = "college_sequence",
+            allocationSize = 1
+    )
+    @GeneratedValue(
+            strategy = SEQUENCE,
+            generator = "college_sequence"
+    )
     @Column(
             name = "id",
-            nullable = false,
-            updatable = false,
-            columnDefinition = "BIGINT"
+            updatable = false
     )
     private Long id;
 
