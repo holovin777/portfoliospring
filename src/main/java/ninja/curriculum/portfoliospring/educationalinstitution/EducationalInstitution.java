@@ -1,29 +1,31 @@
-package ninja.curriculum.portfoliospring.institution.college;
+package ninja.curriculum.portfoliospring.educationalinstitution;
 
 import jakarta.persistence.*;
+
 import java.util.Objects;
 
 import static jakarta.persistence.GenerationType.SEQUENCE;
 
-@Entity(name = "Collage")
-@Table(name = "collage",
+@Entity(name = "EducationalInstitution")
+@Table(
+        name = "educational_institution",
         uniqueConstraints = {
                 @UniqueConstraint(
-                        name = "collage_location_unique",
+                        name = "educational_institution_location_unique",
                         columnNames = "location"
                 )
         }
 )
-public class College {
+public class EducationalInstitution {
     @Id
     @SequenceGenerator(
-            name = "college_sequence",
-            sequenceName = "college_sequence",
+            name = "educational_institution_sequence",
+            sequenceName = "educational_institution_sequence",
             allocationSize = 1
     )
     @GeneratedValue(
             strategy = SEQUENCE,
-            generator = "college_sequence"
+            generator = "educational_institution_sequence"
     )
     @Column(
             name = "id",
@@ -37,6 +39,13 @@ public class College {
             columnDefinition = "TEXT"
     )
     private String name;
+    @Enumerated(EnumType.STRING)
+    @Column(
+            name = "study_place",
+            nullable = false,
+            columnDefinition = "TEXT"
+    )
+    private StudyPlace studyPlace;
 
     @Column(
             name = "location",
@@ -45,12 +54,13 @@ public class College {
     )
     private String location;
 
-    public College(String name, String location) {
+    public EducationalInstitution(String name, StudyPlace studyPlace, String location) {
         this.name = name;
+        this.studyPlace = studyPlace;
         this.location = location;
     }
 
-    public College() {
+    public EducationalInstitution() {
     }
 
     public Long getId() {
@@ -69,6 +79,14 @@ public class College {
         this.name = name;
     }
 
+    public StudyPlace getStudyPlace() {
+        return studyPlace;
+    }
+
+    public void setStudyPlace(StudyPlace studyPlace) {
+        this.studyPlace = studyPlace;
+    }
+
     public String getLocation() {
         return location;
     }
@@ -81,22 +99,22 @@ public class College {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        College college = (College) o;
-        return name.equals(college.name) && location.equals(college.location);
+        EducationalInstitution that = (EducationalInstitution) o;
+        return name.equals(that.name) && studyPlace == that.studyPlace && location.equals(that.location);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, location);
+        return Objects.hash(name, studyPlace, location);
     }
 
     @Override
     public String toString() {
-        return "College{" +
+        return "EducationalInstitution{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
+                ", studyPlace=" + studyPlace +
                 ", location='" + location + '\'' +
                 '}';
     }
-
 }

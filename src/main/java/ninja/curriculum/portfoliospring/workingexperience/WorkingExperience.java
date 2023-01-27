@@ -1,6 +1,5 @@
 package ninja.curriculum.portfoliospring.workingexperience;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import ninja.curriculum.portfoliospring.company.Company;
 import ninja.curriculum.portfoliospring.company.positionatwork.PositionAtWork;
@@ -9,36 +8,53 @@ import ninja.curriculum.portfoliospring.customer.Customer;
 import java.time.LocalDate;
 import java.util.Objects;
 
+import static jakarta.persistence.GenerationType.SEQUENCE;
+
 
 @Entity(name = "WorkingExperience")
 @Table(name = "working_experience")
 public class WorkingExperience {
 
-    @EmbeddedId
-    private WorkingExperienceId id;
+    @Id
+    @SequenceGenerator(
+            name = "educational_institution_sequence",
+            sequenceName = "educational_institution_sequence",
+            allocationSize = 1
+    )
+    @GeneratedValue(
+            strategy = SEQUENCE,
+            generator = "educational_institution_sequence"
+    )
+    @Column(
+            name = "id",
+            updatable = false
+    )
+    private Long id;
 
     @ManyToOne
-    @MapsId("customerId")
     @JoinColumn(
             name = "customer_id",
-            foreignKey = @ForeignKey(name = "working_experience_customer_id_fk")
+            nullable = false,
+            referencedColumnName = "id",
+            foreignKey = @ForeignKey(name = "working_experience_customer_fk")
     )
-    @JsonIgnore
     private Customer customer;
 
     @ManyToOne
-    @MapsId("positionAtWorkId")
     @JoinColumn(
             name = "position_at_work_id",
-            foreignKey = @ForeignKey(name = "working_experience_position_at_work_id_fk")
+            nullable = false,
+            referencedColumnName = "id",
+            foreignKey = @ForeignKey(name = "working_experience_position_at_work_fk")
     )
     private PositionAtWork positionAtWork;
 
     @ManyToOne
-    @MapsId("companyId")
     @JoinColumn(
             name = "company_id",
-            foreignKey = @ForeignKey(name = "working_experience_company_id_fk")
+            nullable = false,
+            referencedColumnName = "id",
+            foreignKey = @ForeignKey(name = "working_experience_company_fk")
     )
     private Company company;
 
@@ -55,8 +71,7 @@ public class WorkingExperience {
     )
     private LocalDate finishedWork;
 
-    public WorkingExperience(WorkingExperienceId id, Customer customer, PositionAtWork positionAtWork, Company company, LocalDate startedWork, LocalDate finishedWork) {
-        this.id = id;
+    public WorkingExperience(Customer customer, PositionAtWork positionAtWork, Company company, LocalDate startedWork, LocalDate finishedWork) {
         this.customer = customer;
         this.positionAtWork = positionAtWork;
         this.company = company;
@@ -64,8 +79,7 @@ public class WorkingExperience {
         this.finishedWork = finishedWork;
     }
 
-    public WorkingExperience(WorkingExperienceId id, Customer customer, PositionAtWork positionAtWork, Company company, LocalDate startedWork) {
-        this.id = id;
+    public WorkingExperience(Customer customer, PositionAtWork positionAtWork, Company company, LocalDate startedWork) {
         this.customer = customer;
         this.positionAtWork = positionAtWork;
         this.company = company;
@@ -75,11 +89,11 @@ public class WorkingExperience {
     public WorkingExperience() {
     }
 
-    public WorkingExperienceId getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(WorkingExperienceId id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

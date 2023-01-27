@@ -2,8 +2,7 @@ package ninja.curriculum.portfoliospring.customer;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import ninja.curriculum.portfoliospring.institution.college.CollegeQualification;
-import ninja.curriculum.portfoliospring.institution.school.SchoolQualification;
+import ninja.curriculum.portfoliospring.qualification.Qualification;
 import ninja.curriculum.portfoliospring.workingexperience.WorkingExperience;
 
 import java.time.LocalDate;
@@ -92,6 +91,7 @@ public class Customer {
     )
     private String drivingLicense;
 
+    @JsonIgnore
     @OneToMany(
             mappedBy = "customer",
             cascade = {CascadeType.ALL},
@@ -99,25 +99,19 @@ public class Customer {
     )
     private List<WorkingExperience> workingExperiences = new ArrayList<>();
 
+    @JsonIgnore
     @OneToMany(
             mappedBy = "customer",
             cascade = {CascadeType.ALL},
             orphanRemoval = true
     )
-    private List<SchoolQualification> schoolQualifications = new ArrayList<>();
+    private List<Qualification> qualifications = new ArrayList<>();
 
-    @OneToMany(
-            mappedBy = "customer",
-            cascade = {CascadeType.ALL},
-            orphanRemoval = true
-    )
-    private List<CollegeQualification> collegeQualifications = new ArrayList<>();
-
+    @JsonIgnore
     @Column(
             name = "password",
             columnDefinition = "TEXT"
     )
-    @JsonIgnore
     private String password;
 
 
@@ -142,6 +136,28 @@ public class Customer {
     public void addWorkingExperience(WorkingExperience workingExperience) {
         if (!this.workingExperiences.contains(workingExperience)) {
             this.workingExperiences.add(workingExperience);
+            workingExperience.setCustomer(this);
+        }
+    }
+
+    public void removeWorkingExperience(WorkingExperience workingExperience) {
+        if (this.workingExperiences.contains(workingExperience)) {
+            this.workingExperiences.remove(workingExperience);
+            workingExperience.setCustomer(null);
+        }
+    }
+
+    public void addQualification(Qualification qualification) {
+        if (!this.qualifications.contains(qualification)) {
+            this.qualifications.add(qualification);
+            qualification.setCustomer(this);
+        }
+    }
+
+    public void removeQualification(Qualification qualification) {
+        if (this.qualifications.contains(qualification)) {
+            this.qualifications.remove(qualification);
+            qualification.setCustomer(null);
         }
     }
 
@@ -217,20 +233,8 @@ public class Customer {
         this.drivingLicense = drivingLicense;
     }
 
-    public List<SchoolQualification> getSchoolQualifications() {
-        return schoolQualifications;
-    }
-
-    public void addSchoolQualification(SchoolQualification schoolQualification) {
-        if (!this.schoolQualifications.contains(schoolQualification)) {
-            this.schoolQualifications.add(schoolQualification);
-        }
-    }
-
-    public void addCollegeQualification(CollegeQualification collegeQualification) {
-        if (!this.collegeQualifications.contains(collegeQualification)) {
-            this.collegeQualifications.add(collegeQualification);
-        }
+    public List<Qualification> getQualifications() {
+        return this.qualifications;
     }
 
     public String getPassword() {
@@ -246,12 +250,12 @@ public class Customer {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Customer customer = (Customer) o;
-        return firstName.equals(customer.firstName) && lastName.equals(customer.lastName) && phoneNumber.equals(customer.phoneNumber) && birthday.equals(customer.birthday) && email.equals(customer.email) && Objects.equals(residence, customer.residence) && Objects.equals(website, customer.website) && Objects.equals(drivingLicense, customer.drivingLicense);
+        return firstName.equals(customer.firstName) && lastName.equals(customer.lastName) && phoneNumber.equals(customer.phoneNumber) && Objects.equals(birthday, customer.birthday) && email.equals(customer.email) && Objects.equals(residence, customer.residence) && Objects.equals(website, customer.website) && Objects.equals(drivingLicense, customer.drivingLicense) && Objects.equals(workingExperiences, customer.workingExperiences) && Objects.equals(qualifications, customer.qualifications);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(firstName, lastName, phoneNumber, birthday, email, residence, website, drivingLicense);
+        return Objects.hash(firstName, lastName, phoneNumber, birthday, email, residence, website, drivingLicense, workingExperiences, qualifications);
     }
 
     @Override
@@ -267,8 +271,8 @@ public class Customer {
                 ", website='" + website + '\'' +
                 ", drivingLicense='" + drivingLicense + '\'' +
                 ", workingExperiences=" + workingExperiences +
-                ", schoolQualifications=" + schoolQualifications +
+                ", qualifications=" + qualifications +
+                ", password='" + password + '\'' +
                 '}';
     }
-
 }

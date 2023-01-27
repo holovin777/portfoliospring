@@ -1,9 +1,10 @@
 package ninja.curriculum.portfoliospring.customer;
 
+import ninja.curriculum.portfoliospring.qualification.Qualification;
+import ninja.curriculum.portfoliospring.workingexperience.WorkingExperience;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 
@@ -33,18 +34,13 @@ public class CustomerController {
         return this.customerService.getCustomer(customerId);
     }
 
-    @PutMapping(path = "{customerId}/add-working-experience")
-    public void addWorkingExperience(@PathVariable UUID customerId, @RequestParam Long positionAtWorkId, @RequestParam Long companyId, @RequestParam LocalDate startedWork, @RequestParam(required = false) LocalDate finishedWork) {
-        this.customerService.addWorkingExperience(customerId, positionAtWorkId, companyId, startedWork, finishedWork);
+    @GetMapping(path = "{customerId}/working-experience/all")
+    public List<WorkingExperience> getWorkingExperiences(@PathVariable UUID customerId) {
+        return this.customerService.getWorkingExperiences(customerId);
     }
 
-    @PutMapping(path = "{customerId}/add-school-qualification")
-    public void addSchoolQualification(@PathVariable UUID customerId, @RequestParam Long schoolId, @RequestParam LocalDate startedStudying, @RequestParam(required = false) LocalDate finishedStudying) {
-        this.customerService.addSchoolQualification(customerId, schoolId, startedStudying, finishedStudying);
-    }
-
-    @PutMapping(path = "{customerId}/add-collage-qualification")
-    public void addCollageQualification(@PathVariable UUID customerId, @RequestParam Long collegeId, @RequestParam LocalDate startedStudying, @RequestParam(required = false) LocalDate finishedStudying) {
-        this.customerService.addCollegeQualification(customerId, collegeId, startedStudying, finishedStudying);
+    @GetMapping(path = "{customerId}/qualification/all")
+    public List<Qualification> getQualifications(@PathVariable UUID customerId) {
+        return this.customerService.getQualifications(customerId);
     }
 }
