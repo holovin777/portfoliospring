@@ -17,7 +17,6 @@ public class QualificationService {
 
     @Transactional
     public void addQualification(Qualification qualification) {
-        System.out.println("Hello, " + qualification);
         this.qualificationRepository.save(qualification);
     }
 }

@@ -2,6 +2,7 @@ package ninja.curriculum.portfoliospring.customer;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import ninja.curriculum.portfoliospring.certificate.Certificate;
 import ninja.curriculum.portfoliospring.qualification.Qualification;
 import ninja.curriculum.portfoliospring.workingexperience.WorkingExperience;
 
@@ -108,6 +109,14 @@ public class Customer {
     private List<Qualification> qualifications = new ArrayList<>();
 
     @JsonIgnore
+    @OneToMany(
+            mappedBy = "customer",
+            cascade = {CascadeType.ALL},
+            orphanRemoval = true
+    )
+    private List<Certificate> certificates = new ArrayList<>();
+
+    @JsonIgnore
     @Column(
             name = "password",
             columnDefinition = "TEXT"
@@ -128,38 +137,6 @@ public class Customer {
     public Customer() {
     }
 
-
-    public List<WorkingExperience> getWorkingExperiences() {
-        return workingExperiences;
-    }
-
-    public void addWorkingExperience(WorkingExperience workingExperience) {
-        if (!this.workingExperiences.contains(workingExperience)) {
-            this.workingExperiences.add(workingExperience);
-            workingExperience.setCustomer(this);
-        }
-    }
-
-    public void removeWorkingExperience(WorkingExperience workingExperience) {
-        if (this.workingExperiences.contains(workingExperience)) {
-            this.workingExperiences.remove(workingExperience);
-            workingExperience.setCustomer(null);
-        }
-    }
-
-    public void addQualification(Qualification qualification) {
-        if (!this.qualifications.contains(qualification)) {
-            this.qualifications.add(qualification);
-            qualification.setCustomer(this);
-        }
-    }
-
-    public void removeQualification(Qualification qualification) {
-        if (this.qualifications.contains(qualification)) {
-            this.qualifications.remove(qualification);
-            qualification.setCustomer(null);
-        }
-    }
 
     public UUID getId() {
         return id;
@@ -245,6 +222,44 @@ public class Customer {
         this.password = password;
     }
 
+
+    public List<WorkingExperience> getWorkingExperiences() {
+        return workingExperiences;
+    }
+
+    public void addWorkingExperience(WorkingExperience workingExperience) {
+        if (!this.workingExperiences.contains(workingExperience)) {
+            this.workingExperiences.add(workingExperience);
+            workingExperience.setCustomer(this);
+        }
+    }
+
+    public void removeWorkingExperience(WorkingExperience workingExperience) {
+        if (this.workingExperiences.contains(workingExperience)) {
+            this.workingExperiences.remove(workingExperience);
+            workingExperience.setCustomer(null);
+        }
+    }
+
+    public void addQualification(Qualification qualification) {
+        if (!this.qualifications.contains(qualification)) {
+            this.qualifications.add(qualification);
+            qualification.setCustomer(this);
+        }
+    }
+
+    public void removeQualification(Qualification qualification) {
+        if (this.qualifications.contains(qualification)) {
+            this.qualifications.remove(qualification);
+            qualification.setCustomer(null);
+        }
+    }
+
+    public List<Certificate> getCertificates() {
+        return this.certificates;
+    }
+
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -270,8 +285,6 @@ public class Customer {
                 ", residence='" + residence + '\'' +
                 ", website='" + website + '\'' +
                 ", drivingLicense='" + drivingLicense + '\'' +
-                ", workingExperiences=" + workingExperiences +
-                ", qualifications=" + qualifications +
                 ", password='" + password + '\'' +
                 '}';
     }

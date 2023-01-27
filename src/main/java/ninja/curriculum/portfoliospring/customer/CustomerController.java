@@ -1,5 +1,6 @@
 package ninja.curriculum.portfoliospring.customer;
 
+import ninja.curriculum.portfoliospring.certificate.Certificate;
 import ninja.curriculum.portfoliospring.qualification.Qualification;
 import ninja.curriculum.portfoliospring.workingexperience.WorkingExperience;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,5 +43,10 @@ public class CustomerController {
     @GetMapping(path = "{customerId}/qualification/all")
     public List<Qualification> getQualifications(@PathVariable UUID customerId) {
         return this.customerService.getQualifications(customerId);
+    }
+
+    @GetMapping(path = "{customerId}/certificate/all")
+    public List<Certificate> getCertificates(@PathVariable UUID customerId) {
+        return this.customerService.getCertificates(customerId);
     }
 }
