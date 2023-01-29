@@ -1,6 +1,5 @@
 package ninja.curriculum.portfoliospring.customer;
 
-import ninja.curriculum.portfoliospring.certificate.Certificate;
 import ninja.curriculum.portfoliospring.company.CompanyRepository;
 import ninja.curriculum.portfoliospring.company.positionatwork.PositionAtWorkRepository;
 import ninja.curriculum.portfoliospring.educationalinstitution.EducationalInstitutionRepository;
@@ -78,12 +77,4 @@ public class CustomerService {
         throw new IllegalStateException("Customer with UUID " + customerId + " doesn't exists");
     }
 
-    public List<Certificate> getCertificates(UUID customerId) {
-        Optional<Customer> customerOptional = this.customerRepository.findById(customerId);
-        if (customerOptional.isPresent()) {
-            Customer customer = customerOptional.get();
-            return customer.getCertificates();
-        }
-        throw new IllegalStateException("Customer with UUID " + customerId + " doesn't exists");
-    }
 }

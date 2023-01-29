@@ -25,4 +25,9 @@ public class EducationInstitutionController {
         this.educationalInstitutionService.addEducationalInstitution(educationalInstitution);
     }
 
+    @DeleteMapping(path = "{educationalInstitutionId}")
+    public void removeEducationalInstitution(@PathVariable Long educationalInstitutionId) {
+        this.educationalInstitutionService.removeEducationalInstitution(educationalInstitutionId);
+    }
+
 }

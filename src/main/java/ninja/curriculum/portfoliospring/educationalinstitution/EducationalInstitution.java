@@ -49,7 +49,6 @@ public class EducationalInstitution {
 
     @Column(
             name = "location",
-            nullable = false,
             columnDefinition = "TEXT"
     )
     private String location;
@@ -58,6 +57,11 @@ public class EducationalInstitution {
         this.name = name;
         this.studyPlace = studyPlace;
         this.location = location;
+    }
+
+    public EducationalInstitution(String name, StudyPlace studyPlace) {
+        this.name = name;
+        this.studyPlace = studyPlace;
     }
 
     public EducationalInstitution() {

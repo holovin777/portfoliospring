@@ -2,7 +2,6 @@ package ninja.curriculum.portfoliospring.customer;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import ninja.curriculum.portfoliospring.certificate.Certificate;
 import ninja.curriculum.portfoliospring.qualification.Qualification;
 import ninja.curriculum.portfoliospring.workingexperience.WorkingExperience;
 
@@ -107,14 +106,6 @@ public class Customer {
             orphanRemoval = true
     )
     private List<Qualification> qualifications = new ArrayList<>();
-
-    @JsonIgnore
-    @OneToMany(
-            mappedBy = "customer",
-            cascade = {CascadeType.ALL},
-            orphanRemoval = true
-    )
-    private List<Certificate> certificates = new ArrayList<>();
 
     @JsonIgnore
     @Column(
@@ -254,11 +245,6 @@ public class Customer {
             qualification.setCustomer(null);
         }
     }
-
-    public List<Certificate> getCertificates() {
-        return this.certificates;
-    }
-
 
     @Override
     public boolean equals(Object o) {

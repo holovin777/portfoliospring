@@ -18,10 +18,13 @@ public class EducationalInstitutionService {
     }
 
     public void addEducationalInstitution(EducationalInstitution educationalInstitution) {
-        Optional<EducationalInstitution> educationalInstitutionOptional = educationalInstitutionRepository.findByLocation(educationalInstitution.getLocation());
-        if (educationalInstitutionOptional.isPresent()) {
-            throw new IllegalStateException("EducationalInstitution with location " + educationalInstitution.getLocation() + " is exists");
-        }
         this.educationalInstitutionRepository.save(educationalInstitution);
+    }
+
+    public void removeEducationalInstitution(Long educationalInstitutionId) {
+        Optional<EducationalInstitution> educationalInstitutionOptional = educationalInstitutionRepository.findById(educationalInstitutionId);
+        if (educationalInstitutionOptional.isPresent()) {
+            this.educationalInstitutionRepository.deleteById(educationalInstitutionId);
+        }
     }
 }

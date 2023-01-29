@@ -1,6 +1,7 @@
 package ninja.curriculum.portfoliospring.qualification;
 
 import jakarta.persistence.*;
+import ninja.curriculum.portfoliospring.course.Course;
 import ninja.curriculum.portfoliospring.customer.Customer;
 import ninja.curriculum.portfoliospring.educationalinstitution.EducationalInstitution;
 
@@ -40,11 +41,11 @@ public class Qualification {
     @ManyToOne
     @JoinColumn(
             name = "educational_institution_id",
-            nullable = false,
             referencedColumnName = "id",
             foreignKey = @ForeignKey(name = "qualification_educational_institution_fk")
     )
     private EducationalInstitution educationalInstitution;
+
 
     @Enumerated(EnumType.STRING)
     @Column(
@@ -71,9 +72,16 @@ public class Qualification {
     )
     private String speciality;
 
+    @ManyToOne
+    @JoinColumn(
+            name = "course_id",
+            referencedColumnName = "id",
+            foreignKey = @ForeignKey(name = "qualification_course_fk")
+    )
+    private Course course;
+
     @Column(
             name = "started_studying",
-            nullable = false,
             columnDefinition = "DATE"
     )
     private LocalDate startedStudying;
@@ -120,15 +128,17 @@ public class Qualification {
         this.startedStudying = startedStudying;
     }
 
-    public Qualification(Customer customer, EducationalInstitution educationalInstitution, LocalDate startedStudying) {
+    public Qualification(Customer customer, EducationalInstitution educationalInstitution, Course course, LocalDate startedStudying) {
         this.customer = customer;
         this.educationalInstitution = educationalInstitution;
         this.startedStudying = startedStudying;
+        this.course = course;
     }
 
-    public Qualification(Customer customer, EducationalInstitution educationalInstitution, LocalDate startedStudying, LocalDate finishedStudying) {
+    public Qualification(Customer customer, EducationalInstitution educationalInstitution, Course course, LocalDate startedStudying, LocalDate finishedStudying) {
         this.customer = customer;
         this.educationalInstitution = educationalInstitution;
+        this.course = course;
         this.startedStudying = startedStudying;
         this.finishedStudying = finishedStudying;
     }
@@ -150,6 +160,14 @@ public class Qualification {
 
     public void setCustomer(Customer customer) {
         this.customer = customer;
+    }
+
+    public Course getCourse() {
+        return course;
+    }
+
+    public void setCourse(Course course) {
+        this.course = course;
     }
 
     public EducationalInstitution getEducationalInstitution() {
@@ -213,12 +231,12 @@ public class Qualification {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Qualification that = (Qualification) o;
-        return customer.equals(that.customer) && educationalInstitution.equals(that.educationalInstitution) && academicDegree == that.academicDegree && Objects.equals(faculty, that.faculty) && Objects.equals(department, that.department) && Objects.equals(speciality, that.speciality) && startedStudying.equals(that.startedStudying) && Objects.equals(finishedStudying, that.finishedStudying);
+        return customer.equals(that.customer) && educationalInstitution.equals(that.educationalInstitution) && academicDegree == that.academicDegree && Objects.equals(faculty, that.faculty) && Objects.equals(department, that.department) && Objects.equals(speciality, that.speciality) && Objects.equals(course, that.course) && Objects.equals(startedStudying, that.startedStudying) && Objects.equals(finishedStudying, that.finishedStudying);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(customer, educationalInstitution, academicDegree, faculty, department, speciality, startedStudying, finishedStudying);
+        return Objects.hash(customer, educationalInstitution, academicDegree, faculty, department, speciality, course, startedStudying, finishedStudying);
     }
 
     @Override
@@ -231,6 +249,7 @@ public class Qualification {
                 ", faculty='" + faculty + '\'' +
                 ", department='" + department + '\'' +
                 ", speciality='" + speciality + '\'' +
+                ", course=" + course +
                 ", startedStudying=" + startedStudying +
                 ", finishedStudying=" + finishedStudying +
                 '}';
