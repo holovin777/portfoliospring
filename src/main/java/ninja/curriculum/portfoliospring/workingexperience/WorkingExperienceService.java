@@ -17,7 +17,6 @@ public class WorkingExperienceService {
 
     @Transactional
     public void addWorkingExperience(WorkingExperience workingExperience) {
-        System.out.println(workingExperience.getCustomer());
         this.workingExperienceRepository.save(workingExperience);
     }
 }

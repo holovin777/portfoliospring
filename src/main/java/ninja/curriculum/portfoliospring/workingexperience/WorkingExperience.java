@@ -17,13 +17,13 @@ public class WorkingExperience {
 
     @Id
     @SequenceGenerator(
-            name = "educational_institution_sequence",
-            sequenceName = "educational_institution_sequence",
+            name = "working_experience_sequence",
+            sequenceName = "working_experience_sequence",
             allocationSize = 1
     )
     @GeneratedValue(
             strategy = SEQUENCE,
-            generator = "educational_institution_sequence"
+            generator = "working_experience_sequence"
     )
     @Column(
             name = "id",
