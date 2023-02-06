@@ -6,13 +6,12 @@ import ninja.curriculum.portfoliospring.educationalinstitution.EducationalInstit
 import ninja.curriculum.portfoliospring.qualification.Qualification;
 import ninja.curriculum.portfoliospring.qualification.QualificationRepository;
 import ninja.curriculum.portfoliospring.workingexperience.WorkingExperience;
+import ninja.curriculum.portfoliospring.workingexperience.WorkingExperienceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 
 @Service
 @Transactional(readOnly = true)
@@ -23,17 +22,20 @@ public class CustomerService {
     private final EducationalInstitutionRepository educationalInstitutionRepository;
     private final QualificationRepository qualificationRepository;
 
+    private final WorkingExperienceRepository workingExperienceRepository;
+
     @Autowired
     public CustomerService(CustomerRepository customerRepository,
                            PositionAtWorkRepository positionAtWorkRepository,
                            CompanyRepository companyRepository,
                            EducationalInstitutionRepository educationalInstitutionRepository,
-                           QualificationRepository qualificationRepository) {
+                           QualificationRepository qualificationRepository, WorkingExperienceRepository workingExperienceRepository) {
         this.customerRepository = customerRepository;
         this.positionAtWorkRepository = positionAtWorkRepository;
         this.companyRepository = companyRepository;
         this.educationalInstitutionRepository = educationalInstitutionRepository;
         this.qualificationRepository = qualificationRepository;
+        this.workingExperienceRepository = workingExperienceRepository;
     }
 
     public List<Customer> getCustomers() {
@@ -63,7 +65,7 @@ public class CustomerService {
         Optional<Customer> customerOptional = this.customerRepository.findById(customerId);
         if (customerOptional.isPresent()) {
             Customer customer = customerOptional.get();
-            return customer.getWorkingExperiences();
+            return this.workingExperienceRepository.getWorkingExperienceByCustomerOrderByStartedWorkDesc(customer);
         }
         throw new IllegalStateException("Customer with UUID " + customerId + " doesn't exists");
     }
@@ -72,7 +74,7 @@ public class CustomerService {
         Optional<Customer> customerOptional = this.customerRepository.findById(customerId);
         if (customerOptional.isPresent()) {
             Customer customer = customerOptional.get();
-            return customer.getQualifications();
+            return this.qualificationRepository.getQualificationByCustomerOrderByFinishedStudyingDesc(customer);
         }
         throw new IllegalStateException("Customer with UUID " + customerId + " doesn't exists");
     }
