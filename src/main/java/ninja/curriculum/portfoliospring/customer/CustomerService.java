@@ -79,4 +79,17 @@ public class CustomerService {
         throw new IllegalStateException("Customer with UUID " + customerId + " doesn't exists");
     }
 
+    @Transactional
+    public void updateCustomer(UUID customerId, String website) {
+        Optional<Customer> customerOptional = this.customerRepository.findById(customerId);
+        if (customerOptional.isPresent()) {
+            Customer customer = customerOptional.get();
+            if (website != null) {
+                customer.setWebsite(website);
+                customerRepository.save(customer);
+            }
+        } else {
+            throw new IllegalStateException("Customer with UUID " + customerId + " doesn't exists");
+        }
+    }
 }
