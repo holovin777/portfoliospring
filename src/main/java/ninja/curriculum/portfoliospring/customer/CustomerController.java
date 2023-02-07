@@ -44,4 +44,9 @@ public class CustomerController {
         return this.customerService.getQualifications(customerId);
     }
 
+    @PutMapping(path = "{customerId}")
+    public void updateCustomer(@PathVariable UUID customerId, @RequestParam(required = false) String website) {
+        this.customerService.updateCustomer(customerId, website);
+    }
+
 }
