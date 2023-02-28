@@ -39,6 +39,13 @@ public class EducationalInstitution {
             columnDefinition = "TEXT"
     )
     private String name;
+
+    @Column(
+            name = "nameItaly",
+            columnDefinition = "TEXT"
+    )
+    private String nameItaly;
+
     @Enumerated(EnumType.STRING)
     @Column(
             name = "study_place",
@@ -99,17 +106,25 @@ public class EducationalInstitution {
         this.location = location;
     }
 
+    public String getNameItaly() {
+        return nameItaly;
+    }
+
+    public void setNameItaly(String nameItaly) {
+        this.nameItaly = nameItaly;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         EducationalInstitution that = (EducationalInstitution) o;
-        return name.equals(that.name) && studyPlace == that.studyPlace && location.equals(that.location);
+        return name.equals(that.name) && Objects.equals(nameItaly, that.nameItaly) && studyPlace == that.studyPlace && Objects.equals(location, that.location);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, studyPlace, location);
+        return Objects.hash(name, nameItaly, studyPlace, location);
     }
 
     @Override
@@ -117,6 +132,7 @@ public class EducationalInstitution {
         return "EducationalInstitution{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
+                ", nameItaly='" + nameItaly + '\'' +
                 ", studyPlace=" + studyPlace +
                 ", location='" + location + '\'' +
                 '}';

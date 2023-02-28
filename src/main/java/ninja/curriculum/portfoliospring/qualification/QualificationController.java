@@ -22,7 +22,7 @@ public class QualificationController {
     }
 
     @PutMapping(path = "{qualificationId}")
-    public void updateQualification(@PathVariable Long qualificationId, @RequestParam(required = false) UUID customerId, @RequestParam(required = false) Long educationalInstitutionId, @RequestParam(required = false) AcademicDegree academicDegree, @RequestParam(required = false) String faculty, @RequestParam(required = false) String department, @RequestParam(required = false) String speciality, LocalDate finishedStudying) {
-        this.qualificationService.updateQualification(qualificationId, customerId, educationalInstitutionId, academicDegree, faculty, department, finishedStudying);
+    public void updateQualification(@PathVariable Long qualificationId, @RequestParam(required = false) UUID customerId, @RequestParam(required = false) Long educationalInstitutionId, @RequestParam(required = false) AcademicDegree academicDegree, @RequestParam(required = false) String faculty, @RequestParam(required = false) String facultyItaly, @RequestParam(required = false) String department, @RequestParam(required = false) String departmentItaly, @RequestParam(required = false) String speciality, @RequestParam(required = false) String specialityItaly, LocalDate finishedStudying) {
+        this.qualificationService.updateQualification(qualificationId, customerId, educationalInstitutionId, academicDegree, faculty, facultyItaly, department, departmentItaly, speciality, specialityItaly, finishedStudying);
     }
 }

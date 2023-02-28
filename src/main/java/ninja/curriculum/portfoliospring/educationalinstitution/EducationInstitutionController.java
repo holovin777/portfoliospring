@@ -30,4 +30,8 @@ public class EducationInstitutionController {
         this.educationalInstitutionService.removeEducationalInstitution(educationalInstitutionId);
     }
 
+    @PutMapping(path = "{educationalInstitutionId}")
+    public void updateEducationalInsistution(@PathVariable Long educationalInstitutionId, @RequestParam(required = false) String nameItaly) {
+        this.educationalInstitutionService.updateEducationalInstitution(educationalInstitutionId, nameItaly);
+    }
 }

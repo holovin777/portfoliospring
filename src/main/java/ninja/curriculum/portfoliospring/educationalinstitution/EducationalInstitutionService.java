@@ -1,5 +1,6 @@
 package ninja.curriculum.portfoliospring.educationalinstitution;
 
+import ninja.curriculum.portfoliospring.customer.Customer;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -25,6 +26,19 @@ public class EducationalInstitutionService {
         Optional<EducationalInstitution> educationalInstitutionOptional = educationalInstitutionRepository.findById(educationalInstitutionId);
         if (educationalInstitutionOptional.isPresent()) {
             this.educationalInstitutionRepository.deleteById(educationalInstitutionId);
+        }
+    }
+
+    public void updateEducationalInstitution(Long educationalInstitutionId, String nameItaly) {
+        Optional<EducationalInstitution> educationalInstitutionOptional = this.educationalInstitutionRepository.findById(educationalInstitutionId);
+        if (educationalInstitutionOptional.isPresent()) {
+            EducationalInstitution educationalInstitution = educationalInstitutionOptional.get();
+            if (nameItaly != null) {
+                educationalInstitution.setNameItaly(nameItaly);
+                educationalInstitutionRepository.save(educationalInstitution);
+            }
+        } else {
+            throw new IllegalStateException("Educational institution with UUID " + educationalInstitutionId + " doesn't exists");
         }
     }
 }
