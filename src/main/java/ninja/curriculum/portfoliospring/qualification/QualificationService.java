@@ -33,7 +33,7 @@ public class QualificationService {
     }
 
     @Transactional
-    public void updateQualification(Long qualificationId, UUID customerId, Long educationalInstitutionId, AcademicDegree academicDegree, String faculty, String department, LocalDate finishedStudying) {
+    public void updateQualification(Long qualificationId, UUID customerId, Long educationalInstitutionId, AcademicDegree academicDegree, String faculty, String facultyItaly, String department, String departmentItaly, String speciality, String specialityItaly, LocalDate finishedStudying) {
         Optional<Qualification> qualificationOptional = this.qualificationRepository.findById(qualificationId);
         if (qualificationOptional.isPresent()) {
             Qualification qualification = qualificationOptional.get();
@@ -52,9 +52,17 @@ public class QualificationService {
             } else if (academicDegree != null) {
                 qualification.setAcademicDegree(academicDegree);
             } else if (faculty != null) {
-                qualification.setFaculty(faculty);
+                qualification.setFaculty(facultyItaly);
+            } else if (facultyItaly != null) {
+                qualification.setFacultyItaly(facultyItaly);
             } else if (department != null) {
                 qualification.setDepartment(department);
+            } else if (departmentItaly != null) {
+                qualification.setDepartmentItaly(departmentItaly);
+            } else if (speciality != null) {
+                qualification.setSpeciality(speciality);
+            } else if (specialityItaly != null) {
+                qualification.setSpecialityItaly(specialityItaly);
             } else if (finishedStudying != null) {
                 qualification.setFinishedStudying(finishedStudying);
             }

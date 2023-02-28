@@ -61,16 +61,34 @@ public class Qualification {
     private String faculty;
 
     @Column(
+            name = "faculty_italy",
+            columnDefinition = "TEXT"
+    )
+    private String facultyItaly;
+
+    @Column(
             name = "department",
             columnDefinition = "TEXT"
     )
     private String department;
 
     @Column(
+            name = "department_italy",
+            columnDefinition = "TEXT"
+    )
+    private String departmentItaly;
+
+    @Column(
             name = "speciality",
             columnDefinition = "TEXT"
     )
     private String speciality;
+
+    @Column(
+            name = "speciality_italy",
+            columnDefinition = "TEXT"
+    )
+    private String specialityItaly;
 
     @ManyToOne
     @JoinColumn(
@@ -226,17 +244,41 @@ public class Qualification {
         this.finishedStudying = finishedStudying;
     }
 
+    public String getFacultyItaly() {
+        return facultyItaly;
+    }
+
+    public void setFacultyItaly(String facultyItaly) {
+        this.facultyItaly = facultyItaly;
+    }
+
+    public String getDepartmentItaly() {
+        return departmentItaly;
+    }
+
+    public void setDepartmentItaly(String departmentItaly) {
+        this.departmentItaly = departmentItaly;
+    }
+
+    public String getSpecialityItaly() {
+        return specialityItaly;
+    }
+
+    public void setSpecialityItaly(String specialityItaly) {
+        this.specialityItaly = specialityItaly;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Qualification that = (Qualification) o;
-        return customer.equals(that.customer) && educationalInstitution.equals(that.educationalInstitution) && academicDegree == that.academicDegree && Objects.equals(faculty, that.faculty) && Objects.equals(department, that.department) && Objects.equals(speciality, that.speciality) && Objects.equals(course, that.course) && Objects.equals(startedStudying, that.startedStudying) && Objects.equals(finishedStudying, that.finishedStudying);
+        return customer.equals(that.customer) && educationalInstitution.equals(that.educationalInstitution) && academicDegree == that.academicDegree && Objects.equals(faculty, that.faculty) && Objects.equals(facultyItaly, that.facultyItaly) && Objects.equals(department, that.department) && Objects.equals(departmentItaly, that.departmentItaly) && Objects.equals(speciality, that.speciality) && Objects.equals(specialityItaly, that.specialityItaly) && Objects.equals(course, that.course) && Objects.equals(startedStudying, that.startedStudying) && Objects.equals(finishedStudying, that.finishedStudying);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(customer, educationalInstitution, academicDegree, faculty, department, speciality, course, startedStudying, finishedStudying);
+        return Objects.hash(customer, educationalInstitution, academicDegree, faculty, facultyItaly, department, departmentItaly, speciality, specialityItaly, course, startedStudying, finishedStudying);
     }
 
     @Override
@@ -247,8 +289,11 @@ public class Qualification {
                 ", educationalInstitution=" + educationalInstitution +
                 ", academicDegree=" + academicDegree +
                 ", faculty='" + faculty + '\'' +
+                ", facultyItaly='" + facultyItaly + '\'' +
                 ", department='" + department + '\'' +
+                ", departmentItaly='" + departmentItaly + '\'' +
                 ", speciality='" + speciality + '\'' +
+                ", specialityItaly='" + specialityItaly + '\'' +
                 ", course=" + course +
                 ", startedStudying=" + startedStudying +
                 ", finishedStudying=" + finishedStudying +
