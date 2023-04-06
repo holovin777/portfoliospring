@@ -104,6 +104,18 @@ public class Customer {
     )
     private List<Qualification> qualifications = new ArrayList<>();
 
+    @Column(
+            name = "desired_profession",
+            columnDefinition = "TEXT"
+    )
+    private String desiredProfession;
+
+    @Column(
+            name = "description",
+            columnDefinition = "TEXT"
+    )
+    String description;
+
     @JsonIgnore
     @Column(
             name = "password",
@@ -112,13 +124,15 @@ public class Customer {
     private String password;
 
 
-    public Customer(UUID id, String firstName, String lastName, String phoneNumber, String email, String residence, String password) {
+    public Customer(UUID id, String firstName, String lastName, String phoneNumber, String email, String residence, String desiredProfession, String description, String password) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.phoneNumber = phoneNumber;
         this.email = email;
         this.residence = residence;
+        this.desiredProfession = desiredProfession;
+        this.description = description;
         this.password = password;
     }
 
@@ -202,6 +216,22 @@ public class Customer {
         return this.qualifications;
     }
 
+    public String getDesiredProfession() {
+        return desiredProfession;
+    }
+
+    public void setDesiredProfession(String desiredProfession) {
+        this.desiredProfession = desiredProfession;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     public String getPassword() {
         return password;
     }
@@ -248,12 +278,12 @@ public class Customer {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Customer customer = (Customer) o;
-        return firstName.equals(customer.firstName) && lastName.equals(customer.lastName) && phoneNumber.equals(customer.phoneNumber) && Objects.equals(birthday, customer.birthday) && email.equals(customer.email) && Objects.equals(residence, customer.residence) && Objects.equals(website, customer.website) && Objects.equals(drivingLicense, customer.drivingLicense) && Objects.equals(workingExperiences, customer.workingExperiences) && Objects.equals(qualifications, customer.qualifications);
+        return Objects.equals(id, customer.id) && Objects.equals(firstName, customer.firstName) && Objects.equals(lastName, customer.lastName) && Objects.equals(phoneNumber, customer.phoneNumber) && Objects.equals(birthday, customer.birthday) && Objects.equals(email, customer.email) && Objects.equals(residence, customer.residence) && Objects.equals(website, customer.website) && Objects.equals(drivingLicense, customer.drivingLicense) && Objects.equals(workingExperiences, customer.workingExperiences) && Objects.equals(qualifications, customer.qualifications) && Objects.equals(desiredProfession, customer.desiredProfession) && Objects.equals(description, customer.description) && Objects.equals(password, customer.password);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(firstName, lastName, phoneNumber, birthday, email, residence, website, drivingLicense, workingExperiences, qualifications);
+        return Objects.hash(id, firstName, lastName, phoneNumber, birthday, email, residence, website, drivingLicense, workingExperiences, qualifications, desiredProfession, description, password);
     }
 
     @Override
@@ -268,7 +298,10 @@ public class Customer {
                 ", residence='" + residence + '\'' +
                 ", website='" + website + '\'' +
                 ", drivingLicense='" + drivingLicense + '\'' +
-                ", password='" + password + '\'' +
+                ", workingExperiences=" + workingExperiences +
+                ", qualifications=" + qualifications +
+                ", desiredProfession='" + desiredProfession + '\'' +
+                ", description='" + description + '\'' +
                 '}';
     }
 }

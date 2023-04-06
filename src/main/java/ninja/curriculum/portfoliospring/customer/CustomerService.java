@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.util.*;
 
 @Service
@@ -80,12 +81,24 @@ public class CustomerService {
     }
 
     @Transactional
-    public void updateCustomer(UUID customerId, String website) {
+    public void updateCustomer(UUID customerId, String website, LocalDate birthday, String desiredProfession, String description) {
         Optional<Customer> customerOptional = this.customerRepository.findById(customerId);
         if (customerOptional.isPresent()) {
             Customer customer = customerOptional.get();
             if (website != null) {
                 customer.setWebsite(website);
+                customerRepository.save(customer);
+            }
+            if (birthday != null) {
+                customer.setBirthday(birthday);
+                customerRepository.save(customer);
+            }
+            if (desiredProfession != null) {
+                customer.setDesiredProfession(desiredProfession);
+                customerRepository.save(customer);
+            }
+            if (description != null) {
+                customer.setDescription(description);
                 customerRepository.save(customer);
             }
         } else {
