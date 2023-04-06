@@ -114,7 +114,7 @@ public class Customer {
             name = "description",
             columnDefinition = "TEXT"
     )
-    String description;
+    private String description;
 
     @JsonIgnore
     @Column(
@@ -298,8 +298,6 @@ public class Customer {
                 ", residence='" + residence + '\'' +
                 ", website='" + website + '\'' +
                 ", drivingLicense='" + drivingLicense + '\'' +
-                ", workingExperiences=" + workingExperiences +
-                ", qualifications=" + qualifications +
                 ", desiredProfession='" + desiredProfession + '\'' +
                 ", description='" + description + '\'' +
                 '}';
