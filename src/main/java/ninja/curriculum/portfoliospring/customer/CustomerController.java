@@ -5,6 +5,7 @@ import ninja.curriculum.portfoliospring.workingexperience.WorkingExperience;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 
@@ -45,8 +46,8 @@ public class CustomerController {
     }
 
     @PutMapping(path = "{customerId}")
-    public void updateCustomer(@PathVariable UUID customerId, @RequestParam(required = false) String website) {
-        this.customerService.updateCustomer(customerId, website);
+    public void updateCustomer(@PathVariable UUID customerId, @RequestParam(required = false) String website, @RequestParam(required = false) LocalDate birthday, @RequestParam(required = false) String desiredProfession, @RequestParam(required = false) String description) {
+        this.customerService.updateCustomer(customerId, website, birthday, desiredProfession, description);
     }
 
 }
