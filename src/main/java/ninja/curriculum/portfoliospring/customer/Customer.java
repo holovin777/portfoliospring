@@ -52,7 +52,6 @@ public class Customer {
 
     @Column(
             name = "phone_number",
-            nullable = false,
             columnDefinition = "TEXT"
     )
     private String phoneNumber;
@@ -65,7 +64,6 @@ public class Customer {
 
     @Column(
             name = "email",
-            nullable = false,
             columnDefinition = "TEXT"
     )
     private String email;
