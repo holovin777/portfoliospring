@@ -1,11 +1,13 @@
 package ninja.curriculum.portfoliospring.painting;
 
+import ninja.curriculum.portfoliospring.customer.Customer;
 import ninja.curriculum.portfoliospring.customer.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -14,12 +16,10 @@ import java.util.UUID;
     @RequestMapping("/api/v1/painting")
     public class PaintingController {
         private final PaintingService paintingService;
-        private final CustomerService customerService;
 
         @Autowired
-        public PaintingController(PaintingService paintingService, CustomerService customerService) {
+        public PaintingController(PaintingService paintingService) {
             this.paintingService = paintingService;
-            this.customerService = customerService;
         }
 
         @GetMapping("/all")
@@ -47,8 +47,12 @@ import java.util.UUID;
         }
 
         @PutMapping("/{id}")
-        public ResponseEntity<Void> updatePainting(@PathVariable Long id, @RequestBody Painting updatedPainting) {
-            paintingService.updatePainting(id, updatedPainting);
+        public ResponseEntity<Void> updatePainting(@PathVariable Long id,
+                                                   @RequestParam(required = false) Customer artist,
+                                                   @RequestParam(required = false) String title,
+                                                   @RequestParam(required = false) LocalDate date,
+                                                   @RequestParam(required = false) String imageURL) {
+            paintingService.updatePainting(id, artist, title, date, imageURL);
             return ResponseEntity.noContent().build();
         }
 

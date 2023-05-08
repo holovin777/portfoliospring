@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -40,15 +41,28 @@ public class PaintingService {
     }
 
     @Transactional()
-    public void updatePainting(Long id, Painting updatedPainting) {
-        Optional<Painting> painting = paintingRepository.findById(id);
-        if (painting.isPresent()) {
-            Painting paintingToUpdate = painting.get();
-            paintingToUpdate.setTitle(updatedPainting.getTitle());
-            paintingToUpdate.setDate(updatedPainting.getDate());
-            paintingToUpdate.setImageURL(updatedPainting.getImageURL());
-            paintingToUpdate.setMediums(updatedPainting.getMediums());
-            paintingRepository.save(paintingToUpdate);
+    public void updatePainting(Long id, Customer artist, String title, LocalDate date, String imageURL) {
+        Optional<Painting> paintingOptional = paintingRepository.findById(id);
+        if (paintingOptional.isPresent()) {
+            Painting painting = paintingOptional.get();
+            if (artist != null) {
+                painting.setArtist(artist);
+                paintingRepository.save(painting);
+            }
+            if (title != null) {
+                painting.setTitle(title);
+                paintingRepository.save(painting);
+            }
+            if (date != null) {
+                painting.setDate(date);
+                paintingRepository.save(painting);
+            }
+            if (imageURL != null) {
+                painting.setImageURL(imageURL);
+                paintingRepository.save(painting);
+            }
+        } else {
+            throw new IllegalStateException("Painting with id " + id + " doesn't exists");
         }
     }
 
