@@ -62,7 +62,7 @@ import java.util.UUID;
             return ResponseEntity.noContent().build();
         }
 
-        @PostMapping("/{paintingId}/medium/{mediumId}")
+        @PutMapping("/{paintingId}/medium/{mediumId}")
         public ResponseEntity<Void> addMedium(@PathVariable Long paintingId, @PathVariable Long mediumId) {
             paintingService.addMedium(paintingId, mediumId);
             return ResponseEntity.noContent().build();
