@@ -62,7 +62,6 @@ public class Painting {
         return id;
     }
 
-    @JsonIgnore
     public Customer getArtist() {
         return artist;
     }
