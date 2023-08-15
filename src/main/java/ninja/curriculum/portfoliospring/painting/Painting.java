@@ -1,6 +1,7 @@
 package ninja.curriculum.portfoliospring.painting;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import ninja.curriculum.portfoliospring.customer.Customer;
 import ninja.curriculum.portfoliospring.painting.medium.Medium;
@@ -37,7 +38,8 @@ public class Painting {
     @Column(nullable = false)
     private String imageURL;
 
-    @ManyToMany(cascade = {CascadeType.PERSIST})
+    @JsonIgnoreProperties("paintings")
+    @ManyToMany(cascade = {CascadeType.ALL})
     @JoinTable(name = "artwork_relationship",
             joinColumns = @JoinColumn(
                     name = "painting_id",
@@ -60,6 +62,10 @@ public class Painting {
 
     public Long getId() {
         return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public Customer getArtist() {
@@ -104,10 +110,12 @@ public class Painting {
 
     public void addMedium(Medium medium) {
         this.mediums.add(medium);
+        medium.addPainting(this);
     }
 
     public void removeMedium(Medium medium) {
         this.mediums.remove(medium);
+        medium.getPaintings().remove(this);
     }
 
     @Override
