@@ -1,12 +1,22 @@
 package ninja.curriculum.portfoliospring.customer;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import jakarta.persistence.*;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
+import jakarta.persistence.UniqueConstraint;
 import ninja.curriculum.portfoliospring.qualification.Qualification;
 import ninja.curriculum.portfoliospring.workingexperience.WorkingExperience;
 
 import java.time.LocalDate;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+import java.util.UUID;
 
 @Entity(name = "Customer")
 @Table(name = "customer",
@@ -86,7 +96,7 @@ public class Customer {
     )
     private String drivingLicense;
 
-    @JsonIgnore
+    @JsonManagedReference
     @OneToMany(
             mappedBy = "customer",
             cascade = {CascadeType.ALL},
@@ -94,7 +104,7 @@ public class Customer {
     )
     private List<WorkingExperience> workingExperiences = new ArrayList<>();
 
-    @JsonIgnore
+    @JsonManagedReference
     @OneToMany(
             mappedBy = "customer",
             cascade = {CascadeType.ALL},
@@ -120,22 +130,6 @@ public class Customer {
             columnDefinition = "TEXT"
     )
     private String password;
-
-
-    public Customer(UUID id, String firstName, String lastName, String phoneNumber, String email, String residence, String desiredProfession, String description, String password) {
-        this.id = id;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.phoneNumber = phoneNumber;
-        this.email = email;
-        this.residence = residence;
-        this.desiredProfession = desiredProfession;
-        this.description = description;
-        this.password = password;
-    }
-
-    public Customer() {
-    }
 
 
     public UUID getId() {
@@ -210,8 +204,16 @@ public class Customer {
         this.drivingLicense = drivingLicense;
     }
 
+    public void setWorkingExperiences(List<WorkingExperience> workingExperiences) {
+        this.workingExperiences = workingExperiences;
+    }
+
     public List<Qualification> getQualifications() {
-        return this.qualifications;
+        return qualifications;
+    }
+
+    public void setQualifications(List<Qualification> qualifications) {
+        this.qualifications = qualifications;
     }
 
     public String getDesiredProfession() {
@@ -237,7 +239,6 @@ public class Customer {
     public void setPassword(String password) {
         this.password = password;
     }
-
 
     public List<WorkingExperience> getWorkingExperiences() {
         return workingExperiences;
@@ -296,8 +297,11 @@ public class Customer {
                 ", residence='" + residence + '\'' +
                 ", website='" + website + '\'' +
                 ", drivingLicense='" + drivingLicense + '\'' +
+                ", workingExperiences=" + workingExperiences +
+                ", qualifications=" + qualifications +
                 ", desiredProfession='" + desiredProfession + '\'' +
                 ", description='" + description + '\'' +
+                ", password='" + password + '\'' +
                 '}';
     }
 }

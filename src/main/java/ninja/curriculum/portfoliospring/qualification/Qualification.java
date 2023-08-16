@@ -1,5 +1,6 @@
 package ninja.curriculum.portfoliospring.qualification;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import ninja.curriculum.portfoliospring.course.Course;
 import ninja.curriculum.portfoliospring.customer.Customer;
@@ -29,6 +30,7 @@ public class Qualification {
     )
     private Long id;
 
+    @JsonBackReference
     @ManyToOne
     @JoinColumn(
             name = "customer_id",

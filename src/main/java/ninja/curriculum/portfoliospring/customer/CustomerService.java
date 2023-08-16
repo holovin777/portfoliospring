@@ -81,7 +81,7 @@ public class CustomerService {
     }
 
     @Transactional
-    public void updateCustomer(UUID customerId, String website, LocalDate birthday, String desiredProfession, String description) {
+    public void updateCustomer(UUID customerId, String website, LocalDate birthday, String desiredProfession, String description, String drivingLicense) {
         Optional<Customer> customerOptional = this.customerRepository.findById(customerId);
         if (customerOptional.isPresent()) {
             Customer customer = customerOptional.get();
@@ -99,6 +99,10 @@ public class CustomerService {
             }
             if (description != null) {
                 customer.setDescription(description);
+                customerRepository.save(customer);
+            }
+            if (drivingLicense != null) {
+                customer.setDrivingLicense(drivingLicense);
                 customerRepository.save(customer);
             }
         } else {
