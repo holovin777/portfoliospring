@@ -46,8 +46,8 @@ public class CustomerController {
     }
 
     @PutMapping(path = "{customerId}")
-    public void updateCustomer(@PathVariable UUID customerId, @RequestParam(required = false) String website, @RequestParam(required = false) LocalDate birthday, @RequestParam(required = false) String desiredProfession, @RequestParam(required = false) String description) {
-        this.customerService.updateCustomer(customerId, website, birthday, desiredProfession, description);
+    public void updateCustomer(@PathVariable UUID customerId, @RequestParam(required = false) String website, @RequestParam(required = false) LocalDate birthday, @RequestParam(required = false) String desiredProfession, @RequestParam(required = false) String description, @RequestParam(required = false) String drivingLicense) {
+        this.customerService.updateCustomer(customerId, website, birthday, desiredProfession, description, drivingLicense);
     }
 
 }
