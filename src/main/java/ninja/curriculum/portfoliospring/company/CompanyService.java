@@ -37,4 +37,20 @@ public class CompanyService {
         }
         throw new IllegalStateException("Company with id " + companyId + " doesn't exists");
     }
+
+    @Transactional
+    public void updateCompany(Long companyId, String name) {
+        Optional<Company> companyOptional = this.companyRepository.findById(companyId);
+        if (companyOptional.isPresent()) {
+            Company company = companyOptional.get();
+            if (name != null) {
+                company.setName(name);
+                this.companyRepository.save(company);
+            } else {
+                throw new IllegalStateException("Company name is empty");
+            }
+        } else {
+            throw new IllegalStateException("Company with id " + companyId + " doesn't exists");
+        }
+    }
 }
