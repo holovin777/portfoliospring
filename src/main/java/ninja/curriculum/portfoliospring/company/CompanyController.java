@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.UUID;
 
 @RestController
 @RequestMapping(path = "api/v1/company")
@@ -29,6 +28,11 @@ public class CompanyController {
     @GetMapping(path = "{companyId}")
     public Company getCompany(@PathVariable Long companyId) {
         return this.companyService.getCompany(companyId);
+    }
+
+    @PutMapping(path = "{companyId}")
+    public void updateCompany(@PathVariable Long companyId, @RequestParam(required = false) String name) {
+        this.companyService.updateCompany(companyId, name);
     }
 
 }
