@@ -46,11 +46,12 @@ import java.util.UUID;
         }
 
         @PutMapping("/update/{id}")
-        public ResponseEntity<Void> updatePainting(@PathVariable Long id,
-                                                   @RequestParam(required = false) Customer paintingArtist,
-                                                   @RequestParam(required = false) String paintingTitle,
-                                                   @RequestParam(required = false) LocalDate paintingDate,
-                                                   @RequestParam(required = false) String paintingUrl) {
+        public ResponseEntity<Void> updatePainting(
+                @PathVariable Long id,
+                @RequestParam(required = false) Customer paintingArtist,
+                @RequestParam(required = false) String paintingTitle,
+                @RequestParam(required = false) LocalDate paintingDate,
+                @RequestParam(required = false) String paintingUrl) {
             paintingService.updatePainting(id, paintingArtist, paintingTitle, paintingDate, paintingUrl);
             return ResponseEntity.noContent().build();
         }
