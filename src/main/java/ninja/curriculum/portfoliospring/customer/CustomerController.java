@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
-@RequestMapping(path = "api/v1/customer")
+@RequestMapping(path = "/api/v1/customer")
 public class CustomerController {
 
     private final CustomerService customerService;
@@ -20,7 +20,7 @@ public class CustomerController {
         this.customerService = customerService;
     }
 
-    @GetMapping(path = "all")
+    @GetMapping(path = "/all")
     public List<Customer> getCustomers() {
         return this.customerService.getCustomers();
     }
@@ -30,22 +30,22 @@ public class CustomerController {
         this.customerService.addCustomer(customer);
     }
 
-    @GetMapping(path = "{customerId}")
+    @GetMapping(path = "/{customerId}")
     public Customer getCustomer(@PathVariable UUID customerId) {
         return this.customerService.getCustomer(customerId);
     }
 
-    @GetMapping(path = "{customerId}/working-experience/all")
+    @GetMapping(path = "/{customerId}/working-experience/all")
     public List<WorkingExperience> getWorkingExperiences(@PathVariable UUID customerId) {
         return this.customerService.getWorkingExperiences(customerId);
     }
 
-    @GetMapping(path = "{customerId}/qualification/all")
+    @GetMapping(path = "/{customerId}/qualification/all")
     public List<Qualification> getQualifications(@PathVariable UUID customerId) {
         return this.customerService.getQualifications(customerId);
     }
 
-    @PutMapping(path = "{customerId}")
+    @PutMapping(path = "/update/{customerId}")
     public void updateCustomer(@PathVariable UUID customerId, @RequestParam(required = false) String website, @RequestParam(required = false) LocalDate birthday, @RequestParam(required = false) String desiredProfession, @RequestParam(required = false) String description, @RequestParam(required = false) String drivingLicense) {
         this.customerService.updateCustomer(customerId, website, birthday, desiredProfession, description, drivingLicense);
     }

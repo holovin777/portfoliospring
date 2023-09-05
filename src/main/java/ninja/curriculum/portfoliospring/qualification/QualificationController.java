@@ -7,7 +7,7 @@ import java.time.LocalDate;
 import java.util.UUID;
 
 @RestController
-@RequestMapping(path = "api/v1/qualification")
+@RequestMapping(path = "/api/v1/qualification")
 public class QualificationController {
     private final QualificationService qualificationService;
 
@@ -21,7 +21,7 @@ public class QualificationController {
         qualificationService.addQualification(qualification);
     }
 
-    @PutMapping(path = "{qualificationId}")
+    @PutMapping(path = "/update/{qualificationId}")
     public void updateQualification(@PathVariable Long qualificationId, @RequestParam(required = false) UUID customerId, @RequestParam(required = false) Long educationalInstitutionId, @RequestParam(required = false) AcademicDegree academicDegree, @RequestParam(required = false) String faculty, @RequestParam(required = false) String facultyItaly, @RequestParam(required = false) String department, @RequestParam(required = false) String departmentItaly, @RequestParam(required = false) String speciality, @RequestParam(required = false) String specialityItaly, LocalDate finishedStudying) {
         this.qualificationService.updateQualification(qualificationId, customerId, educationalInstitutionId, academicDegree, faculty, facultyItaly, department, departmentItaly, speciality, specialityItaly, finishedStudying);
     }

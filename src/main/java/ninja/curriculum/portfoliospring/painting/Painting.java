@@ -1,15 +1,12 @@
 package ninja.curriculum.portfoliospring.painting;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import ninja.curriculum.portfoliospring.customer.Customer;
 import ninja.curriculum.portfoliospring.painting.medium.Medium;
 
 import java.time.LocalDate;
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 @Table(name = "painting")
@@ -50,7 +47,7 @@ public class Painting {
                     foreignKey = @ForeignKey(name = "artwork_relationship_medium_id_fk")
             )
     )
-    private Set<Medium> mediums = new HashSet<>();
+    private List<Medium> mediums = new ArrayList<>();
 
     public Painting() {}
 
@@ -80,7 +77,7 @@ public class Painting {
         return date;
     }
 
-    public Set<Medium> getMediums() {
+    public List<Medium> getMediums() {
         return mediums;
     }
 
@@ -100,7 +97,7 @@ public class Painting {
         this.date = date;
     }
 
-    public void setMediums(Set<Medium> mediums) {
+    public void setMediums(List<Medium> mediums) {
         this.mediums = mediums;
     }
 

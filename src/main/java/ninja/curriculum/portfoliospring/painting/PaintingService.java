@@ -41,24 +41,24 @@ public class PaintingService {
     }
 
     @Transactional()
-    public void updatePainting(Long id, Customer artist, String title, LocalDate date, String imageURL) {
+    public void updatePainting(Long id, Customer paintingArtist, String paintingTitle, LocalDate paintingDate, String paintingUrl) {
         Optional<Painting> paintingOptional = paintingRepository.findById(id);
         if (paintingOptional.isPresent()) {
             Painting painting = paintingOptional.get();
-            if (artist != null) {
-                painting.setArtist(artist);
+            if (paintingArtist != null) {
+                painting.setArtist(paintingArtist);
                 paintingRepository.save(painting);
             }
-            if (title != null) {
-                painting.setTitle(title);
+            if (paintingTitle != null) {
+                painting.setTitle(paintingTitle);
                 paintingRepository.save(painting);
             }
-            if (date != null) {
-                painting.setDate(date);
+            if (paintingDate != null) {
+                painting.setDate(paintingDate);
                 paintingRepository.save(painting);
             }
-            if (imageURL != null) {
-                painting.setImageURL(imageURL);
+            if (paintingUrl != null) {
+                painting.setImageURL(paintingUrl);
                 paintingRepository.save(painting);
             }
         } else {

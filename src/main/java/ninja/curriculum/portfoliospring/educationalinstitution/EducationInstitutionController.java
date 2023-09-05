@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping(path = "api/v1/educational-institution")
+@RequestMapping(path = "/api/v1/educational-institution")
 public class EducationInstitutionController {
     private final EducationalInstitutionService educationalInstitutionService;
 
@@ -15,7 +15,7 @@ public class EducationInstitutionController {
         this.educationalInstitutionService = educationalInstitutionService;
     }
 
-    @GetMapping(path = "all")
+    @GetMapping(path = "/all")
     public List<EducationalInstitution> getEducationalInstitutions() {
         return this.educationalInstitutionService.getEducationalInstitutions();
     }
@@ -25,12 +25,12 @@ public class EducationInstitutionController {
         this.educationalInstitutionService.addEducationalInstitution(educationalInstitution);
     }
 
-    @DeleteMapping(path = "{educationalInstitutionId}")
+    @DeleteMapping(path = "/delete/{educationalInstitutionId}")
     public void removeEducationalInstitution(@PathVariable Long educationalInstitutionId) {
         this.educationalInstitutionService.removeEducationalInstitution(educationalInstitutionId);
     }
 
-    @PutMapping(path = "{educationalInstitutionId}")
+    @PutMapping(path = "/update/{educationalInstitutionId}")
     public void updateEducationalInsistution(@PathVariable Long educationalInstitutionId, @RequestParam(required = false) String nameItaly) {
         this.educationalInstitutionService.updateEducationalInstitution(educationalInstitutionId, nameItaly);
     }
