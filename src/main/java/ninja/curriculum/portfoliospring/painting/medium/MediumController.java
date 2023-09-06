@@ -36,13 +36,13 @@ public class MediumController {
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/update/{id}")
     public ResponseEntity<Void> updateMedium(@PathVariable Long id, @RequestBody Medium updatedMedium) {
         mediumService.updateMedium(id, updatedMedium);
         return ResponseEntity.noContent().build();
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity<Void> deleteMedium(@PathVariable Long id) {
         mediumService.deleteMedium(id);
         return ResponseEntity.noContent().build();
