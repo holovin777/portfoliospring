@@ -55,7 +55,7 @@ public class Medium {
 
     public void addPainting(Painting painting) {
         this.paintings.add(painting);
-        painting.addMedium(this);
+        painting.getMediums().add(this);
     }
 
     public void removePainting(Painting painting) {
