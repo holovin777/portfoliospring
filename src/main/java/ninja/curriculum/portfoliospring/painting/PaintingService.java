@@ -80,6 +80,8 @@ public class PaintingService {
             Medium medium = mediumOptional.get();
             painting.addMedium(medium);
             paintingRepository.save(painting);
+        } else {
+            throw new IllegalStateException("Painting with id " + paintingId + "or medium with " + mediumId + " doesn't exists");
         }
     }
 

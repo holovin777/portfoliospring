@@ -27,9 +27,9 @@ import java.util.UUID;
             return ResponseEntity.ok(paintings);
         }
 
-        @GetMapping("/{id}")
-        public ResponseEntity<Painting> getPaintingById(@PathVariable Long id) {
-            Optional<Painting> painting = paintingService.getPaintingById(id);
+        @GetMapping("/{paintingId}")
+        public ResponseEntity<Painting> getPaintingById(@PathVariable Long paintingId) {
+            Optional<Painting> painting = paintingService.getPaintingById(paintingId);
             return painting.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
         }
 
@@ -45,26 +45,25 @@ import java.util.UUID;
             return new ResponseEntity<>(HttpStatus.CREATED);
         }
 
-        @PutMapping("/update/{id}")
+        @PutMapping("/update/{paintingId}")
         public ResponseEntity<Void> updatePainting(
-                @PathVariable Long id,
+                @PathVariable Long paintingId,
                 @RequestParam(required = false) Customer paintingArtist,
                 @RequestParam(required = false) String paintingTitle,
                 @RequestParam(required = false) LocalDate paintingDate,
                 @RequestParam(required = false) String paintingUrl) {
-            paintingService.updatePainting(id, paintingArtist, paintingTitle, paintingDate, paintingUrl);
+            paintingService.updatePainting(paintingId, paintingArtist, paintingTitle, paintingDate, paintingUrl);
             return ResponseEntity.noContent().build();
         }
 
-        @DeleteMapping("/delete/{id}")
-        public ResponseEntity<Void> deletePainting(@PathVariable Long id) {
-            paintingService.deletePainting(id);
+        @DeleteMapping("/delete/{paintingId}")
+        public ResponseEntity<Void> deletePainting(@PathVariable Long paintingId) {
+            paintingService.deletePainting(paintingId);
             return ResponseEntity.noContent().build();
         }
 
-        @PutMapping("/add/{paintingId}/medium/{mediumId}")
-        public ResponseEntity<Void> addMedium(@PathVariable Long paintingId, @PathVariable Long mediumId) {
+        @PutMapping("/{paintingId}/add/medium/{mediumId}")
+        public void addMedium(@PathVariable Long paintingId, @PathVariable Long mediumId) {
             paintingService.addMedium(paintingId, mediumId);
-            return ResponseEntity.noContent().build();
         }
 }
