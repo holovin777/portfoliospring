@@ -25,13 +25,16 @@ public class EducationInstitutionController {
         this.educationalInstitutionService.addEducationalInstitution(educationalInstitution);
     }
 
-    @DeleteMapping(path = "/delete/{educationalInstitutionId}")
+    @DeleteMapping(path = "/{educationalInstitutionId}/delete")
     public void removeEducationalInstitution(@PathVariable Long educationalInstitutionId) {
         this.educationalInstitutionService.removeEducationalInstitution(educationalInstitutionId);
     }
 
-    @PutMapping(path = "/update/{educationalInstitutionId}")
-    public void updateEducationalInsistution(@PathVariable Long educationalInstitutionId, @RequestParam(required = false) String nameItaly) {
-        this.educationalInstitutionService.updateEducationalInstitution(educationalInstitutionId, nameItaly);
+    @PutMapping(path = "/{educationalInstitutionId}/update")
+    public void updateEducationalInsistution(@PathVariable Long educationalInstitutionId,
+                                             @RequestParam(required = false) String nameItaly,
+                                             @RequestParam(required = false) String location
+    ) {
+        this.educationalInstitutionService.updateEducationalInstitution(educationalInstitutionId, nameItaly, location);
     }
 }

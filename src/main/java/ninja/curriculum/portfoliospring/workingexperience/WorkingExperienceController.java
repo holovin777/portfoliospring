@@ -3,6 +3,7 @@ package ninja.curriculum.portfoliospring.workingexperience;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -23,5 +24,13 @@ public class WorkingExperienceController {
     @PostMapping
     public void addWorkingExperience(@RequestBody WorkingExperience workingExperience) {
         this.workingExperienceService.addWorkingExperience(workingExperience);
+    }
+
+    @PutMapping(path = "/{workingExperienceId}/update")
+    public void updateWorkingExperience(@PathVariable Long workingExperienceId,
+                                        @RequestParam(required = false) LocalDate startedDate,
+                                        @RequestParam(required = false) LocalDate finishedDate
+    ) {
+        this.workingExperienceService.updateWorkingExperience(workingExperienceId, startedDate, finishedDate);
     }
 }
