@@ -22,7 +22,7 @@ public class QualificationController {
         this.qualificationService.addQualification(qualification);
     }
 
-    @PutMapping(path = "/update/{qualificationId}")
+    @PutMapping(path = "/{qualificationId}/update")
     public void updateQualification(@PathVariable Long qualificationId,
                                     @RequestParam(required = false) UUID customerId,
                                     @RequestParam(required = false) Long educationalInstitutionId,
