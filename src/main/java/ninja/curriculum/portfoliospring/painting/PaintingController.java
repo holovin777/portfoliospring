@@ -45,7 +45,7 @@ import java.util.UUID;
             return new ResponseEntity<>(HttpStatus.CREATED);
         }
 
-        @PutMapping("/update/{paintingId}")
+        @PutMapping("/{paintingId}/update")
         public ResponseEntity<Void> updatePainting(
                 @PathVariable Long paintingId,
                 @RequestParam(required = false) Customer paintingArtist,

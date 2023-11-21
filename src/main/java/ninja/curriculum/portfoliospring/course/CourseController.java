@@ -30,4 +30,8 @@ public class CourseController {
         this.courseService.removeCourse(courseId);
     }
 
+    @PutMapping(path = "{courseId}/update")
+    public void updateCourse(@PathVariable Long courseId, @RequestParam(required = false) String name) {
+        this.courseService.updateCourse(courseId, name);
+    }
 }

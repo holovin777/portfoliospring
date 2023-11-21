@@ -36,7 +36,7 @@ public class MediumController {
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
-    @PutMapping("/update/{id}")
+    @PutMapping("/{id}/update")
     public ResponseEntity<Void> updateMedium(@PathVariable Long id, @RequestBody Medium updatedMedium) {
         mediumService.updateMedium(id, updatedMedium);
         return ResponseEntity.noContent().build();

@@ -30,7 +30,7 @@ public class CompanyController {
         return this.companyService.getCompany(companyId);
     }
 
-    @PutMapping(path = "/update/{companyId}")
+    @PutMapping(path = "/{companyId}/update")
     public void updateCompany(@PathVariable Long companyId, @RequestParam(required = false) String name, @RequestParam(required = false) String location) {
         this.companyService.updateCompany(companyId, name, location);
     }
