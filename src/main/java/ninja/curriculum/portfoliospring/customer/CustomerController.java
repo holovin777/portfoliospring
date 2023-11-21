@@ -51,8 +51,17 @@ public class CustomerController {
                                @RequestParam(required = false) LocalDate birthday,
                                @RequestParam(required = false) String desiredProfession,
                                @RequestParam(required = false) String description,
+                               @RequestParam(required = false) String descriptionIt,
                                @RequestParam(required = false) String drivingLicense) {
-        this.customerService.updateCustomer(customerId, website, birthday, desiredProfession, description, drivingLicense);
+        this.customerService.updateCustomer(
+                customerId,
+                website,
+                birthday,
+                desiredProfession,
+                description,
+                descriptionIt,
+                drivingLicense
+        );
     }
 
 }
