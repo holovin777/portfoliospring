@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping(path = "api/v1/company")
+@RequestMapping(path = "/api/v1/company")
 public class CompanyController {
     private final CompanyService companyService;
 
@@ -15,8 +15,8 @@ public class CompanyController {
         this.companyService = companyService;
     }
 
-    @GetMapping(path = "all")
-    public List<Company> getCompanys() {
+    @GetMapping(path = "/all")
+    public List<Company> getCompanies() {
         return this.companyService.getCompanies();
     }
 
@@ -30,9 +30,9 @@ public class CompanyController {
         return this.companyService.getCompany(companyId);
     }
 
-    @PutMapping(path = "{companyId}")
-    public void updateCompany(@PathVariable Long companyId, @RequestParam(required = false) String name) {
-        this.companyService.updateCompany(companyId, name);
+    @PutMapping(path = "/{companyId}/update")
+    public void updateCompany(@PathVariable Long companyId, @RequestParam(required = false) String name, @RequestParam(required = false) String location) {
+        this.companyService.updateCompany(companyId, name, location);
     }
 
 }

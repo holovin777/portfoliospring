@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -27,13 +28,25 @@ public class QualificationService {
         this.educationalInstitutionRepository = educationalInstitutionRepository;
     }
 
+    public List<Qualification> getQualifications() {
+        List<Qualification> qualifications = this.qualificationRepository.findAll();
+        return qualifications;
+    }
+
+    public List<Qualification> getQualificationsByCustomerId(UUID customerId) {
+        Optional<Customer> optionalCustomer = this.customerRepository.findById(customerId);
+        Customer customer = optionalCustomer.get();
+        List<Qualification> qualifications = this.qualificationRepository.getQualificationByCustomer(customer);
+        return qualifications;
+    }
+
     @Transactional
     public void addQualification(Qualification qualification) {
         this.qualificationRepository.save(qualification);
     }
 
     @Transactional
-    public void updateQualification(Long qualificationId, UUID customerId, Long educationalInstitutionId, AcademicDegree academicDegree, String faculty, String facultyItaly, String department, String departmentItaly, String speciality, String specialityItaly, LocalDate finishedStudying) {
+    public void updateQualification(Long qualificationId, UUID customerId, Long educationalInstitutionId, AcademicDegree academicDegree, String faculty, String facultyItaly, String department, String departmentItaly, String speciality, String specialityItaly, LocalDate finishedStudying, LocalDate startedStuding) {
         Optional<Qualification> qualificationOptional = this.qualificationRepository.findById(qualificationId);
         if (qualificationOptional.isPresent()) {
             Qualification qualification = qualificationOptional.get();
@@ -51,20 +64,31 @@ public class QualificationService {
                 }
             } else if (academicDegree != null) {
                 qualification.setAcademicDegree(academicDegree);
+                qualificationRepository.save(qualification);
             } else if (faculty != null) {
                 qualification.setFaculty(facultyItaly);
+                qualificationRepository.save(qualification);
             } else if (facultyItaly != null) {
                 qualification.setFacultyItaly(facultyItaly);
+                qualificationRepository.save(qualification);
             } else if (department != null) {
                 qualification.setDepartment(department);
+                qualificationRepository.save(qualification);
             } else if (departmentItaly != null) {
                 qualification.setDepartmentItaly(departmentItaly);
+                qualificationRepository.save(qualification);
             } else if (speciality != null) {
                 qualification.setSpeciality(speciality);
+                qualificationRepository.save(qualification);
             } else if (specialityItaly != null) {
                 qualification.setSpecialityItaly(specialityItaly);
+                qualificationRepository.save(qualification);
             } else if (finishedStudying != null) {
                 qualification.setFinishedStudying(finishedStudying);
+                qualificationRepository.save(qualification);
+            } else if (startedStuding != null) {
+                qualification.setStartedStudying(startedStuding);
+                qualificationRepository.save(qualification);
             }
         } else {
                 throw new IllegalStateException("Argument error");

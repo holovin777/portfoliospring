@@ -30,4 +30,17 @@ public class CourseService {
             this.courseRepository.deleteById(courseId);
         }
     }
+
+    public void updateCourse(Long courseId, String name) {
+        Optional<Course> courseOptional = courseRepository.findById(courseId);
+        if (courseOptional.isPresent()) {
+            Course course = courseOptional.get();
+            if (name != null) {
+                course.setName(name);
+                this.courseRepository.save(course);
+            } else {
+                throw new IllegalStateException("Course with id " + courseId + " doesn't exists");
+            }
+        }
+    }
 }

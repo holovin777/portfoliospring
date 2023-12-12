@@ -1,6 +1,5 @@
 package ninja.curriculum.portfoliospring.educationalinstitution;
 
-import ninja.curriculum.portfoliospring.customer.Customer;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -29,12 +28,16 @@ public class EducationalInstitutionService {
         }
     }
 
-    public void updateEducationalInstitution(Long educationalInstitutionId, String nameItaly) {
+    public void updateEducationalInstitution(Long educationalInstitutionId, String nameItaly, String location) {
         Optional<EducationalInstitution> educationalInstitutionOptional = this.educationalInstitutionRepository.findById(educationalInstitutionId);
         if (educationalInstitutionOptional.isPresent()) {
             EducationalInstitution educationalInstitution = educationalInstitutionOptional.get();
             if (nameItaly != null) {
                 educationalInstitution.setNameItaly(nameItaly);
+                educationalInstitutionRepository.save(educationalInstitution);
+            }
+            if (location != null) {
+                educationalInstitution.setLocation(location);
                 educationalInstitutionRepository.save(educationalInstitution);
             }
         } else {

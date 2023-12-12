@@ -1,8 +1,5 @@
 package ninja.curriculum.portfoliospring.company.positionatwork;
-
-
 import jakarta.persistence.*;
-
 import java.util.Objects;
 
 import static jakarta.persistence.GenerationType.SEQUENCE;

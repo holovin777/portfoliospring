@@ -10,4 +10,5 @@ import java.util.List;
 @Repository
 public interface QualificationRepository extends JpaRepository<Qualification, Long> {
     List<Qualification> getQualificationByCustomerOrderByFinishedStudyingDesc(Customer customer);
+    List<Qualification> getQualificationByCustomer(Customer customer);
 }

@@ -39,15 +39,17 @@ public class CompanyService {
     }
 
     @Transactional
-    public void updateCompany(Long companyId, String name) {
+    public void updateCompany(Long companyId, String name, String location) {
         Optional<Company> companyOptional = this.companyRepository.findById(companyId);
         if (companyOptional.isPresent()) {
             Company company = companyOptional.get();
             if (name != null) {
                 company.setName(name);
                 this.companyRepository.save(company);
-            } else {
-                throw new IllegalStateException("Company name is empty");
+            }
+            if (location != null) {
+                company.setLocation(location);
+                this.companyRepository.save(company);
             }
         } else {
             throw new IllegalStateException("Company with id " + companyId + " doesn't exists");
