@@ -1,8 +1,5 @@
 package ninja.curriculum.portfoliospring.customer;
 
-import ninja.curriculum.portfoliospring.company.CompanyRepository;
-import ninja.curriculum.portfoliospring.company.positionatwork.PositionAtWorkRepository;
-import ninja.curriculum.portfoliospring.educationalinstitution.EducationalInstitutionRepository;
 import ninja.curriculum.portfoliospring.qualification.Qualification;
 import ninja.curriculum.portfoliospring.qualification.QualificationRepository;
 import ninja.curriculum.portfoliospring.workingexperience.WorkingExperience;
@@ -18,23 +15,17 @@ import java.util.*;
 @Transactional(readOnly = true)
 public class CustomerService {
     private final CustomerRepository customerRepository;
-    private final PositionAtWorkRepository positionAtWorkRepository;
-    private final CompanyRepository companyRepository;
-    private final EducationalInstitutionRepository educationalInstitutionRepository;
     private final QualificationRepository qualificationRepository;
 
     private final WorkingExperienceRepository workingExperienceRepository;
 
     @Autowired
-    public CustomerService(CustomerRepository customerRepository,
-                           PositionAtWorkRepository positionAtWorkRepository,
-                           CompanyRepository companyRepository,
-                           EducationalInstitutionRepository educationalInstitutionRepository,
-                           QualificationRepository qualificationRepository, WorkingExperienceRepository workingExperienceRepository) {
+    public CustomerService(
+            CustomerRepository customerRepository,
+            QualificationRepository qualificationRepository,
+            WorkingExperienceRepository workingExperienceRepository
+    ) {
         this.customerRepository = customerRepository;
-        this.positionAtWorkRepository = positionAtWorkRepository;
-        this.companyRepository = companyRepository;
-        this.educationalInstitutionRepository = educationalInstitutionRepository;
         this.qualificationRepository = qualificationRepository;
         this.workingExperienceRepository = workingExperienceRepository;
     }
