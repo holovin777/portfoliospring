@@ -29,7 +29,7 @@ public class WorkingExperienceService {
     }
 
     @Transactional
-    public void updateWorkingExperience(Long workingExperienceId, LocalDate startedWork, LocalDate finishedWork, String jobDescription) {
+    public void updateWorkingExperience(Long workingExperienceId, LocalDate startedWork, LocalDate finishedWork, String jobDescription, String jobDescriptionItaly) {
         Optional<WorkingExperience> workingExperienceOptional = this.workingExperienceRepository.findById(workingExperienceId);
         if (workingExperienceOptional.isPresent()) {
             WorkingExperience workingExperience = workingExperienceOptional.get();
@@ -43,6 +43,10 @@ public class WorkingExperienceService {
             }
             if (jobDescription != null) {
                 workingExperience.setJobDescription(jobDescription);
+                this.workingExperienceRepository.save(workingExperience);
+            }
+            if (jobDescriptionItaly != null) {
+                workingExperience.setJobDescriptionItaly(jobDescriptionItaly);
                 this.workingExperienceRepository.save(workingExperience);
             }
         } else {
