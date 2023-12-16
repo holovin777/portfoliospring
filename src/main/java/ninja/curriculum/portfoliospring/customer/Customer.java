@@ -96,6 +96,12 @@ public class Customer {
     )
     private String drivingLicense;
 
+    @Column(
+            name = "protected_category",
+            columnDefinition = "BOOLEAN"
+    )
+    private Boolean protectedCategory;
+
     @JsonManagedReference
     @OneToMany(
             mappedBy = "customer",
@@ -137,6 +143,27 @@ public class Customer {
     )
     private String password;
 
+    public Customer(UUID id, String firstName, String lastName, String phoneNumber, LocalDate birthday, String email, String residence, String website, String drivingLicense, Boolean protectedCategory, List<WorkingExperience> workingExperiences, List<Qualification> qualifications, String desiredProfession, String description, String descriptionIt, String password) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.phoneNumber = phoneNumber;
+        this.birthday = birthday;
+        this.email = email;
+        this.residence = residence;
+        this.website = website;
+        this.drivingLicense = drivingLicense;
+        this.protectedCategory = protectedCategory;
+        this.workingExperiences = workingExperiences;
+        this.qualifications = qualifications;
+        this.desiredProfession = desiredProfession;
+        this.description = description;
+        this.descriptionIt = descriptionIt;
+        this.password = password;
+    }
+
+    public Customer() {
+    }
 
     public UUID getId() {
         return id;
@@ -254,6 +281,14 @@ public class Customer {
         this.password = password;
     }
 
+    public Boolean getProtectedCategory() {
+        return protectedCategory;
+    }
+
+    public void setProtectedCategory(Boolean protectedCategory) {
+        this.protectedCategory = protectedCategory;
+    }
+
     public List<WorkingExperience> getWorkingExperiences() {
         return workingExperiences;
     }
@@ -291,12 +326,12 @@ public class Customer {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Customer customer = (Customer) o;
-        return Objects.equals(id, customer.id) && Objects.equals(firstName, customer.firstName) && Objects.equals(lastName, customer.lastName) && Objects.equals(phoneNumber, customer.phoneNumber) && Objects.equals(birthday, customer.birthday) && Objects.equals(email, customer.email) && Objects.equals(residence, customer.residence) && Objects.equals(website, customer.website) && Objects.equals(drivingLicense, customer.drivingLicense) && Objects.equals(workingExperiences, customer.workingExperiences) && Objects.equals(qualifications, customer.qualifications) && Objects.equals(desiredProfession, customer.desiredProfession) && Objects.equals(description, customer.description) && Objects.equals(descriptionIt, customer.descriptionIt) && Objects.equals(password, customer.password);
+        return Objects.equals(id, customer.id) && Objects.equals(firstName, customer.firstName) && Objects.equals(lastName, customer.lastName) && Objects.equals(phoneNumber, customer.phoneNumber) && Objects.equals(birthday, customer.birthday) && Objects.equals(email, customer.email) && Objects.equals(residence, customer.residence) && Objects.equals(website, customer.website) && Objects.equals(drivingLicense, customer.drivingLicense) && Objects.equals(protectedCategory, customer.protectedCategory) && Objects.equals(workingExperiences, customer.workingExperiences) && Objects.equals(qualifications, customer.qualifications) && Objects.equals(desiredProfession, customer.desiredProfession) && Objects.equals(description, customer.description) && Objects.equals(descriptionIt, customer.descriptionIt) && Objects.equals(password, customer.password);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, firstName, lastName, phoneNumber, birthday, email, residence, website, drivingLicense, workingExperiences, qualifications, desiredProfession, description, descriptionIt, password);
+        return Objects.hash(id, firstName, lastName, phoneNumber, birthday, email, residence, website, drivingLicense, protectedCategory, workingExperiences, qualifications, desiredProfession, description, descriptionIt, password);
     }
 
     @Override
@@ -311,6 +346,7 @@ public class Customer {
                 ", residence='" + residence + '\'' +
                 ", website='" + website + '\'' +
                 ", drivingLicense='" + drivingLicense + '\'' +
+                ", protectedCategory=" + protectedCategory +
                 ", workingExperiences=" + workingExperiences +
                 ", qualifications=" + qualifications +
                 ", desiredProfession='" + desiredProfession + '\'' +
@@ -319,5 +355,4 @@ public class Customer {
                 ", password='" + password + '\'' +
                 '}';
     }
-
 }

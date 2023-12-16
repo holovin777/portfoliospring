@@ -79,7 +79,8 @@ public class CustomerService {
             String desiredProfession,
             String description,
             String descriptionIt,
-            String drivingLicense
+            String drivingLicense,
+            Boolean protectedCategory
     ) {
         Optional<Customer> customerOptional = this.customerRepository.findById(customerId);
         if (customerOptional.isPresent()) {
@@ -106,6 +107,10 @@ public class CustomerService {
             }
             if (drivingLicense != null) {
                 customer.setDrivingLicense(drivingLicense);
+                customerRepository.save(customer);
+            }
+            if (protectedCategory != null) {
+                customer.setProtectedCategory(protectedCategory);
                 customerRepository.save(customer);
             }
         } else {
