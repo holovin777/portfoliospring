@@ -29,8 +29,10 @@ public class WorkingExperienceController {
     @PutMapping(path = "/{workingExperienceId}/update")
     public void updateWorkingExperience(@PathVariable Long workingExperienceId,
                                         @RequestParam(required = false) LocalDate startedDate,
-                                        @RequestParam(required = false) LocalDate finishedDate
+                                        @RequestParam(required = false) LocalDate finishedDate,
+                                        @RequestParam(required = false) String jobDescription,
+                                        @RequestParam(required = false) String jobDescriptionItaly
     ) {
-        this.workingExperienceService.updateWorkingExperience(workingExperienceId, startedDate, finishedDate);
+        this.workingExperienceService.updateWorkingExperience(workingExperienceId, startedDate, finishedDate, jobDescription, jobDescriptionItaly);
     }
 }

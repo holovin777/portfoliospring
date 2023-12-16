@@ -69,6 +69,18 @@ public class WorkingExperience {
     private Company company;
 
     @Column(
+            name = "job_description",
+            columnDefinition = "TEXT"
+    )
+    private String jobDescription;
+
+    @Column(
+            name = "job_description_italy",
+            columnDefinition = "TEXT"
+    )
+    private String jobDescriptionItaly;
+
+    @Column(
             name = "started_work",
             nullable = false,
             columnDefinition = "DATE"
@@ -80,6 +92,44 @@ public class WorkingExperience {
             columnDefinition = "DATE"
     )
     private LocalDate finishedWork;
+
+    public WorkingExperience(Long id, Customer customer, PositionAtWork positionAtWork, Company company, String jobDescription, String jobDescriptionItaly, LocalDate startedWork, LocalDate finishedWork) {
+        this.id = id;
+        this.customer = customer;
+        this.positionAtWork = positionAtWork;
+        this.company = company;
+        this.jobDescription = jobDescription;
+        this.jobDescriptionItaly = jobDescriptionItaly;
+        this.startedWork = startedWork;
+        this.finishedWork = finishedWork;
+    }
+
+    public WorkingExperience(Long id, Customer customer, PositionAtWork positionAtWork, Company company, String jobDescriptionItaly, LocalDate startedWork, LocalDate finishedWork) {
+        this.id = id;
+        this.customer = customer;
+        this.positionAtWork = positionAtWork;
+        this.company = company;
+        this.jobDescriptionItaly = jobDescriptionItaly;
+        this.startedWork = startedWork;
+        this.finishedWork = finishedWork;
+    }
+
+    public WorkingExperience(Customer customer, PositionAtWork positionAtWork, Company company, String jobDescription, LocalDate startedWork, LocalDate finishedWork) {
+        this.customer = customer;
+        this.positionAtWork = positionAtWork;
+        this.company = company;
+        this.jobDescription = jobDescription;
+        this.startedWork = startedWork;
+        this.finishedWork = finishedWork;
+    }
+
+    public WorkingExperience(Customer customer, PositionAtWork positionAtWork, Company company, String jobDescription, LocalDate startedWork) {
+        this.customer = customer;
+        this.positionAtWork = positionAtWork;
+        this.company = company;
+        this.jobDescription = jobDescription;
+        this.startedWork = startedWork;
+    }
 
     public WorkingExperience(Customer customer, PositionAtWork positionAtWork, Company company, LocalDate startedWork, LocalDate finishedWork) {
         this.customer = customer;
@@ -147,17 +197,33 @@ public class WorkingExperience {
         this.finishedWork = finishedWork;
     }
 
+    public String getJobDescription() {
+        return jobDescription;
+    }
+
+    public void setJobDescription(String jobDescription) {
+        this.jobDescription = jobDescription;
+    }
+
+    public String getJobDescriptionItaly() {
+        return jobDescriptionItaly;
+    }
+
+    public void setJobDescriptionItaly(String jobDescriptionItaly) {
+        this.jobDescriptionItaly = jobDescriptionItaly;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         WorkingExperience that = (WorkingExperience) o;
-        return id.equals(that.id) && customer.equals(that.customer) && positionAtWork.equals(that.positionAtWork) && company.equals(that.company) && startedWork.equals(that.startedWork) && Objects.equals(finishedWork, that.finishedWork);
+        return Objects.equals(id, that.id) && Objects.equals(customer, that.customer) && Objects.equals(positionAtWork, that.positionAtWork) && Objects.equals(company, that.company) && Objects.equals(jobDescription, that.jobDescription) && Objects.equals(jobDescriptionItaly, that.jobDescriptionItaly) && Objects.equals(startedWork, that.startedWork) && Objects.equals(finishedWork, that.finishedWork);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, customer, positionAtWork, company, startedWork, finishedWork);
+        return Objects.hash(id, customer, positionAtWork, company, jobDescription, jobDescriptionItaly, startedWork, finishedWork);
     }
 
     @Override
@@ -167,6 +233,8 @@ public class WorkingExperience {
                 ", customer=" + customer +
                 ", positionAtWork=" + positionAtWork +
                 ", company=" + company +
+                ", jobDescription='" + jobDescription + '\'' +
+                ", jobDescriptionItaly='" + jobDescriptionItaly + '\'' +
                 ", startedWork=" + startedWork +
                 ", finishedWork=" + finishedWork +
                 '}';
