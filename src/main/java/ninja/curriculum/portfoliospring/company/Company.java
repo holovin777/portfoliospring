@@ -15,13 +15,7 @@ import static jakarta.persistence.GenerationType.SEQUENCE;
 
 @Entity(name = "Company")
 @Table(
-        name = "company",
-        uniqueConstraints = {
-                @UniqueConstraint(
-                        name = "company_location_unique",
-                        columnNames = "location"
-                )
-        }
+        name = "company"
 )
 public class Company {
     @Id
