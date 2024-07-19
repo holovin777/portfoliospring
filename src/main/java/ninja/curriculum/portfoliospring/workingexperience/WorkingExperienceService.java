@@ -1,5 +1,7 @@
 package ninja.curriculum.portfoliospring.workingexperience;
 
+import ninja.curriculum.portfoliospring.company.positionatwork.PositionAtWork;
+import ninja.curriculum.portfoliospring.company.positionatwork.PositionAtWorkRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,10 +15,12 @@ import java.util.Optional;
 @Transactional(readOnly = true)
 public class WorkingExperienceService {
     private final WorkingExperienceRepository workingExperienceRepository;
+    private final PositionAtWorkRepository positionAtWorkRepository;
 
     @Autowired
-    public WorkingExperienceService(WorkingExperienceRepository workingExperienceRepository) {
+    public WorkingExperienceService(WorkingExperienceRepository workingExperienceRepository, PositionAtWorkRepository positionAtWorkRepository) {
         this.workingExperienceRepository = workingExperienceRepository;
+        this.positionAtWorkRepository = positionAtWorkRepository;
     }
 
     @Transactional
@@ -29,7 +33,7 @@ public class WorkingExperienceService {
     }
 
     @Transactional
-    public void updateWorkingExperience(Long workingExperienceId, LocalDate startedWork, LocalDate finishedWork, String jobDescription, String jobDescriptionItaly) {
+    public void updateWorkingExperience(Long workingExperienceId, LocalDate startedWork, LocalDate finishedWork, String jobDescription, String jobDescriptionItaly, Long positionAtWorkId) {
         Optional<WorkingExperience> workingExperienceOptional = this.workingExperienceRepository.findById(workingExperienceId);
         if (workingExperienceOptional.isPresent()) {
             WorkingExperience workingExperience = workingExperienceOptional.get();
@@ -48,6 +52,11 @@ public class WorkingExperienceService {
             if (jobDescriptionItaly != null) {
                 workingExperience.setJobDescriptionItaly(jobDescriptionItaly);
                 this.workingExperienceRepository.save(workingExperience);
+            }
+            if (positionAtWorkId != null) {
+                PositionAtWork positionAtWork = positionAtWorkRepository.findById(positionAtWorkId)
+                        .orElseThrow(() -> new IllegalStateException("PositionAtWork with id " + positionAtWorkId + " does not exist"));
+                workingExperience.setPositionAtWork(positionAtWork);
             }
         } else {
             throw new IllegalStateException("Working experience with id " + workingExperienceId + " doesn't exists");
