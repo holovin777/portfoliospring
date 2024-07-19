@@ -74,8 +74,11 @@ public class CustomerService {
     @Transactional
     public void updateCustomer(
             UUID customerId,
+            String phoneNumber,
             String website,
             LocalDate birthday,
+            String email,
+            String residence,
             String desiredProfession,
             String description,
             String descriptionIt,
@@ -85,12 +88,24 @@ public class CustomerService {
         Optional<Customer> customerOptional = this.customerRepository.findById(customerId);
         if (customerOptional.isPresent()) {
             Customer customer = customerOptional.get();
+            if (phoneNumber != null) {
+                customer.setPhoneNumber(phoneNumber);
+                customerRepository.save(customer);
+            }
             if (website != null) {
                 customer.setWebsite(website);
                 customerRepository.save(customer);
             }
             if (birthday != null) {
                 customer.setBirthday(birthday);
+                customerRepository.save(customer);
+            }
+            if (email != null) {
+                customer.setEmail(email);
+                customerRepository.save(customer);
+            }
+            if (residence != null) {
+                customer.setResidence(residence);
                 customerRepository.save(customer);
             }
             if (desiredProfession != null) {
