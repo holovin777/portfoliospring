@@ -85,10 +85,22 @@ public class Customer {
     private String residence;
 
     @Column(
+            name = "residence_it",
+            columnDefinition = "TEXT"
+    )
+    private String residenceIt;
+
+    @Column(
             name = "website",
             columnDefinition = "TEXT"
     )
     private String website;
+
+    @Column(
+            name = "blog",
+            columnDefinition = "TEXT"
+    )
+    private String blog;
 
     @Column(
             name = "driving_license",
@@ -143,7 +155,7 @@ public class Customer {
     )
     private String password;
 
-    public Customer(UUID id, String firstName, String lastName, String phoneNumber, LocalDate birthday, String email, String residence, String website, String drivingLicense, Boolean protectedCategory, List<WorkingExperience> workingExperiences, List<Qualification> qualifications, String desiredProfession, String description, String descriptionIt, String password) {
+    public Customer(UUID id, String firstName, String lastName, String phoneNumber, LocalDate birthday, String email, String residence, String residenceIt, String website, String blog, String drivingLicense, Boolean protectedCategory, List<WorkingExperience> workingExperiences, List<Qualification> qualifications, String desiredProfession, String description, String descriptionIt, String password) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -151,7 +163,9 @@ public class Customer {
         this.birthday = birthday;
         this.email = email;
         this.residence = residence;
+        this.residenceIt = residenceIt;
         this.website = website;
+        this.blog = blog;
         this.drivingLicense = drivingLicense;
         this.protectedCategory = protectedCategory;
         this.workingExperiences = workingExperiences;
@@ -221,12 +235,29 @@ public class Customer {
         this.residence = residence;
     }
 
+    public String getResidenceIt() {
+        return residenceIt;
+    }
+
+    public void setResidenceIt(String residenceIt) {
+        this.residenceIt = residenceIt;
+    }
+
     public String getWebsite() {
         return website;
     }
 
     public void setWebsite(String website) {
         this.website = website;
+    }
+
+
+    public String getBlog() {
+        return blog;
+    }
+
+    public void setBlog(String blog) {
+        this.blog = blog;
     }
 
     public String getDrivingLicense() {
@@ -326,12 +357,12 @@ public class Customer {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Customer customer = (Customer) o;
-        return Objects.equals(id, customer.id) && Objects.equals(firstName, customer.firstName) && Objects.equals(lastName, customer.lastName) && Objects.equals(phoneNumber, customer.phoneNumber) && Objects.equals(birthday, customer.birthday) && Objects.equals(email, customer.email) && Objects.equals(residence, customer.residence) && Objects.equals(website, customer.website) && Objects.equals(drivingLicense, customer.drivingLicense) && Objects.equals(protectedCategory, customer.protectedCategory) && Objects.equals(workingExperiences, customer.workingExperiences) && Objects.equals(qualifications, customer.qualifications) && Objects.equals(desiredProfession, customer.desiredProfession) && Objects.equals(description, customer.description) && Objects.equals(descriptionIt, customer.descriptionIt) && Objects.equals(password, customer.password);
+        return Objects.equals(id, customer.id) && Objects.equals(firstName, customer.firstName) && Objects.equals(lastName, customer.lastName) && Objects.equals(phoneNumber, customer.phoneNumber) && Objects.equals(birthday, customer.birthday) && Objects.equals(email, customer.email) && Objects.equals(residence, customer.residence) && Objects.equals(residenceIt, customer.residenceIt) && Objects.equals(website, customer.website) && Objects.equals(blog, customer.blog) && Objects.equals(drivingLicense, customer.drivingLicense) && Objects.equals(protectedCategory, customer.protectedCategory) && Objects.equals(workingExperiences, customer.workingExperiences) && Objects.equals(qualifications, customer.qualifications) && Objects.equals(desiredProfession, customer.desiredProfession) && Objects.equals(description, customer.description) && Objects.equals(descriptionIt, customer.descriptionIt) && Objects.equals(password, customer.password);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, firstName, lastName, phoneNumber, birthday, email, residence, website, drivingLicense, protectedCategory, workingExperiences, qualifications, desiredProfession, description, descriptionIt, password);
+        return Objects.hash(id, firstName, lastName, phoneNumber, birthday, email, residence, residenceIt, website, blog, drivingLicense, protectedCategory, workingExperiences, qualifications, desiredProfession, description, descriptionIt, password);
     }
 
     @Override
@@ -344,7 +375,9 @@ public class Customer {
                 ", birthday=" + birthday +
                 ", email='" + email + '\'' +
                 ", residence='" + residence + '\'' +
+                ", residenceIt='" + residenceIt + '\'' +
                 ", website='" + website + '\'' +
+                ", blog='" + blog + '\'' +
                 ", drivingLicense='" + drivingLicense + '\'' +
                 ", protectedCategory=" + protectedCategory +
                 ", workingExperiences=" + workingExperiences +
