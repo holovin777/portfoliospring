@@ -28,16 +28,24 @@ public class EducationalInstitutionService {
         }
     }
 
-    public void updateEducationalInstitution(Long educationalInstitutionId, String nameItaly, String location) {
+    public void updateEducationalInstitution(Long educationalInstitutionId, String nameIt, String location, String locationIt, StudyPlace studyPlace) {
         Optional<EducationalInstitution> educationalInstitutionOptional = this.educationalInstitutionRepository.findById(educationalInstitutionId);
         if (educationalInstitutionOptional.isPresent()) {
             EducationalInstitution educationalInstitution = educationalInstitutionOptional.get();
-            if (nameItaly != null) {
-                educationalInstitution.setNameItaly(nameItaly);
+            if (nameIt != null) {
+                educationalInstitution.setNameIt(nameIt);
                 educationalInstitutionRepository.save(educationalInstitution);
             }
             if (location != null) {
                 educationalInstitution.setLocation(location);
+                educationalInstitutionRepository.save(educationalInstitution);
+            }
+            if (locationIt != null) {
+                educationalInstitution.setLocationIt(locationIt);
+                educationalInstitutionRepository.save(educationalInstitution);
+            }
+            if (studyPlace != null) {
+                educationalInstitution.setStudyPlace(studyPlace);
                 educationalInstitutionRepository.save(educationalInstitution);
             }
         } else {
