@@ -76,9 +76,11 @@ public class CustomerService {
             UUID customerId,
             String phoneNumber,
             String website,
+            String blog,
             LocalDate birthday,
             String email,
             String residence,
+            String residenceIt,
             String desiredProfession,
             String description,
             String descriptionIt,
@@ -96,6 +98,10 @@ public class CustomerService {
                 customer.setWebsite(website);
                 customerRepository.save(customer);
             }
+            if (blog != null) {
+                customer.setBlog(blog);
+                customerRepository.save(customer);
+            }
             if (birthday != null) {
                 customer.setBirthday(birthday);
                 customerRepository.save(customer);
@@ -106,6 +112,10 @@ public class CustomerService {
             }
             if (residence != null) {
                 customer.setResidence(residence);
+                customerRepository.save(customer);
+            }
+            if (residenceIt != null) {
+                customer.setResidenceIt(residenceIt);
                 customerRepository.save(customer);
             }
             if (desiredProfession != null) {
