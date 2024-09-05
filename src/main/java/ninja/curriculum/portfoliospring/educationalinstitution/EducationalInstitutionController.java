@@ -7,11 +7,11 @@ import java.util.List;
 
 @RestController
 @RequestMapping(path = "/api/v1/educational-institution")
-public class EducationInstitutionController {
+public class EducationalInstitutionController {
     private final EducationalInstitutionService educationalInstitutionService;
 
     @Autowired
-    public EducationInstitutionController(EducationalInstitutionService educationalInstitutionService) {
+    public EducationalInstitutionController(EducationalInstitutionService educationalInstitutionService) {
         this.educationalInstitutionService = educationalInstitutionService;
     }
 
@@ -31,10 +31,12 @@ public class EducationInstitutionController {
     }
 
     @PutMapping(path = "/{educationalInstitutionId}/update")
-    public void updateEducationalInsistution(@PathVariable Long educationalInstitutionId,
-                                             @RequestParam(required = false) String nameItaly,
-                                             @RequestParam(required = false) String location
+    public void updateEducationalInstitution(@PathVariable Long educationalInstitutionId,
+                                             @RequestParam(required = false) String nameIt,
+                                             @RequestParam(required = false) String location,
+                                             @RequestParam(required = false) String locationIt,
+                                             @RequestParam(required = false) StudyPlace studyPlace
     ) {
-        this.educationalInstitutionService.updateEducationalInstitution(educationalInstitutionId, nameItaly, location);
+        this.educationalInstitutionService.updateEducationalInstitution(educationalInstitutionId, nameIt, location, locationIt, studyPlace);
     }
 }

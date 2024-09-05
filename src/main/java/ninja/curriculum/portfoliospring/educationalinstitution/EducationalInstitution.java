@@ -41,10 +41,10 @@ public class EducationalInstitution {
     private String name;
 
     @Column(
-            name = "nameItaly",
+            name = "name_it",
             columnDefinition = "TEXT"
     )
-    private String nameItaly;
+    private String nameIt;
 
     @Enumerated(EnumType.STRING)
     @Column(
@@ -60,10 +60,17 @@ public class EducationalInstitution {
     )
     private String location;
 
-    public EducationalInstitution(String name, StudyPlace studyPlace, String location) {
+    @Column(
+            name = "location_it",
+            columnDefinition = "TEXT"
+    )
+    private String locationIt;
+
+    public EducationalInstitution(String name, StudyPlace studyPlace, String location, String locationIt) {
         this.name = name;
         this.studyPlace = studyPlace;
         this.location = location;
+        this.locationIt = locationIt;
     }
 
     public EducationalInstitution(String name, StudyPlace studyPlace) {
@@ -106,12 +113,20 @@ public class EducationalInstitution {
         this.location = location;
     }
 
-    public String getNameItaly() {
-        return nameItaly;
+    public String getLocationIt() {
+        return locationIt;
     }
 
-    public void setNameItaly(String nameItaly) {
-        this.nameItaly = nameItaly;
+    public void setLocationIt(String locationIt) {
+        this.locationIt = locationIt;
+    }
+
+    public String getNameIt() {
+        return nameIt;
+    }
+
+    public void setNameIt(String nameIt) {
+        this.nameIt = nameIt;
     }
 
     @Override
@@ -119,12 +134,12 @@ public class EducationalInstitution {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         EducationalInstitution that = (EducationalInstitution) o;
-        return name.equals(that.name) && Objects.equals(nameItaly, that.nameItaly) && studyPlace == that.studyPlace && Objects.equals(location, that.location);
+        return Objects.equals(id, that.id) && Objects.equals(name, that.name) && Objects.equals(nameIt, that.nameIt) && studyPlace == that.studyPlace && Objects.equals(location, that.location) && Objects.equals(locationIt, that.locationIt);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, nameItaly, studyPlace, location);
+        return Objects.hash(id, name, nameIt, studyPlace, location, locationIt);
     }
 
     @Override
@@ -132,9 +147,10 @@ public class EducationalInstitution {
         return "EducationalInstitution{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", nameItaly='" + nameItaly + '\'' +
+                ", nameIt='" + nameIt + '\'' +
                 ", studyPlace=" + studyPlace +
                 ", location='" + location + '\'' +
+                ", locationIt='" + locationIt + '\'' +
                 '}';
     }
 }
