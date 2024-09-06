@@ -39,7 +39,7 @@ public class CompanyService {
     }
 
     @Transactional
-    public void updateCompany(Long companyId, String name, String location) {
+    public void updateCompany(Long companyId, String name, String nameIt, String location, String locationIt) {
         Optional<Company> companyOptional = this.companyRepository.findById(companyId);
         if (companyOptional.isPresent()) {
             Company company = companyOptional.get();
@@ -47,8 +47,16 @@ public class CompanyService {
                 company.setName(name);
                 this.companyRepository.save(company);
             }
+            if (nameIt != null) {
+                company.setNameIt(nameIt);
+                this.companyRepository.save(company);
+            }
             if (location != null) {
                 company.setLocation(location);
+                this.companyRepository.save(company);
+            }
+            if (locationIt != null) {
+                company.setLocationIt(locationIt);
                 this.companyRepository.save(company);
             }
         } else {

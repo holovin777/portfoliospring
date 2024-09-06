@@ -40,10 +40,10 @@ public class PositionAtWork {
     private String name;
 
     @Column(
-            name = "name_italy",
+            name = "name_it",
             columnDefinition = "TEXT"
     )
-    private String nameItaly;
+    private String nameIt;
 
     public PositionAtWork(String name) {
         this.name = name;
@@ -56,12 +56,12 @@ public class PositionAtWork {
         return id;
     }
 
-    public String getNameItaly() {
-        return nameItaly;
+    public String getNameIt() {
+        return nameIt;
     }
 
-    public void setNameItaly(String nameItaly) {
-        this.nameItaly = nameItaly;
+    public void setNameIt(String nameIt) {
+        this.nameIt = nameIt;
     }
 
     public void setId(Long id) {
@@ -81,20 +81,20 @@ public class PositionAtWork {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         PositionAtWork that = (PositionAtWork) o;
-        return name.equals(that.name) && Objects.equals(nameItaly, that.nameItaly);
+        return name.equals(that.name) && Objects.equals(nameIt, that.nameIt);
     }
 
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, nameItaly);
+        return Objects.hash(name, nameIt);
     }
     @Override
     public String toString() {
         return "PositionAtWork{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", nameItaly='" + nameItaly + '\'' +
+                ", nameIt='" + nameIt + '\'' +
                 '}';
     }
 }
