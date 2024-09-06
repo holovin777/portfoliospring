@@ -63,10 +63,10 @@ public class Qualification {
     private String faculty;
 
     @Column(
-            name = "faculty_italy",
+            name = "faculty_it",
             columnDefinition = "TEXT"
     )
-    private String facultyItaly;
+    private String facultyIt;
 
     @Column(
             name = "department",
@@ -75,10 +75,10 @@ public class Qualification {
     private String department;
 
     @Column(
-            name = "department_italy",
+            name = "department_it",
             columnDefinition = "TEXT"
     )
-    private String departmentItaly;
+    private String departmentIt;
 
     @Column(
             name = "speciality",
@@ -87,10 +87,10 @@ public class Qualification {
     private String speciality;
 
     @Column(
-            name = "speciality_italy",
+            name = "speciality_it",
             columnDefinition = "TEXT"
     )
-    private String specialityItaly;
+    private String specialityIt;
 
     @ManyToOne
     @JoinColumn(
@@ -246,28 +246,28 @@ public class Qualification {
         this.finishedStudying = finishedStudying;
     }
 
-    public String getFacultyItaly() {
-        return facultyItaly;
+    public String getFacultyIt() {
+        return facultyIt;
     }
 
-    public void setFacultyItaly(String facultyItaly) {
-        this.facultyItaly = facultyItaly;
+    public void setFacultyIt(String facultyIt) {
+        this.facultyIt = facultyIt;
     }
 
-    public String getDepartmentItaly() {
-        return departmentItaly;
+    public String getDepartmentIt() {
+        return departmentIt;
     }
 
-    public void setDepartmentItaly(String departmentItaly) {
-        this.departmentItaly = departmentItaly;
+    public void setDepartmentIt(String departmentIt) {
+        this.departmentIt = departmentIt;
     }
 
-    public String getSpecialityItaly() {
-        return specialityItaly;
+    public String getSpecialityIt() {
+        return specialityIt;
     }
 
-    public void setSpecialityItaly(String specialityItaly) {
-        this.specialityItaly = specialityItaly;
+    public void setSpecialityIt(String specialityIt) {
+        this.specialityIt = specialityIt;
     }
 
     @Override
@@ -275,12 +275,12 @@ public class Qualification {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Qualification that = (Qualification) o;
-        return customer.equals(that.customer) && educationalInstitution.equals(that.educationalInstitution) && academicDegree == that.academicDegree && Objects.equals(faculty, that.faculty) && Objects.equals(facultyItaly, that.facultyItaly) && Objects.equals(department, that.department) && Objects.equals(departmentItaly, that.departmentItaly) && Objects.equals(speciality, that.speciality) && Objects.equals(specialityItaly, that.specialityItaly) && Objects.equals(course, that.course) && Objects.equals(startedStudying, that.startedStudying) && Objects.equals(finishedStudying, that.finishedStudying);
+        return customer.equals(that.customer) && educationalInstitution.equals(that.educationalInstitution) && academicDegree == that.academicDegree && Objects.equals(faculty, that.faculty) && Objects.equals(facultyIt, that.facultyIt) && Objects.equals(department, that.department) && Objects.equals(departmentIt, that.departmentIt) && Objects.equals(speciality, that.speciality) && Objects.equals(specialityIt, that.specialityIt) && Objects.equals(course, that.course) && Objects.equals(startedStudying, that.startedStudying) && Objects.equals(finishedStudying, that.finishedStudying);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(customer, educationalInstitution, academicDegree, faculty, facultyItaly, department, departmentItaly, speciality, specialityItaly, course, startedStudying, finishedStudying);
+        return Objects.hash(customer, educationalInstitution, academicDegree, faculty, facultyIt, department, departmentIt, speciality, specialityIt, course, startedStudying, finishedStudying);
     }
 
     @Override
@@ -291,11 +291,11 @@ public class Qualification {
                 ", educationalInstitution=" + educationalInstitution +
                 ", academicDegree=" + academicDegree +
                 ", faculty='" + faculty + '\'' +
-                ", facultyItaly='" + facultyItaly + '\'' +
+                ", facultyIt='" + facultyIt + '\'' +
                 ", department='" + department + '\'' +
-                ", departmentItaly='" + departmentItaly + '\'' +
+                ", departmentIt='" + departmentIt + '\'' +
                 ", speciality='" + speciality + '\'' +
-                ", specialityItaly='" + specialityItaly + '\'' +
+                ", specialityIt='" + specialityIt + '\'' +
                 ", course=" + course +
                 ", startedStudying=" + startedStudying +
                 ", finishedStudying=" + finishedStudying +
