@@ -31,8 +31,8 @@ public class PositionAtWorkController {
     }
 
     @PutMapping(path = "/{positionAtWorkId}/update")
-    public void updatePositionAtWork(@PathVariable Long positionAtWorkId, @RequestParam(required = false) String nameItaly) {
-        this.positionAtWorkService.updatePositionAtWork(positionAtWorkId, nameItaly);
+    public void updatePositionAtWork(@PathVariable Long positionAtWorkId, @RequestParam(required = false) String nameIt) {
+        this.positionAtWorkService.updatePositionAtWork(positionAtWorkId, nameIt);
     }
 
 }
