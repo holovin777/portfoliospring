@@ -69,19 +69,19 @@ public class QualificationService {
                 qualification.setFaculty(facultyItaly);
                 qualificationRepository.save(qualification);
             } else if (facultyItaly != null) {
-                qualification.setFacultyItaly(facultyItaly);
+                qualification.setFacultyIt(facultyItaly);
                 qualificationRepository.save(qualification);
             } else if (department != null) {
                 qualification.setDepartment(department);
                 qualificationRepository.save(qualification);
             } else if (departmentItaly != null) {
-                qualification.setDepartmentItaly(departmentItaly);
+                qualification.setDepartmentIt(departmentItaly);
                 qualificationRepository.save(qualification);
             } else if (speciality != null) {
                 qualification.setSpeciality(speciality);
                 qualificationRepository.save(qualification);
             } else if (specialityItaly != null) {
-                qualification.setSpecialityItaly(specialityItaly);
+                qualification.setSpecialityIt(specialityItaly);
                 qualificationRepository.save(qualification);
             } else if (finishedStudying != null) {
                 qualification.setFinishedStudying(finishedStudying);

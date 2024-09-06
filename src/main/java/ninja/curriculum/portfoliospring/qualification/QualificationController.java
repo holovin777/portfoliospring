@@ -28,11 +28,11 @@ public class QualificationController {
                                     @RequestParam(required = false) Long educationalInstitutionId,
                                     @RequestParam(required = false) AcademicDegree academicDegree,
                                     @RequestParam(required = false) String faculty,
-                                    @RequestParam(required = false) String facultyItaly,
+                                    @RequestParam(required = false) String facultyIt,
                                     @RequestParam(required = false) String department,
-                                    @RequestParam(required = false) String departmentItaly,
+                                    @RequestParam(required = false) String departmentIt,
                                     @RequestParam(required = false) String speciality,
-                                    @RequestParam(required = false) String specialityItaly,
+                                    @RequestParam(required = false) String specialityIt,
                                     @RequestParam(required = false) LocalDate finishedStudying,
                                     @RequestParam(required = false) LocalDate startedStudying
                                     ) {
@@ -42,11 +42,11 @@ public class QualificationController {
                 educationalInstitutionId,
                 academicDegree,
                 faculty,
-                facultyItaly,
+                facultyIt,
                 department,
-                departmentItaly,
+                departmentIt,
                 speciality,
-                specialityItaly,
+                specialityIt,
                 finishedStudying,
                 startedStudying
         );
