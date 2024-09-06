@@ -31,9 +31,9 @@ public class WorkingExperienceController {
                                         @RequestParam(required = false) LocalDate startedDate,
                                         @RequestParam(required = false) LocalDate finishedDate,
                                         @RequestParam(required = false) String jobDescription,
-                                        @RequestParam(required = false) String jobDescriptionItaly,
+                                        @RequestParam(required = false) String jobDescriptionIt,
                                         @RequestParam(required = false) Long positionAtWorkId
     ) {
-        this.workingExperienceService.updateWorkingExperience(workingExperienceId, startedDate, finishedDate, jobDescription, jobDescriptionItaly, positionAtWorkId);
+        this.workingExperienceService.updateWorkingExperience(workingExperienceId, startedDate, finishedDate, jobDescription, jobDescriptionIt, positionAtWorkId);
     }
 }

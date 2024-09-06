@@ -75,10 +75,10 @@ public class WorkingExperience {
     private String jobDescription;
 
     @Column(
-            name = "job_description_italy",
+            name = "job_description_it",
             columnDefinition = "TEXT"
     )
-    private String jobDescriptionItaly;
+    private String jobDescriptionIt;
 
     @Column(
             name = "started_work",
@@ -93,23 +93,23 @@ public class WorkingExperience {
     )
     private LocalDate finishedWork;
 
-    public WorkingExperience(Long id, Customer customer, PositionAtWork positionAtWork, Company company, String jobDescription, String jobDescriptionItaly, LocalDate startedWork, LocalDate finishedWork) {
+    public WorkingExperience(Long id, Customer customer, PositionAtWork positionAtWork, Company company, String jobDescription, String jobDescriptionIt, LocalDate startedWork, LocalDate finishedWork) {
         this.id = id;
         this.customer = customer;
         this.positionAtWork = positionAtWork;
         this.company = company;
         this.jobDescription = jobDescription;
-        this.jobDescriptionItaly = jobDescriptionItaly;
+        this.jobDescriptionIt = jobDescriptionIt;
         this.startedWork = startedWork;
         this.finishedWork = finishedWork;
     }
 
-    public WorkingExperience(Long id, Customer customer, PositionAtWork positionAtWork, Company company, String jobDescriptionItaly, LocalDate startedWork, LocalDate finishedWork) {
+    public WorkingExperience(Long id, Customer customer, PositionAtWork positionAtWork, Company company, String jobDescriptionIt, LocalDate startedWork, LocalDate finishedWork) {
         this.id = id;
         this.customer = customer;
         this.positionAtWork = positionAtWork;
         this.company = company;
-        this.jobDescriptionItaly = jobDescriptionItaly;
+        this.jobDescriptionIt = jobDescriptionIt;
         this.startedWork = startedWork;
         this.finishedWork = finishedWork;
     }
@@ -205,12 +205,12 @@ public class WorkingExperience {
         this.jobDescription = jobDescription;
     }
 
-    public String getJobDescriptionItaly() {
-        return jobDescriptionItaly;
+    public String getJobDescriptionIt() {
+        return jobDescriptionIt;
     }
 
-    public void setJobDescriptionItaly(String jobDescriptionItaly) {
-        this.jobDescriptionItaly = jobDescriptionItaly;
+    public void setJobDescriptionIt(String jobDescriptionIt) {
+        this.jobDescriptionIt = jobDescriptionIt;
     }
 
     @Override
@@ -218,12 +218,12 @@ public class WorkingExperience {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         WorkingExperience that = (WorkingExperience) o;
-        return Objects.equals(id, that.id) && Objects.equals(customer, that.customer) && Objects.equals(positionAtWork, that.positionAtWork) && Objects.equals(company, that.company) && Objects.equals(jobDescription, that.jobDescription) && Objects.equals(jobDescriptionItaly, that.jobDescriptionItaly) && Objects.equals(startedWork, that.startedWork) && Objects.equals(finishedWork, that.finishedWork);
+        return Objects.equals(id, that.id) && Objects.equals(customer, that.customer) && Objects.equals(positionAtWork, that.positionAtWork) && Objects.equals(company, that.company) && Objects.equals(jobDescription, that.jobDescription) && Objects.equals(jobDescriptionIt, that.jobDescriptionIt) && Objects.equals(startedWork, that.startedWork) && Objects.equals(finishedWork, that.finishedWork);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, customer, positionAtWork, company, jobDescription, jobDescriptionItaly, startedWork, finishedWork);
+        return Objects.hash(id, customer, positionAtWork, company, jobDescription, jobDescriptionIt, startedWork, finishedWork);
     }
 
     @Override
@@ -234,7 +234,7 @@ public class WorkingExperience {
                 ", positionAtWork=" + positionAtWork +
                 ", company=" + company +
                 ", jobDescription='" + jobDescription + '\'' +
-                ", jobDescriptionItaly='" + jobDescriptionItaly + '\'' +
+                ", jobDescriptionIt='" + jobDescriptionIt + '\'' +
                 ", startedWork=" + startedWork +
                 ", finishedWork=" + finishedWork +
                 '}';
