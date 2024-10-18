@@ -10,6 +10,7 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
 import ninja.curriculum.portfoliospring.qualification.Qualification;
+import ninja.curriculum.portfoliospring.social.Social;
 import ninja.curriculum.portfoliospring.workingexperience.WorkingExperience;
 
 import java.time.LocalDate;
@@ -19,373 +20,290 @@ import java.util.Objects;
 import java.util.UUID;
 
 @Entity(name = "Customer")
-@Table(name = "customer",
-        uniqueConstraints = {
-                @UniqueConstraint(
-                        name = "customer_phone_number_unique",
-                        columnNames = "phone_number"
-                ),
-                @UniqueConstraint(
-                        name = "customer_email_unique",
-                        columnNames = "email"
-                ),
-                @UniqueConstraint(
-                        name = "customer_website_unique",
-                        columnNames = "website"
-                )
-        }
-)
+@Table(name = "customer", uniqueConstraints = {
+		@UniqueConstraint(name = "customer_phone_number_unique", columnNames = "phone_number"),
+		@UniqueConstraint(name = "customer_email_unique", columnNames = "email"),
+		@UniqueConstraint(name = "customer_website_unique", columnNames = "website") })
 public class Customer {
 
-    @Id
-    @Column(
-            name = "id",
-            nullable = false,
-            updatable = false,
-            columnDefinition = "UUID"
-    )
-    private UUID id;
+	@Id
+	@Column(name = "id", nullable = false, updatable = false, columnDefinition = "UUID")
+	private UUID id;
 
-    @Column(
-            name = "first_name",
-            nullable = false,
-            columnDefinition = "TEXT"
-    )
-    private String firstName;
+	@Column(name = "first_name", nullable = false, columnDefinition = "TEXT")
+	private String firstName;
 
-    @Column(
-            name = "last_name",
-            nullable = false,
-            columnDefinition = "TEXT"
-    )
-    private String lastName;
+	@Column(name = "last_name", nullable = false, columnDefinition = "TEXT")
+	private String lastName;
 
-    @Column(
-            name = "phone_number",
-            columnDefinition = "TEXT"
-    )
-    private String phoneNumber;
+	@Column(name = "phone_number", columnDefinition = "TEXT")
+	private String phoneNumber;
 
-    @Column(
-            name = "birthday",
-            columnDefinition = "DATE"
-    )
-    private LocalDate birthday;
+	@Column(name = "birthday", columnDefinition = "DATE")
+	private LocalDate birthday;
 
-    @Column(
-            name = "email",
-            columnDefinition = "TEXT"
-    )
-    private String email;
+	@Column(name = "email", columnDefinition = "TEXT")
+	private String email;
 
-    @Column(
-            name = "residence",
-            columnDefinition = "TEXT"
-    )
-    private String residence;
+	@Column(name = "residence", columnDefinition = "TEXT")
+	private String residence;
 
-    @Column(
-            name = "residence_it",
-            columnDefinition = "TEXT"
-    )
-    private String residenceIt;
+	@Column(name = "residence_it", columnDefinition = "TEXT")
+	private String residenceIt;
 
-    @Column(
-            name = "website",
-            columnDefinition = "TEXT"
-    )
-    private String website;
+	@Column(name = "website", columnDefinition = "TEXT")
+	private String website;
 
-    @Column(
-            name = "blog",
-            columnDefinition = "TEXT"
-    )
-    private String blog;
+	@Column(name = "blog", columnDefinition = "TEXT")
+	private String blog;
 
-    @Column(
-            name = "driving_license",
-            columnDefinition = "TEXT"
-    )
-    private String drivingLicense;
+	@Column(name = "driving_license", columnDefinition = "TEXT")
+	private String drivingLicense;
 
-    @Column(
-            name = "protected_category",
-            columnDefinition = "BOOLEAN"
-    )
-    private Boolean protectedCategory;
+	@Column(name = "protected_category", columnDefinition = "BOOLEAN")
+	private Boolean protectedCategory;
 
-    @JsonManagedReference
-    @OneToMany(
-            mappedBy = "customer",
-            cascade = {CascadeType.ALL},
-            orphanRemoval = true
-    )
-    private List<WorkingExperience> workingExperiences = new ArrayList<>();
+	@JsonManagedReference
+	@OneToMany(mappedBy = "customer", cascade = { CascadeType.ALL }, orphanRemoval = true)
+	private List<WorkingExperience> workingExperiences = new ArrayList<>();
 
-    @JsonManagedReference
-    @OneToMany(
-            mappedBy = "customer",
-            cascade = {CascadeType.ALL},
-            orphanRemoval = true
-    )
-    private List<Qualification> qualifications = new ArrayList<>();
+	@JsonManagedReference
+	@OneToMany(mappedBy = "customer", cascade = { CascadeType.ALL }, orphanRemoval = true)
+	private List<Qualification> qualifications = new ArrayList<>();
 
-    @Column(
-            name = "desired_profession",
-            columnDefinition = "TEXT"
-    )
-    private String desiredProfession;
+	@JsonManagedReference
+	@OneToMany(mappedBy = "customer", cascade = { CascadeType.ALL }, orphanRemoval = true)
+	private List<Social> socials = new ArrayList<>();
 
-    @Column(
-            name = "description",
-            columnDefinition = "TEXT"
-    )
-    private String description;
+	@Column(name = "desired_profession", columnDefinition = "TEXT")
+	private String desiredProfession;
 
-    @Column(
-            name = "description_it",
-            columnDefinition = "TEXT"
-    )
-    private String descriptionIt;
+	@Column(name = "description", columnDefinition = "TEXT")
+	private String description;
 
-    @JsonIgnore
-    @Column(
-            name = "password",
-            columnDefinition = "TEXT"
-    )
-    private String password;
+	@Column(name = "description_it", columnDefinition = "TEXT")
+	private String descriptionIt;
 
-    public Customer(UUID id, String firstName, String lastName, String phoneNumber, LocalDate birthday, String email, String residence, String residenceIt, String website, String blog, String drivingLicense, Boolean protectedCategory, List<WorkingExperience> workingExperiences, List<Qualification> qualifications, String desiredProfession, String description, String descriptionIt, String password) {
-        this.id = id;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.phoneNumber = phoneNumber;
-        this.birthday = birthday;
-        this.email = email;
-        this.residence = residence;
-        this.residenceIt = residenceIt;
-        this.website = website;
-        this.blog = blog;
-        this.drivingLicense = drivingLicense;
-        this.protectedCategory = protectedCategory;
-        this.workingExperiences = workingExperiences;
-        this.qualifications = qualifications;
-        this.desiredProfession = desiredProfession;
-        this.description = description;
-        this.descriptionIt = descriptionIt;
-        this.password = password;
-    }
+	@JsonIgnore
+	@Column(name = "password", columnDefinition = "TEXT")
+	private String password;
 
-    public Customer() {
-    }
+	public Customer() {
+	}
 
-    public UUID getId() {
-        return id;
-    }
+	public Customer(UUID id, String firstName, String lastName, String phoneNumber, LocalDate birthday, String email,
+			String residence, String residenceIt, String website, String blog, String drivingLicense,
+			Boolean protectedCategory, String desiredProfession, String description, String descriptionIt,
+			String password) {
+		this.id = id;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.phoneNumber = phoneNumber;
+		this.birthday = birthday;
+		this.email = email;
+		this.residence = residence;
+		this.residenceIt = residenceIt;
+		this.website = website;
+		this.blog = blog;
+		this.drivingLicense = drivingLicense;
+		this.protectedCategory = protectedCategory;
+		this.desiredProfession = desiredProfession;
+		this.description = description;
+		this.descriptionIt = descriptionIt;
+		this.password = password;
+	}
 
-    public void setId(UUID id) {
-        this.id = id;
-    }
+	public UUID getId() {
+		return id;
+	}
 
-    public String getFirstName() {
-        return firstName;
-    }
+	public void setId(UUID id) {
+		this.id = id;
+	}
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
+	public String getFirstName() {
+		return firstName;
+	}
 
-    public String getLastName() {
-        return lastName;
-    }
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
+	public String getLastName() {
+		return lastName;
+	}
 
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
 
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
+	public String getPhoneNumber() {
+		return phoneNumber;
+	}
 
-    public LocalDate getBirthday() {
-        return birthday;
-    }
+	public void setPhoneNumber(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
+	}
 
-    public void setBirthday(LocalDate birthday) {
-        this.birthday = birthday;
-    }
+	public LocalDate getBirthday() {
+		return birthday;
+	}
 
-    public String getEmail() {
-        return email;
-    }
+	public void setBirthday(LocalDate birthday) {
+		this.birthday = birthday;
+	}
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
+	public String getEmail() {
+		return email;
+	}
 
-    public String getResidence() {
-        return residence;
-    }
+	public void setEmail(String email) {
+		this.email = email;
+	}
 
-    public void setResidence(String residence) {
-        this.residence = residence;
-    }
+	public String getResidence() {
+		return residence;
+	}
 
-    public String getResidenceIt() {
-        return residenceIt;
-    }
+	public void setResidence(String residence) {
+		this.residence = residence;
+	}
 
-    public void setResidenceIt(String residenceIt) {
-        this.residenceIt = residenceIt;
-    }
+	public String getResidenceIt() {
+		return residenceIt;
+	}
 
-    public String getWebsite() {
-        return website;
-    }
+	public void setResidenceIt(String residenceIt) {
+		this.residenceIt = residenceIt;
+	}
 
-    public void setWebsite(String website) {
-        this.website = website;
-    }
+	public String getWebsite() {
+		return website;
+	}
 
+	public void setWebsite(String website) {
+		this.website = website;
+	}
 
-    public String getBlog() {
-        return blog;
-    }
+	public String getBlog() {
+		return blog;
+	}
 
-    public void setBlog(String blog) {
-        this.blog = blog;
-    }
+	public void setBlog(String blog) {
+		this.blog = blog;
+	}
 
-    public String getDrivingLicense() {
-        return drivingLicense;
-    }
+	public String getDrivingLicense() {
+		return drivingLicense;
+	}
 
-    public void setDrivingLicense(String drivingLicense) {
-        this.drivingLicense = drivingLicense;
-    }
+	public void setDrivingLicense(String drivingLicense) {
+		this.drivingLicense = drivingLicense;
+	}
 
-    public void setWorkingExperiences(List<WorkingExperience> workingExperiences) {
-        this.workingExperiences = workingExperiences;
-    }
+	public Boolean getProtectedCategory() {
+		return protectedCategory;
+	}
 
-    public List<Qualification> getQualifications() {
-        return qualifications;
-    }
+	public void setProtectedCategory(Boolean protectedCategory) {
+		this.protectedCategory = protectedCategory;
+	}
 
-    public void setQualifications(List<Qualification> qualifications) {
-        this.qualifications = qualifications;
-    }
+	public List<WorkingExperience> getWorkingExperiences() {
+		return workingExperiences;
+	}
 
-    public String getDesiredProfession() {
-        return desiredProfession;
-    }
+	public void setWorkingExperiences(List<WorkingExperience> workingExperiences) {
+		this.workingExperiences = workingExperiences;
+	}
 
-    public void setDesiredProfession(String desiredProfession) {
-        this.desiredProfession = desiredProfession;
-    }
+	public List<Qualification> getQualifications() {
+		return qualifications;
+	}
 
-    public String getDescription() {
-        return description;
-    }
+	public void setQualifications(List<Qualification> qualifications) {
+		this.qualifications = qualifications;
+	}
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
+	public List<Social> getSocials() {
+		return socials;
+	}
 
-    public String getDescriptionIt() {
-        return descriptionIt;
-    }
+	public void setSocials(List<Social> socials) {
+		this.socials = socials;
+	}
 
-    public void setDescriptionIt(String descriptionIt) {
-        this.descriptionIt = descriptionIt;
-    }
+	public String getDesiredProfession() {
+		return desiredProfession;
+	}
 
-    public String getPassword() {
-        return password;
-    }
+	public void setDesiredProfession(String desiredProfession) {
+		this.desiredProfession = desiredProfession;
+	}
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
+	public String getDescription() {
+		return description;
+	}
 
-    public Boolean getProtectedCategory() {
-        return protectedCategory;
-    }
+	public void setDescription(String description) {
+		this.description = description;
+	}
 
-    public void setProtectedCategory(Boolean protectedCategory) {
-        this.protectedCategory = protectedCategory;
-    }
+	public String getDescriptionIt() {
+		return descriptionIt;
+	}
 
-    public List<WorkingExperience> getWorkingExperiences() {
-        return workingExperiences;
-    }
+	public void setDescriptionIt(String descriptionIt) {
+		this.descriptionIt = descriptionIt;
+	}
 
-    public void addWorkingExperience(WorkingExperience workingExperience) {
-        if (!this.workingExperiences.contains(workingExperience)) {
-            this.workingExperiences.add(workingExperience);
-            workingExperience.setCustomer(this);
-        }
-    }
+	public String getPassword() {
+		return password;
+	}
 
-    public void removeWorkingExperience(WorkingExperience workingExperience) {
-        if (this.workingExperiences.contains(workingExperience)) {
-            this.workingExperiences.remove(workingExperience);
-            workingExperience.setCustomer(null);
-        }
-    }
+	public void setPassword(String password) {
+		this.password = password;
+	}
 
-    public void addQualification(Qualification qualification) {
-        if (!this.qualifications.contains(qualification)) {
-            this.qualifications.add(qualification);
-            qualification.setCustomer(this);
-        }
-    }
+	@Override
+	public int hashCode() {
+		return Objects.hash(birthday, blog, description, descriptionIt, desiredProfession, drivingLicense, email,
+				firstName, id, lastName, password, phoneNumber, protectedCategory, qualifications, residence,
+				residenceIt, socials, website, workingExperiences);
+	}
 
-    public void removeQualification(Qualification qualification) {
-        if (this.qualifications.contains(qualification)) {
-            this.qualifications.remove(qualification);
-            qualification.setCustomer(null);
-        }
-    }
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Customer other = (Customer) obj;
+		return Objects.equals(birthday, other.birthday) && Objects.equals(blog, other.blog)
+				&& Objects.equals(description, other.description) && Objects.equals(descriptionIt, other.descriptionIt)
+				&& Objects.equals(desiredProfession, other.desiredProfession)
+				&& Objects.equals(drivingLicense, other.drivingLicense) && Objects.equals(email, other.email)
+				&& Objects.equals(firstName, other.firstName) && Objects.equals(id, other.id)
+				&& Objects.equals(lastName, other.lastName) && Objects.equals(password, other.password)
+				&& Objects.equals(phoneNumber, other.phoneNumber)
+				&& Objects.equals(protectedCategory, other.protectedCategory)
+				&& Objects.equals(qualifications, other.qualifications) && Objects.equals(residence, other.residence)
+				&& Objects.equals(residenceIt, other.residenceIt) && Objects.equals(socials, other.socials)
+				&& Objects.equals(website, other.website)
+				&& Objects.equals(workingExperiences, other.workingExperiences);
+	}
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Customer customer = (Customer) o;
-        return Objects.equals(id, customer.id) && Objects.equals(firstName, customer.firstName) && Objects.equals(lastName, customer.lastName) && Objects.equals(phoneNumber, customer.phoneNumber) && Objects.equals(birthday, customer.birthday) && Objects.equals(email, customer.email) && Objects.equals(residence, customer.residence) && Objects.equals(residenceIt, customer.residenceIt) && Objects.equals(website, customer.website) && Objects.equals(blog, customer.blog) && Objects.equals(drivingLicense, customer.drivingLicense) && Objects.equals(protectedCategory, customer.protectedCategory) && Objects.equals(workingExperiences, customer.workingExperiences) && Objects.equals(qualifications, customer.qualifications) && Objects.equals(desiredProfession, customer.desiredProfession) && Objects.equals(description, customer.description) && Objects.equals(descriptionIt, customer.descriptionIt) && Objects.equals(password, customer.password);
-    }
+	@Override
+	public String toString() {
+		return "Customer [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", phoneNumber="
+				+ phoneNumber + ", birthday=" + birthday + ", email=" + email + ", residence=" + residence
+				+ ", residenceIt=" + residenceIt + ", website=" + website + ", blog=" + blog + ", drivingLicense="
+				+ drivingLicense + ", protectedCategory=" + protectedCategory + ", workingExperiences="
+				+ workingExperiences + ", qualifications=" + qualifications + ", socials=" + socials
+				+ ", desiredProfession=" + desiredProfession + ", description=" + description + ", descriptionIt="
+				+ descriptionIt + ", password=" + password + "]";
+	}
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, firstName, lastName, phoneNumber, birthday, email, residence, residenceIt, website, blog, drivingLicense, protectedCategory, workingExperiences, qualifications, desiredProfession, description, descriptionIt, password);
-    }
-
-    @Override
-    public String toString() {
-        return "Customer{" +
-                "id=" + id +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", phoneNumber='" + phoneNumber + '\'' +
-                ", birthday=" + birthday +
-                ", email='" + email + '\'' +
-                ", residence='" + residence + '\'' +
-                ", residenceIt='" + residenceIt + '\'' +
-                ", website='" + website + '\'' +
-                ", blog='" + blog + '\'' +
-                ", drivingLicense='" + drivingLicense + '\'' +
-                ", protectedCategory=" + protectedCategory +
-                ", workingExperiences=" + workingExperiences +
-                ", qualifications=" + qualifications +
-                ", desiredProfession='" + desiredProfession + '\'' +
-                ", description='" + description + '\'' +
-                ", descriptionIt='" + descriptionIt + '\'' +
-                ", password='" + password + '\'' +
-                '}';
-    }
 }

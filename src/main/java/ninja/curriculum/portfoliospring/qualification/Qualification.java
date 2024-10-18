@@ -14,291 +14,248 @@ import static jakarta.persistence.GenerationType.SEQUENCE;
 @Entity(name = "Qualification")
 @Table(name = "qualification")
 public class Qualification {
-    @Id
-    @SequenceGenerator(
-            name = "educational_institution_sequence",
-            sequenceName = "educational_institution_sequence",
-            allocationSize = 1
-    )
-    @GeneratedValue(
-            strategy = SEQUENCE,
-            generator = "educational_institution_sequence"
-    )
-    @Column(
-            name = "id",
-            updatable = false
-    )
-    private Long id;
+	@Id
+	@SequenceGenerator(name = "educational_institution_sequence", sequenceName = "educational_institution_sequence", allocationSize = 1)
+	@GeneratedValue(strategy = SEQUENCE, generator = "educational_institution_sequence")
+	@Column(name = "id", updatable = false)
+	private Long id;
 
-    @JsonBackReference
-    @ManyToOne
-    @JoinColumn(
-            name = "customer_id",
-            nullable = false,
-            referencedColumnName = "id",
-            foreignKey = @ForeignKey(name = "qualification_customer_fk")
-    )
-    private Customer customer;
+	@JsonBackReference
+	@ManyToOne
+	@JoinColumn(name = "customer_id", nullable = false, referencedColumnName = "id", foreignKey = @ForeignKey(name = "qualification_customer_fk"))
+	private Customer customer;
 
-    @ManyToOne
-    @JoinColumn(
-            name = "educational_institution_id",
-            referencedColumnName = "id",
-            foreignKey = @ForeignKey(name = "qualification_educational_institution_fk")
-    )
-    private EducationalInstitution educationalInstitution;
+	@ManyToOne
+	@JoinColumn(name = "educational_institution_id", referencedColumnName = "id", foreignKey = @ForeignKey(name = "qualification_educational_institution_fk"))
+	private EducationalInstitution educationalInstitution;
 
+	@Enumerated(EnumType.STRING)
+	@Column(name = "academic_degree", columnDefinition = "TEXT")
+	private AcademicDegree academicDegree;
 
-    @Enumerated(EnumType.STRING)
-    @Column(
-            name = "academic_degree",
-            columnDefinition = "TEXT"
-    )
-    private AcademicDegree academicDegree;
+	@Column(name = "faculty", columnDefinition = "TEXT")
+	private String faculty;
 
-    @Column(
-            name = "faculty",
-            columnDefinition = "TEXT"
-    )
-    private String faculty;
+	@Column(name = "faculty_it", columnDefinition = "TEXT")
+	private String facultyIt;
 
-    @Column(
-            name = "faculty_it",
-            columnDefinition = "TEXT"
-    )
-    private String facultyIt;
+	@Column(name = "department", columnDefinition = "TEXT")
+	private String department;
 
-    @Column(
-            name = "department",
-            columnDefinition = "TEXT"
-    )
-    private String department;
+	@Column(name = "department_it", columnDefinition = "TEXT")
+	private String departmentIt;
 
-    @Column(
-            name = "department_it",
-            columnDefinition = "TEXT"
-    )
-    private String departmentIt;
+	@Column(name = "speciality", columnDefinition = "TEXT")
+	private String speciality;
 
-    @Column(
-            name = "speciality",
-            columnDefinition = "TEXT"
-    )
-    private String speciality;
+	@Column(name = "speciality_it", columnDefinition = "TEXT")
+	private String specialityIt;
 
-    @Column(
-            name = "speciality_it",
-            columnDefinition = "TEXT"
-    )
-    private String specialityIt;
+	@ManyToOne
+	@JoinColumn(name = "course_id", referencedColumnName = "id", foreignKey = @ForeignKey(name = "qualification_course_fk"))
+	private Course course;
 
-    @ManyToOne
-    @JoinColumn(
-            name = "course_id",
-            referencedColumnName = "id",
-            foreignKey = @ForeignKey(name = "qualification_course_fk")
-    )
-    private Course course;
+	@Column(name = "started_studying", columnDefinition = "DATE")
+	private LocalDate startedStudying;
 
-    @Column(
-            name = "started_studying",
-            columnDefinition = "DATE"
-    )
-    private LocalDate startedStudying;
+	@Column(name = "finished_studying", columnDefinition = "DATE")
+	private LocalDate finishedStudying;
 
-    @Column(
-            name = "finished_studying",
-            columnDefinition = "DATE"
-    )
-    private LocalDate finishedStudying;
+	public Qualification(Customer customer, EducationalInstitution educationalInstitution,
+			AcademicDegree academicDegree, String faculty, String department, String speciality,
+			LocalDate startedStudying, LocalDate finishedStudying) {
+		this.customer = customer;
+		this.educationalInstitution = educationalInstitution;
+		this.academicDegree = academicDegree;
+		this.faculty = faculty;
+		this.department = department;
+		this.speciality = speciality;
+		this.startedStudying = startedStudying;
+		this.finishedStudying = finishedStudying;
+	}
 
-    public Qualification(Customer customer, EducationalInstitution educationalInstitution, AcademicDegree academicDegree, String faculty, String department, String speciality, LocalDate startedStudying, LocalDate finishedStudying) {
-        this.customer = customer;
-        this.educationalInstitution = educationalInstitution;
-        this.academicDegree = academicDegree;
-        this.faculty = faculty;
-        this.department = department;
-        this.speciality = speciality;
-        this.startedStudying = startedStudying;
-        this.finishedStudying = finishedStudying;
-    }
+	public Qualification(Customer customer, EducationalInstitution educationalInstitution,
+			AcademicDegree academicDegree, String faculty, String department, String speciality,
+			LocalDate startedStudying) {
+		this.customer = customer;
+		this.educationalInstitution = educationalInstitution;
+		this.academicDegree = academicDegree;
+		this.faculty = faculty;
+		this.department = department;
+		this.speciality = speciality;
+		this.startedStudying = startedStudying;
+	}
 
-    public Qualification(Customer customer, EducationalInstitution educationalInstitution, AcademicDegree academicDegree, String faculty, String department, String speciality, LocalDate startedStudying) {
-        this.customer = customer;
-        this.educationalInstitution = educationalInstitution;
-        this.academicDegree = academicDegree;
-        this.faculty = faculty;
-        this.department = department;
-        this.speciality = speciality;
-        this.startedStudying = startedStudying;
-    }
+	public Qualification(Customer customer, EducationalInstitution educationalInstitution, String speciality,
+			LocalDate startedStudying, LocalDate finishedStudying) {
+		this.customer = customer;
+		this.educationalInstitution = educationalInstitution;
+		this.speciality = speciality;
+		this.startedStudying = startedStudying;
+		this.finishedStudying = finishedStudying;
+	}
 
-    public Qualification(Customer customer, EducationalInstitution educationalInstitution, String speciality, LocalDate startedStudying, LocalDate finishedStudying) {
-        this.customer = customer;
-        this.educationalInstitution = educationalInstitution;
-        this.speciality = speciality;
-        this.startedStudying = startedStudying;
-        this.finishedStudying = finishedStudying;
-    }
+	public Qualification(Customer customer, EducationalInstitution educationalInstitution, String speciality,
+			LocalDate startedStudying) {
+		this.customer = customer;
+		this.educationalInstitution = educationalInstitution;
+		this.speciality = speciality;
+		this.startedStudying = startedStudying;
+	}
 
-    public Qualification(Customer customer, EducationalInstitution educationalInstitution, String speciality, LocalDate startedStudying) {
-        this.customer = customer;
-        this.educationalInstitution = educationalInstitution;
-        this.speciality = speciality;
-        this.startedStudying = startedStudying;
-    }
+	public Qualification(Customer customer, EducationalInstitution educationalInstitution, Course course,
+			LocalDate startedStudying) {
+		this.customer = customer;
+		this.educationalInstitution = educationalInstitution;
+		this.startedStudying = startedStudying;
+		this.course = course;
+	}
 
-    public Qualification(Customer customer, EducationalInstitution educationalInstitution, Course course, LocalDate startedStudying) {
-        this.customer = customer;
-        this.educationalInstitution = educationalInstitution;
-        this.startedStudying = startedStudying;
-        this.course = course;
-    }
+	public Qualification(Customer customer, EducationalInstitution educationalInstitution, Course course,
+			LocalDate startedStudying, LocalDate finishedStudying) {
+		this.customer = customer;
+		this.educationalInstitution = educationalInstitution;
+		this.course = course;
+		this.startedStudying = startedStudying;
+		this.finishedStudying = finishedStudying;
+	}
 
-    public Qualification(Customer customer, EducationalInstitution educationalInstitution, Course course, LocalDate startedStudying, LocalDate finishedStudying) {
-        this.customer = customer;
-        this.educationalInstitution = educationalInstitution;
-        this.course = course;
-        this.startedStudying = startedStudying;
-        this.finishedStudying = finishedStudying;
-    }
+	public Qualification() {
+	}
 
-    public Qualification() {
-    }
+	public Long getId() {
+		return id;
+	}
 
-    public Long getId() {
-        return id;
-    }
+	public void setId(Long id) {
+		this.id = id;
+	}
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+	public Customer getCustomer() {
+		return customer;
+	}
 
-    public Customer getCustomer() {
-        return customer;
-    }
+	public void setCustomer(Customer customer) {
+		this.customer = customer;
+	}
 
-    public void setCustomer(Customer customer) {
-        this.customer = customer;
-    }
+	public Course getCourse() {
+		return course;
+	}
 
-    public Course getCourse() {
-        return course;
-    }
+	public void setCourse(Course course) {
+		this.course = course;
+	}
 
-    public void setCourse(Course course) {
-        this.course = course;
-    }
+	public EducationalInstitution getEducationalInstitution() {
+		return educationalInstitution;
+	}
 
-    public EducationalInstitution getEducationalInstitution() {
-        return educationalInstitution;
-    }
+	public void setEducationalInstitution(EducationalInstitution educationalInstitution) {
+		this.educationalInstitution = educationalInstitution;
+	}
 
-    public void setEducationalInstitution(EducationalInstitution educationalInstitution) {
-        this.educationalInstitution = educationalInstitution;
-    }
+	public AcademicDegree getAcademicDegree() {
+		return academicDegree;
+	}
 
-    public AcademicDegree getAcademicDegree() {
-        return academicDegree;
-    }
+	public void setAcademicDegree(AcademicDegree academicDegree) {
+		this.academicDegree = academicDegree;
+	}
 
-    public void setAcademicDegree(AcademicDegree academicDegree) {
-        this.academicDegree = academicDegree;
-    }
+	public String getFaculty() {
+		return faculty;
+	}
 
-    public String getFaculty() {
-        return faculty;
-    }
+	public void setFaculty(String faculty) {
+		this.faculty = faculty;
+	}
 
-    public void setFaculty(String faculty) {
-        this.faculty = faculty;
-    }
+	public String getDepartment() {
+		return department;
+	}
 
-    public String getDepartment() {
-        return department;
-    }
+	public void setDepartment(String department) {
+		this.department = department;
+	}
 
-    public void setDepartment(String department) {
-        this.department = department;
-    }
+	public String getSpeciality() {
+		return speciality;
+	}
 
-    public String getSpeciality() {
-        return speciality;
-    }
+	public void setSpeciality(String speciality) {
+		this.speciality = speciality;
+	}
 
-    public void setSpeciality(String speciality) {
-        this.speciality = speciality;
-    }
+	public LocalDate getStartedStudying() {
+		return startedStudying;
+	}
 
-    public LocalDate getStartedStudying() {
-        return startedStudying;
-    }
+	public void setStartedStudying(LocalDate startedStudying) {
+		this.startedStudying = startedStudying;
+	}
 
-    public void setStartedStudying(LocalDate startedStudying) {
-        this.startedStudying = startedStudying;
-    }
+	public LocalDate getFinishedStudying() {
+		return finishedStudying;
+	}
 
-    public LocalDate getFinishedStudying() {
-        return finishedStudying;
-    }
+	public void setFinishedStudying(LocalDate finishedStudying) {
+		this.finishedStudying = finishedStudying;
+	}
 
-    public void setFinishedStudying(LocalDate finishedStudying) {
-        this.finishedStudying = finishedStudying;
-    }
+	public String getFacultyIt() {
+		return facultyIt;
+	}
 
-    public String getFacultyIt() {
-        return facultyIt;
-    }
+	public void setFacultyIt(String facultyIt) {
+		this.facultyIt = facultyIt;
+	}
 
-    public void setFacultyIt(String facultyIt) {
-        this.facultyIt = facultyIt;
-    }
+	public String getDepartmentIt() {
+		return departmentIt;
+	}
 
-    public String getDepartmentIt() {
-        return departmentIt;
-    }
+	public void setDepartmentIt(String departmentIt) {
+		this.departmentIt = departmentIt;
+	}
 
-    public void setDepartmentIt(String departmentIt) {
-        this.departmentIt = departmentIt;
-    }
+	public String getSpecialityIt() {
+		return specialityIt;
+	}
 
-    public String getSpecialityIt() {
-        return specialityIt;
-    }
+	public void setSpecialityIt(String specialityIt) {
+		this.specialityIt = specialityIt;
+	}
 
-    public void setSpecialityIt(String specialityIt) {
-        this.specialityIt = specialityIt;
-    }
+	@Override
+	public boolean equals(Object o) {
+		if (this == o)
+			return true;
+		if (o == null || getClass() != o.getClass())
+			return false;
+		Qualification that = (Qualification) o;
+		return customer.equals(that.customer) && educationalInstitution.equals(that.educationalInstitution)
+				&& academicDegree == that.academicDegree && Objects.equals(faculty, that.faculty)
+				&& Objects.equals(facultyIt, that.facultyIt) && Objects.equals(department, that.department)
+				&& Objects.equals(departmentIt, that.departmentIt) && Objects.equals(speciality, that.speciality)
+				&& Objects.equals(specialityIt, that.specialityIt) && Objects.equals(course, that.course)
+				&& Objects.equals(startedStudying, that.startedStudying)
+				&& Objects.equals(finishedStudying, that.finishedStudying);
+	}
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Qualification that = (Qualification) o;
-        return customer.equals(that.customer) && educationalInstitution.equals(that.educationalInstitution) && academicDegree == that.academicDegree && Objects.equals(faculty, that.faculty) && Objects.equals(facultyIt, that.facultyIt) && Objects.equals(department, that.department) && Objects.equals(departmentIt, that.departmentIt) && Objects.equals(speciality, that.speciality) && Objects.equals(specialityIt, that.specialityIt) && Objects.equals(course, that.course) && Objects.equals(startedStudying, that.startedStudying) && Objects.equals(finishedStudying, that.finishedStudying);
-    }
+	@Override
+	public int hashCode() {
+		return Objects.hash(customer, educationalInstitution, academicDegree, faculty, facultyIt, department,
+				departmentIt, speciality, specialityIt, course, startedStudying, finishedStudying);
+	}
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(customer, educationalInstitution, academicDegree, faculty, facultyIt, department, departmentIt, speciality, specialityIt, course, startedStudying, finishedStudying);
-    }
-
-    @Override
-    public String toString() {
-        return "Qualification{" +
-                "id=" + id +
-                ", customer=" + customer +
-                ", educationalInstitution=" + educationalInstitution +
-                ", academicDegree=" + academicDegree +
-                ", faculty='" + faculty + '\'' +
-                ", facultyIt='" + facultyIt + '\'' +
-                ", department='" + department + '\'' +
-                ", departmentIt='" + departmentIt + '\'' +
-                ", speciality='" + speciality + '\'' +
-                ", specialityIt='" + specialityIt + '\'' +
-                ", course=" + course +
-                ", startedStudying=" + startedStudying +
-                ", finishedStudying=" + finishedStudying +
-                '}';
-    }
+	@Override
+	public String toString() {
+		return "Qualification{" + "id=" + id + ", customer=" + customer + ", educationalInstitution="
+				+ educationalInstitution + ", academicDegree=" + academicDegree + ", faculty='" + faculty + '\''
+				+ ", facultyIt='" + facultyIt + '\'' + ", department='" + department + '\'' + ", departmentIt='"
+				+ departmentIt + '\'' + ", speciality='" + speciality + '\'' + ", specialityIt='" + specialityIt + '\''
+				+ ", course=" + course + ", startedStudying=" + startedStudying + ", finishedStudying="
+				+ finishedStudying + '}';
+	}
 }

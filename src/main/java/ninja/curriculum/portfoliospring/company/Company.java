@@ -14,9 +14,7 @@ import static jakarta.persistence.GenerationType.SEQUENCE;
 
 
 @Entity(name = "Company")
-@Table(
-        name = "company"
-)
+@Table(name = "company")
 public class Company {
     @Id
     @SequenceGenerator(
