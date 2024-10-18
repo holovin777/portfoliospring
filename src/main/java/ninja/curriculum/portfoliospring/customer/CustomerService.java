@@ -2,6 +2,8 @@ package ninja.curriculum.portfoliospring.customer;
 
 import ninja.curriculum.portfoliospring.qualification.Qualification;
 import ninja.curriculum.portfoliospring.qualification.QualificationRepository;
+import ninja.curriculum.portfoliospring.social.Social;
+import ninja.curriculum.portfoliospring.social.SocialRepository;
 import ninja.curriculum.portfoliospring.workingexperience.WorkingExperience;
 import ninja.curriculum.portfoliospring.workingexperience.WorkingExperienceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,17 +18,18 @@ import java.util.*;
 public class CustomerService {
     private final CustomerRepository customerRepository;
     private final QualificationRepository qualificationRepository;
-
+    private final SocialRepository socialRepository;
     private final WorkingExperienceRepository workingExperienceRepository;
 
-    @Autowired
     public CustomerService(
             CustomerRepository customerRepository,
             QualificationRepository qualificationRepository,
+            SocialRepository socialRepository,
             WorkingExperienceRepository workingExperienceRepository
     ) {
         this.customerRepository = customerRepository;
         this.qualificationRepository = qualificationRepository;
+        this.socialRepository = socialRepository;
         this.workingExperienceRepository = workingExperienceRepository;
     }
 
@@ -58,6 +61,15 @@ public class CustomerService {
         if (customerOptional.isPresent()) {
             Customer customer = customerOptional.get();
             return this.workingExperienceRepository.getWorkingExperienceByCustomerOrderByStartedWorkDesc(customer);
+        }
+        throw new IllegalStateException("Customer with UUID " + customerId + " doesn't exists");
+    }
+
+    public List<Social> getSocials(UUID customerId) {
+        Optional<Customer> customerOptional = this.customerRepository.findById(customerId);
+        if (customerOptional.isPresent()) {
+            Customer customer = customerOptional.get();
+            return this.socialRepository.getSocialByCustomer(customer);
         }
         throw new IllegalStateException("Customer with UUID " + customerId + " doesn't exists");
     }
