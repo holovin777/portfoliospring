@@ -1,8 +1,8 @@
 package ninja.curriculum.portfoliospring.customer;
 
 import ninja.curriculum.portfoliospring.qualification.Qualification;
+import ninja.curriculum.portfoliospring.social.Social;
 import ninja.curriculum.portfoliospring.workingexperience.WorkingExperience;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
@@ -15,7 +15,6 @@ public class CustomerController {
 
     private final CustomerService customerService;
 
-    @Autowired
     public CustomerController(CustomerService customerService) {
         this.customerService = customerService;
     }
@@ -38,6 +37,11 @@ public class CustomerController {
     @GetMapping(path = "{customerId}/working-experience/all")
     public List<WorkingExperience> getWorkingExperiences(@PathVariable UUID customerId) {
         return this.customerService.getWorkingExperiences(customerId);
+    }
+
+    @GetMapping(path = "{customerId}/social/all")
+    public List<Social> getSocials(@PathVariable UUID customerId) {
+        return this.customerService.getSocials(customerId);
     }
 
     @GetMapping(path = "{customerId}/qualification/all")
