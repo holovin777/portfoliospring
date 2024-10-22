@@ -31,12 +31,12 @@ public class CourseController {
 		this.courseService.addCourse(course);
 	}
 
-	@DeleteMapping(path = "/delete/{courseId}")
+	@DeleteMapping(path = "/{courseId}/delete")
 	public void removeCourse(@PathVariable Long courseId) {
 		this.courseService.removeCourse(courseId);
 	}
 
-	@PutMapping(path = "{courseId}/update")
+	@PutMapping(path = "/{courseId}/update")
 	public void updateCourse(@PathVariable Long courseId, @RequestParam(required = false) String name) {
 		this.courseService.updateCourse(courseId, name);
 	}

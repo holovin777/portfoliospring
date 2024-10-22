@@ -36,7 +36,7 @@ public class CompanyController {
 		return this.companyService.getCompany(companyId);
 	}
 
-	@DeleteMapping(path = "/delete/{companyId}")
+	@DeleteMapping(path = "/{companyId}/delete")
 	public void removeCompany(@PathVariable Long companyId) {
 		this.companyService.removeCompany(companyId);
 	}
