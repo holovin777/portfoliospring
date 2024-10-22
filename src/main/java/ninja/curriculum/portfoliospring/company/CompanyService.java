@@ -1,6 +1,5 @@
 package ninja.curriculum.portfoliospring.company;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -12,7 +11,6 @@ import java.util.Optional;
 public class CompanyService {
     private final CompanyRepository companyRepository;
 
-    @Autowired
     public CompanyService(CompanyRepository companyRepository) {
         this.companyRepository = companyRepository;
     }
@@ -39,7 +37,7 @@ public class CompanyService {
     }
 
     @Transactional
-    public void updateCompany(Long companyId, String name, String nameIt, String location, String locationIt) {
+    public void updateCompany(Long companyId, String name, String nameIt, String location, String locationIt, String website) {
         Optional<Company> companyOptional = this.companyRepository.findById(companyId);
         if (companyOptional.isPresent()) {
             Company company = companyOptional.get();
@@ -59,8 +57,19 @@ public class CompanyService {
                 company.setLocationIt(locationIt);
                 this.companyRepository.save(company);
             }
+            if (website != null) {
+                company.setWebsite(website);
+                this.companyRepository.save(company);
+            }
         } else {
             throw new IllegalStateException("Company with id " + companyId + " doesn't exists");
+        }
+    }
+
+    public void removeCompany(Long companyId) {
+        Optional<Company> companyOptional = companyRepository.findById(companyId);
+        if (companyOptional.isPresent()) {
+            this.companyRepository.deleteById(companyId);
         }
     }
 }
