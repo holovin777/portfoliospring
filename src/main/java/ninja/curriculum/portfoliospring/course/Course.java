@@ -1,86 +1,84 @@
 package ninja.curriculum.portfoliospring.course;
 
-import jakarta.persistence.*;
+import static jakarta.persistence.GenerationType.SEQUENCE;
 
 import java.util.Objects;
 
-import static jakarta.persistence.GenerationType.SEQUENCE;
-
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+import jakarta.persistence.SequenceGenerator;
+import jakarta.persistence.Table;
+import jakarta.persistence.UniqueConstraint;
 
 @Entity(name = "Course")
-@Table(
-        name = "course",
-        uniqueConstraints = {
-                @UniqueConstraint(
-                        name = "course_name_unique",
-                        columnNames = "name"
-                ),
-        }
-)
+@Table(name = "course", uniqueConstraints = { @UniqueConstraint(name = "course_name_unique", columnNames = "name"), })
 public class Course {
-    @Id
-    @SequenceGenerator(
-            name = "course_sequence",
-            sequenceName = "course_sequence",
-            allocationSize = 1
-    )
-    @GeneratedValue(
-            strategy = SEQUENCE,
-            generator = "course_sequence"
-    )
-    @Column(
-            name = "id",
-            updatable = false
-    )
-    private Long id;
+	@Id
+	@SequenceGenerator(name = "course_sequence", sequenceName = "course_sequence", allocationSize = 1)
+	@GeneratedValue(strategy = SEQUENCE, generator = "course_sequence")
+	@Column(name = "id", updatable = false)
+	private Long id;
 
-    @Column(
-            name = "name",
-            nullable = false,
-            columnDefinition = "TEXT"
-    )
-    private String name;
+	@Column(name = "name", nullable = false, columnDefinition = "TEXT")
+	private String name;
 
-    public Course(String name) {
-        this.name = name;
-    }
+	public Course(String name) {
+		this.name = name;
+	}
 
-    public Course() {}
+	@Column(name = "website", columnDefinition = "TEXT")
+	public String website;
 
-    public Long getId() {
-        return id;
-    }
+	public Course() {
+	}
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+	public Long getId() {
+		return id;
+	}
 
-    public String getName() {
-        return name;
-    }
+	public void setId(Long id) {
+		this.id = id;
+	}
 
-    public void setName(String name) {
-        this.name = name;
-    }
+	public String getName() {
+		return name;
+	}
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Course course = (Course) o;
-        return name.equals(course.name);
-    }
+	public void setName(String name) {
+		this.name = name;
+	}
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(name);
-    }
+	public String getWebsite() {
+		return website;
+	}
 
-    @Override
-    public String toString() {
-        return "Course{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                '}';
-    }
+	public void setWebsite(String website) {
+		this.website = website;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(id, name, website);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Course other = (Course) obj;
+		return Objects.equals(id, other.id) && Objects.equals(name, other.name)
+				&& Objects.equals(website, other.website);
+	}
+
+	@Override
+	public String toString() {
+		return "Course [id=" + id + ", name=" + name + ", website=" + website + "]";
+	}
+
 }

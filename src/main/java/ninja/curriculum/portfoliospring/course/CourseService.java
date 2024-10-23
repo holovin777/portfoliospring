@@ -7,40 +7,44 @@ import java.util.Optional;
 
 @Service
 public class CourseService {
-    private final CourseRepository courseRepository;
+	private final CourseRepository courseRepository;
 
-    public CourseService(CourseRepository courseRepository) {
-        this.courseRepository = courseRepository;
-    }
+	public CourseService(CourseRepository courseRepository) {
+		this.courseRepository = courseRepository;
+	}
 
-    public List<Course> getCourses() {
-        return this.courseRepository.findAll();
-    }
+	public List<Course> getCourses() {
+		return this.courseRepository.findAll();
+	}
 
-    public void addCourse(Course course) {
-        Optional<Course> courseOptional = courseRepository.findByName(course.getName());
-        if (courseOptional.isEmpty()) {
-            this.courseRepository.save(course);
-        }
-    }
+	public void addCourse(Course course) {
+		Optional<Course> courseOptional = courseRepository.findByName(course.getName());
+		if (courseOptional.isEmpty()) {
+			this.courseRepository.save(course);
+		}
+	}
 
-    public void removeCourse(Long courseId) {
-        Optional<Course> courseOptional = courseRepository.findById(courseId);
-        if (courseOptional.isPresent()) {
-            this.courseRepository.deleteById(courseId);
-        }
-    }
+	public void removeCourse(Long courseId) {
+		Optional<Course> courseOptional = courseRepository.findById(courseId);
+		if (courseOptional.isPresent()) {
+			this.courseRepository.deleteById(courseId);
+		}
+	}
 
-    public void updateCourse(Long courseId, String name) {
-        Optional<Course> courseOptional = courseRepository.findById(courseId);
-        if (courseOptional.isPresent()) {
-            Course course = courseOptional.get();
-            if (name != null) {
-                course.setName(name);
-                this.courseRepository.save(course);
-            } else {
-                throw new IllegalStateException("Course with id " + courseId + " doesn't exists");
-            }
-        }
-    }
+	public void updateCourse(Long courseId, String name, String website) {
+		Optional<Course> courseOptional = courseRepository.findById(courseId);
+		if (courseOptional.isPresent()) {
+			Course course = courseOptional.get();
+			if (name != null) {
+				course.setName(name);
+				this.courseRepository.save(course);
+			}
+			if (website != null) {
+				course.setName(website);
+				this.courseRepository.save(course);
+			} else {
+				throw new IllegalStateException("Course with id " + courseId + " doesn't exists");
+			}
+		}
+	}
 }
