@@ -28,9 +28,6 @@ public class Course {
 		this.name = name;
 	}
 
-	@Column(name = "website", columnDefinition = "TEXT")
-	public String website;
-
 	public Course() {
 	}
 
@@ -50,17 +47,9 @@ public class Course {
 		this.name = name;
 	}
 
-	public String getWebsite() {
-		return website;
-	}
-
-	public void setWebsite(String website) {
-		this.website = website;
-	}
-
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, name, website);
+		return Objects.hash(id, name);
 	}
 
 	@Override
@@ -72,13 +61,12 @@ public class Course {
 		if (getClass() != obj.getClass())
 			return false;
 		Course other = (Course) obj;
-		return Objects.equals(id, other.id) && Objects.equals(name, other.name)
-				&& Objects.equals(website, other.website);
+		return Objects.equals(id, other.id) && Objects.equals(name, other.name);
 	}
 
 	@Override
 	public String toString() {
-		return "Course [id=" + id + ", name=" + name + ", website=" + website + "]";
+		return "Course [id=" + id + ", name=" + name + ", website=" + "]";
 	}
 
 }
