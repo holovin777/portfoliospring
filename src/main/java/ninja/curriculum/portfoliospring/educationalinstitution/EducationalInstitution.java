@@ -1,8 +1,17 @@
 package ninja.curriculum.portfoliospring.educationalinstitution;
 
-import jakarta.persistence.*;
 
 import java.util.Objects;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+import jakarta.persistence.SequenceGenerator;
+import jakarta.persistence.Table;
+import jakarta.persistence.UniqueConstraint;
 
 import static jakarta.persistence.GenerationType.SEQUENCE;
 
@@ -59,6 +68,9 @@ public class EducationalInstitution {
 		this.studyPlace = studyPlace;
 		this.location = location;
 		this.website = website;
+	}
+
+	public EducationalInstitution() {
 	}
 
 	public Long getId() {
