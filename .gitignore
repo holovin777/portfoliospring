@@ -34,3 +34,6 @@ build/
 
 # Out
 out/
+
+# ENV
+.env
