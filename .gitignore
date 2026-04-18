@@ -32,8 +32,8 @@ build/
 ### VS Code ###
 .vscode/
 
-# Application properties
-src/main/resources
-
 # Out
 out/
+
+# ENV
+.env

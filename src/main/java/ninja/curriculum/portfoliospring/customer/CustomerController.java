@@ -62,7 +62,8 @@ public class CustomerController {
                                @RequestParam(required = false) String description,
                                @RequestParam(required = false) String descriptionIt,
                                @RequestParam(required = false) String drivingLicense,
-                               @RequestParam(required = false) Boolean protectedCategory) {
+                               @RequestParam(required = false) Boolean protectedCategory,
+                               @RequestParam(required = false) String photoUrl) {
         this.customerService.updateCustomer(
                 customerId,
                 phoneNumber,
@@ -76,7 +77,8 @@ public class CustomerController {
                 description,
                 descriptionIt,
                 drivingLicense,
-                protectedCategory
+                protectedCategory,
+                photoUrl
         );
     }
 

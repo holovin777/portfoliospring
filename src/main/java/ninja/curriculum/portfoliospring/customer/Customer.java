@@ -84,6 +84,9 @@ public class Customer {
 	@Column(name = "description_it", columnDefinition = "TEXT")
 	private String descriptionIt;
 
+	@Column(name = "photo_url", columnDefinition = "TEXT")
+	private String photoUrl;
+
 	@JsonIgnore
 	@Column(name = "password", columnDefinition = "TEXT")
 	private String password;
@@ -92,9 +95,9 @@ public class Customer {
 	}
 
 	public Customer(UUID id, String firstName, String lastName, String phoneNumber, LocalDate birthday, String email,
-			String residence, String residenceIt, String website, String blog, String drivingLicense,
-			Boolean protectedCategory, String desiredProfession, String description, String descriptionIt,
-			String password) {
+	                String residence, String residenceIt, String website, String blog, String drivingLicense,
+	                Boolean protectedCategory, String desiredProfession, String description, String descriptionIt,
+	                String photoUrl, String password) {
 		this.id = id;
 		this.firstName = firstName;
 		this.lastName = lastName;
@@ -110,6 +113,7 @@ public class Customer {
 		this.desiredProfession = desiredProfession;
 		this.description = description;
 		this.descriptionIt = descriptionIt;
+		this.photoUrl = photoUrl;
 		this.password = password;
 	}
 
@@ -177,6 +181,13 @@ public class Customer {
 		this.residenceIt = residenceIt;
 	}
 
+	public String getPhotoUrl() {
+		return photoUrl;
+	}
+
+	public void setPhotoUrl(String photoUrl) {
+		this.photoUrl = photoUrl;
+	}
 	public String getWebsite() {
 		return website;
 	}
@@ -268,8 +279,8 @@ public class Customer {
 	@Override
 	public int hashCode() {
 		return Objects.hash(birthday, blog, description, descriptionIt, desiredProfession, drivingLicense, email,
-				firstName, id, lastName, password, phoneNumber, protectedCategory, qualifications, residence,
-				residenceIt, socials, website, workingExperiences);
+				firstName, id, lastName, password, phoneNumber, photoUrl, protectedCategory, qualifications,
+				residence, residenceIt, socials, website, workingExperiences);
 	}
 
 	@Override
@@ -282,7 +293,9 @@ public class Customer {
 			return false;
 		Customer other = (Customer) obj;
 		return Objects.equals(birthday, other.birthday) && Objects.equals(blog, other.blog)
-				&& Objects.equals(description, other.description) && Objects.equals(descriptionIt, other.descriptionIt)
+				&& Objects.equals(description, other.description)
+				&& Objects.equals(descriptionIt, other.descriptionIt)
+				&& Objects.equals(photoUrl, other.photoUrl)
 				&& Objects.equals(desiredProfession, other.desiredProfession)
 				&& Objects.equals(drivingLicense, other.drivingLicense) && Objects.equals(email, other.email)
 				&& Objects.equals(firstName, other.firstName) && Objects.equals(id, other.id)
@@ -303,7 +316,7 @@ public class Customer {
 				+ drivingLicense + ", protectedCategory=" + protectedCategory + ", workingExperiences="
 				+ workingExperiences + ", qualifications=" + qualifications + ", socials=" + socials
 				+ ", desiredProfession=" + desiredProfession + ", description=" + description + ", descriptionIt="
-				+ descriptionIt + ", password=" + password + "]";
+				+ descriptionIt + ", photoUrl=" + photoUrl + ", password=" + password + "]";
 	}
 
 }

@@ -6,7 +6,6 @@ import ninja.curriculum.portfoliospring.social.Social;
 import ninja.curriculum.portfoliospring.social.SocialRepository;
 import ninja.curriculum.portfoliospring.workingexperience.WorkingExperience;
 import ninja.curriculum.portfoliospring.workingexperience.WorkingExperienceRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -97,59 +96,51 @@ public class CustomerService {
             String description,
             String descriptionIt,
             String drivingLicense,
-            Boolean protectedCategory
-    ) {
+            Boolean protectedCategory,
+            String photoUrl) {
         Optional<Customer> customerOptional = this.customerRepository.findById(customerId);
         if (customerOptional.isPresent()) {
             Customer customer = customerOptional.get();
             if (phoneNumber != null) {
                 customer.setPhoneNumber(phoneNumber);
-                customerRepository.save(customer);
             }
             if (website != null) {
                 customer.setWebsite(website);
-                customerRepository.save(customer);
             }
             if (blog != null) {
                 customer.setBlog(blog);
-                customerRepository.save(customer);
             }
             if (birthday != null) {
                 customer.setBirthday(birthday);
-                customerRepository.save(customer);
             }
             if (email != null) {
                 customer.setEmail(email);
-                customerRepository.save(customer);
             }
             if (residence != null) {
                 customer.setResidence(residence);
-                customerRepository.save(customer);
             }
             if (residenceIt != null) {
                 customer.setResidenceIt(residenceIt);
-                customerRepository.save(customer);
             }
             if (desiredProfession != null) {
                 customer.setDesiredProfession(desiredProfession);
-                customerRepository.save(customer);
             }
             if (description != null) {
                 customer.setDescription(description);
-                customerRepository.save(customer);
             }
             if (descriptionIt != null) {
                 customer.setDescriptionIt(descriptionIt);
-                customerRepository.save(customer);
             }
             if (drivingLicense != null) {
                 customer.setDrivingLicense(drivingLicense);
-                customerRepository.save(customer);
             }
             if (protectedCategory != null) {
                 customer.setProtectedCategory(protectedCategory);
-                customerRepository.save(customer);
             }
+            if (photoUrl != null) {
+                customer.setPhotoUrl(photoUrl);
+            }
+            customerRepository.save(customer);
         } else {
             throw new IllegalStateException("Customer with UUID " + customerId + " doesn't exists");
         }
