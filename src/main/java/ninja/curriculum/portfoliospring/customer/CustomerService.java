@@ -6,6 +6,7 @@ import ninja.curriculum.portfoliospring.social.Social;
 import ninja.curriculum.portfoliospring.social.SocialRepository;
 import ninja.curriculum.portfoliospring.workingexperience.WorkingExperience;
 import ninja.curriculum.portfoliospring.workingexperience.WorkingExperienceRepository;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -36,6 +37,7 @@ public class CustomerService {
         return this.customerRepository.findAll();
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @Transactional
     public void addCustomer(Customer customer) {
         Optional<Customer> customerOptional = customerRepository.findByEmail(customer.getEmail());
@@ -47,41 +49,29 @@ public class CustomerService {
     }
 
     public Customer getCustomer(UUID customerId) {
-        Optional<Customer> customerOptional = customerRepository.findById(customerId);
-        if (customerOptional.isPresent()) {
-            return customerOptional.get();
-        }
-        throw new IllegalStateException("Customer with UUID " + customerId + " doesn't exists");
+        return this.customerRepository.findById(customerId)
+                .orElseThrow(() -> new IllegalStateException("Customer with UUID " + customerId + " doesn't exists"));
     }
 
-
     public List<WorkingExperience> getWorkingExperiences(UUID customerId) {
-        Optional<Customer> customerOptional = this.customerRepository.findById(customerId);
-        if (customerOptional.isPresent()) {
-            Customer customer = customerOptional.get();
-            return this.workingExperienceRepository.getWorkingExperienceByCustomerOrderByStartedWorkDesc(customer);
-        }
-        throw new IllegalStateException("Customer with UUID " + customerId + " doesn't exists");
+        Customer customer = this.customerRepository.findById(customerId)
+                .orElseThrow(() -> new IllegalStateException("Customer with UUID " + customerId + " doesn't exists"));
+        return this.workingExperienceRepository.getWorkingExperienceByCustomerOrderByStartedWorkDesc(customer);
     }
 
     public List<Social> getSocials(UUID customerId) {
-        Optional<Customer> customerOptional = this.customerRepository.findById(customerId);
-        if (customerOptional.isPresent()) {
-            Customer customer = customerOptional.get();
-            return this.socialRepository.getSocialByCustomer(customer);
-        }
-        throw new IllegalStateException("Customer with UUID " + customerId + " doesn't exists");
+        Customer customer = this.customerRepository.findById(customerId)
+                .orElseThrow(() -> new IllegalStateException("Customer with UUID " + customerId + " doesn't exists"));
+        return this.socialRepository.getSocialByCustomer(customer);
     }
 
     public List<Qualification> getQualifications(UUID customerId) {
-        Optional<Customer> customerOptional = this.customerRepository.findById(customerId);
-        if (customerOptional.isPresent()) {
-            Customer customer = customerOptional.get();
-            return this.qualificationRepository.getQualificationByCustomerOrderByFinishedStudyingDesc(customer);
-        }
-        throw new IllegalStateException("Customer with UUID " + customerId + " doesn't exists");
+        Customer customer = this.customerRepository.findById(customerId)
+                .orElseThrow(() -> new IllegalStateException("Customer with UUID " + customerId + " doesn't exists"));
+        return this.qualificationRepository.getQualificationByCustomerOrderByFinishedStudyingDesc(customer);
     }
 
+    @PreAuthorize("hasRole('ADMIN') or @customerSecurity.isOwner(#customerId, authentication.name)")
     @Transactional
     public void updateCustomer(
             UUID customerId,
@@ -98,51 +88,24 @@ public class CustomerService {
             String drivingLicense,
             Boolean protectedCategory,
             String photoUrl) {
-        Optional<Customer> customerOptional = this.customerRepository.findById(customerId);
-        if (customerOptional.isPresent()) {
-            Customer customer = customerOptional.get();
-            if (phoneNumber != null) {
-                customer.setPhoneNumber(phoneNumber);
-            }
-            if (website != null) {
-                customer.setWebsite(website);
-            }
-            if (blog != null) {
-                customer.setBlog(blog);
-            }
-            if (birthday != null) {
-                customer.setBirthday(birthday);
-            }
-            if (email != null) {
-                customer.setEmail(email);
-            }
-            if (residence != null) {
-                customer.setResidence(residence);
-            }
-            if (residenceIt != null) {
-                customer.setResidenceIt(residenceIt);
-            }
-            if (desiredProfession != null) {
-                customer.setDesiredProfession(desiredProfession);
-            }
-            if (description != null) {
-                customer.setDescription(description);
-            }
-            if (descriptionIt != null) {
-                customer.setDescriptionIt(descriptionIt);
-            }
-            if (drivingLicense != null) {
-                customer.setDrivingLicense(drivingLicense);
-            }
-            if (protectedCategory != null) {
-                customer.setProtectedCategory(protectedCategory);
-            }
-            if (photoUrl != null) {
-                customer.setPhotoUrl(photoUrl);
-            }
-            customerRepository.save(customer);
-        } else {
-            throw new IllegalStateException("Customer with UUID " + customerId + " doesn't exists");
-        }
+
+        Customer customer = this.customerRepository.findById(customerId)
+                .orElseThrow(() -> new IllegalStateException("Customer with UUID " + customerId + " doesn't exists"));
+
+        if (phoneNumber != null) customer.setPhoneNumber(phoneNumber);
+        if (website != null) customer.setWebsite(website);
+        if (blog != null) customer.setBlog(blog);
+        if (birthday != null) customer.setBirthday(birthday);
+        if (email != null) customer.setEmail(email);
+        if (residence != null) customer.setResidence(residence);
+        if (residenceIt != null) customer.setResidenceIt(residenceIt);
+        if (desiredProfession != null) customer.setDesiredProfession(desiredProfession);
+        if (description != null) customer.setDescription(description);
+        if (descriptionIt != null) customer.setDescriptionIt(descriptionIt);
+        if (drivingLicense != null) customer.setDrivingLicense(drivingLicense);
+        if (protectedCategory != null) customer.setProtectedCategory(protectedCategory);
+        if (photoUrl != null) customer.setPhotoUrl(photoUrl);
+
+        customerRepository.save(customer);
     }
 }

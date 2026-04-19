@@ -1,6 +1,5 @@
 package ninja.curriculum.portfoliospring.customer;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -87,17 +86,13 @@ public class Customer {
 	@Column(name = "photo_url", columnDefinition = "TEXT")
 	private String photoUrl;
 
-	@JsonIgnore
-	@Column(name = "password", columnDefinition = "TEXT")
-	private String password;
-
 	public Customer() {
 	}
 
 	public Customer(UUID id, String firstName, String lastName, String phoneNumber, LocalDate birthday, String email,
 	                String residence, String residenceIt, String website, String blog, String drivingLicense,
 	                Boolean protectedCategory, String desiredProfession, String description, String descriptionIt,
-	                String photoUrl, String password) {
+	                String photoUrl) {
 		this.id = id;
 		this.firstName = firstName;
 		this.lastName = lastName;
@@ -114,7 +109,6 @@ public class Customer {
 		this.description = description;
 		this.descriptionIt = descriptionIt;
 		this.photoUrl = photoUrl;
-		this.password = password;
 	}
 
 	public UUID getId() {
@@ -268,18 +262,10 @@ public class Customer {
 		this.descriptionIt = descriptionIt;
 	}
 
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
 	@Override
 	public int hashCode() {
 		return Objects.hash(birthday, blog, description, descriptionIt, desiredProfession, drivingLicense, email,
-				firstName, id, lastName, password, phoneNumber, photoUrl, protectedCategory, qualifications,
+				firstName, id, lastName, phoneNumber, photoUrl, protectedCategory, qualifications,
 				residence, residenceIt, socials, website, workingExperiences);
 	}
 
@@ -299,7 +285,7 @@ public class Customer {
 				&& Objects.equals(desiredProfession, other.desiredProfession)
 				&& Objects.equals(drivingLicense, other.drivingLicense) && Objects.equals(email, other.email)
 				&& Objects.equals(firstName, other.firstName) && Objects.equals(id, other.id)
-				&& Objects.equals(lastName, other.lastName) && Objects.equals(password, other.password)
+				&& Objects.equals(lastName, other.lastName)
 				&& Objects.equals(phoneNumber, other.phoneNumber)
 				&& Objects.equals(protectedCategory, other.protectedCategory)
 				&& Objects.equals(qualifications, other.qualifications) && Objects.equals(residence, other.residence)
@@ -316,7 +302,7 @@ public class Customer {
 				+ drivingLicense + ", protectedCategory=" + protectedCategory + ", workingExperiences="
 				+ workingExperiences + ", qualifications=" + qualifications + ", socials=" + socials
 				+ ", desiredProfession=" + desiredProfession + ", description=" + description + ", descriptionIt="
-				+ descriptionIt + ", photoUrl=" + photoUrl + ", password=" + password + "]";
+				+ descriptionIt + ", photoUrl=" + photoUrl + "]";
 	}
 
 }
