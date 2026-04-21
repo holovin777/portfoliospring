@@ -5,12 +5,11 @@ import ninja.curriculum.portfoliospring.social.Social;
 import ninja.curriculum.portfoliospring.workingexperience.WorkingExperience;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 
 @RestController
-@RequestMapping(path = "api/v1/customer")
+@RequestMapping(path = "/api/v1/customer")
 public class CustomerController {
 
     private final CustomerService customerService;
@@ -51,35 +50,8 @@ public class CustomerController {
 
     @PutMapping(path = "{customerId}/update")
     public void updateCustomer(@PathVariable UUID customerId,
-                               @RequestParam(required = false) String phoneNumber,
-                               @RequestParam(required = false) String website,
-                               @RequestParam(required = false) String blog,
-                               @RequestParam(required = false) LocalDate birthday,
-                               @RequestParam(required = false) String email,
-                               @RequestParam(required = false) String residence,
-                               @RequestParam(required = false) String residenceIt,
-                               @RequestParam(required = false) String desiredProfession,
-                               @RequestParam(required = false) String description,
-                               @RequestParam(required = false) String descriptionIt,
-                               @RequestParam(required = false) String drivingLicense,
-                               @RequestParam(required = false) Boolean protectedCategory,
-                               @RequestParam(required = false) String photoUrl) {
-        this.customerService.updateCustomer(
-                customerId,
-                phoneNumber,
-                website,
-                blog,
-                birthday,
-                email,
-                residence,
-                residenceIt,
-                desiredProfession,
-                description,
-                descriptionIt,
-                drivingLicense,
-                protectedCategory,
-                photoUrl
-        );
+                               @RequestBody CustomerUpdateRequest request) {
+        this.customerService.updateCustomer(customerId, request);
     }
 
 }
