@@ -10,7 +10,6 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDate;
 import java.util.*;
 
 @Service
@@ -73,38 +72,23 @@ public class CustomerService {
 
     @PreAuthorize("hasRole('ADMIN') or @customerSecurity.isOwner(#customerId, authentication.name)")
     @Transactional
-    public void updateCustomer(
-            UUID customerId,
-            String phoneNumber,
-            String website,
-            String blog,
-            LocalDate birthday,
-            String email,
-            String residence,
-            String residenceIt,
-            String desiredProfession,
-            String description,
-            String descriptionIt,
-            String drivingLicense,
-            Boolean protectedCategory,
-            String photoUrl) {
-
+    public void updateCustomer(UUID customerId, CustomerUpdateRequest request) {
         Customer customer = this.customerRepository.findById(customerId)
                 .orElseThrow(() -> new IllegalStateException("Customer with UUID " + customerId + " doesn't exists"));
 
-        if (phoneNumber != null) customer.setPhoneNumber(phoneNumber);
-        if (website != null) customer.setWebsite(website);
-        if (blog != null) customer.setBlog(blog);
-        if (birthday != null) customer.setBirthday(birthday);
-        if (email != null) customer.setEmail(email);
-        if (residence != null) customer.setResidence(residence);
-        if (residenceIt != null) customer.setResidenceIt(residenceIt);
-        if (desiredProfession != null) customer.setDesiredProfession(desiredProfession);
-        if (description != null) customer.setDescription(description);
-        if (descriptionIt != null) customer.setDescriptionIt(descriptionIt);
-        if (drivingLicense != null) customer.setDrivingLicense(drivingLicense);
-        if (protectedCategory != null) customer.setProtectedCategory(protectedCategory);
-        if (photoUrl != null) customer.setPhotoUrl(photoUrl);
+        if (request.getPhoneNumber() != null) customer.setPhoneNumber(request.getPhoneNumber());
+        if (request.getWebsite() != null) customer.setWebsite(request.getWebsite());
+        if (request.getBlog() != null) customer.setBlog(request.getBlog());
+        if (request.getBirthday() != null) customer.setBirthday(request.getBirthday());
+        if (request.getEmail() != null) customer.setEmail(request.getEmail());
+        if (request.getResidence() != null) customer.setResidence(request.getResidence());
+        if (request.getResidenceIt() != null) customer.setResidenceIt(request.getResidenceIt());
+        if (request.getDesiredProfession() != null) customer.setDesiredProfession(request.getDesiredProfession());
+        if (request.getDescription() != null) customer.setDescription(request.getDescription());
+        if (request.getDescriptionIt() != null) customer.setDescriptionIt(request.getDescriptionIt());
+        if (request.getDrivingLicense() != null) customer.setDrivingLicense(request.getDrivingLicense());
+        if (request.getProtectedCategory() != null) customer.setProtectedCategory(request.getProtectedCategory());
+        if (request.getPhotoUrl() != null) customer.setPhotoUrl(request.getPhotoUrl());
 
         customerRepository.save(customer);
     }
