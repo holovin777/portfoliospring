@@ -52,6 +52,15 @@ public class CustomerService {
                 .orElseThrow(() -> new IllegalStateException("Customer with UUID " + customerId + " doesn't exists"));
     }
 
+    public List<Customer> getPublicCustomers() {
+        return this.customerRepository.findAll();
+    }
+
+    public Customer getPublicCustomerBySlug(String slug) {
+        return this.customerRepository.findBySlug(slug)
+                .orElseThrow(() -> new IllegalStateException("Customer with slug " + slug + " doesn't exist"));
+    }
+
     public List<WorkingExperience> getWorkingExperiences(UUID customerId) {
         Customer customer = this.customerRepository.findById(customerId)
                 .orElseThrow(() -> new IllegalStateException("Customer with UUID " + customerId + " doesn't exists"));
@@ -76,6 +85,7 @@ public class CustomerService {
         Customer customer = this.customerRepository.findById(customerId)
                 .orElseThrow(() -> new IllegalStateException("Customer with UUID " + customerId + " doesn't exists"));
 
+        if (request.getSlug() != null) customer.setSlug(request.getSlug());
         if (request.getPhoneNumber() != null) customer.setPhoneNumber(request.getPhoneNumber());
         if (request.getWebsite() != null) customer.setWebsite(request.getWebsite());
         if (request.getBlog() != null) customer.setBlog(request.getBlog());

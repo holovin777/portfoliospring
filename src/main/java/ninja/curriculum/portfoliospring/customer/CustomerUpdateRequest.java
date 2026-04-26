@@ -20,6 +20,15 @@ public class CustomerUpdateRequest {
 
     public CustomerUpdateRequest() {
     }
+    private String slug;
+
+    public String getSlug() {
+        return slug;
+    }
+
+    public void setSlug(String slug) {
+        this.slug = slug;
+    }
 
     public String getPhoneNumber() {
         return phoneNumber;

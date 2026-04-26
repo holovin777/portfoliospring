@@ -33,6 +33,16 @@ public class CustomerController {
         return this.customerService.getCustomer(customerId);
     }
 
+    @GetMapping(path = "public/all")
+    public List<Customer> getPublicCustomers() {
+        return this.customerService.getPublicCustomers();
+    }
+
+    @GetMapping(path = "public/{slug}")
+    public Customer getPublicCustomerBySlug(@PathVariable String slug) {
+        return this.customerService.getPublicCustomerBySlug(slug);
+    }
+
     @GetMapping(path = "{customerId}/working-experience/all")
     public List<WorkingExperience> getWorkingExperiences(@PathVariable UUID customerId) {
         return this.customerService.getWorkingExperiences(customerId);
