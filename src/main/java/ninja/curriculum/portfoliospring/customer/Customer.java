@@ -20,6 +20,7 @@ import java.util.UUID;
 
 @Entity(name = "Customer")
 @Table(name = "customer", uniqueConstraints = {
+		@UniqueConstraint(name = "customer_slug_unique", columnNames = "slug"),
 		@UniqueConstraint(name = "customer_phone_number_unique", columnNames = "phone_number"),
 		@UniqueConstraint(name = "customer_email_unique", columnNames = "email"),
 		@UniqueConstraint(name = "customer_website_unique", columnNames = "website") })
@@ -28,6 +29,9 @@ public class Customer {
 	@Id
 	@Column(name = "id", nullable = false, updatable = false, columnDefinition = "UUID")
 	private UUID id;
+
+	@Column(name = "slug", nullable = false, unique = true, columnDefinition = "TEXT")
+	private String slug;
 
 	@Column(name = "first_name", nullable = false, columnDefinition = "TEXT")
 	private String firstName;
@@ -117,6 +121,14 @@ public class Customer {
 
 	public void setId(UUID id) {
 		this.id = id;
+	}
+
+	public String getSlug() {
+		return slug;
+	}
+
+	public void setSlug(String slug) {
+		this.slug = slug;
 	}
 
 	public String getFirstName() {
