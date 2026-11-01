@@ -1,13 +1,11 @@
 package ninja.curriculum.portfoliospring.company.positionatwork;
 
-import ninja.curriculum.portfoliospring.customer.Customer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 @Service
 @Transactional(readOnly = true)
@@ -41,16 +39,16 @@ public class PositionAtWorkService {
     }
 
     @Transactional
-    public void updatePositionAtWork(Long positionAtWorkId, String nameIt, String name) {
+    public void updatePositionAtWork(Long positionAtWorkId, String name, String nameIt) {
             Optional<PositionAtWork> positionAtWorkOptional = this.positionAtWorkRepository.findById(positionAtWorkId);
             if (positionAtWorkOptional.isPresent()) {
                 PositionAtWork positionAtWork = positionAtWorkOptional.get();
-                if (nameIt != null) {
-                    positionAtWork.setNameIt(nameIt);
-                    positionAtWorkRepository.save(positionAtWork);
-                }
                 if (name != null) {
                     positionAtWork.setName(name);
+                    positionAtWorkRepository.save(positionAtWork);
+                }
+                if (nameIt != null) {
+                    positionAtWork.setNameIt(nameIt);
                     positionAtWorkRepository.save(positionAtWork);
                 }
             } else {
