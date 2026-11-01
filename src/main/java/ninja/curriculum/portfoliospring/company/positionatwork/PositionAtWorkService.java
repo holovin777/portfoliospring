@@ -41,12 +41,16 @@ public class PositionAtWorkService {
     }
 
     @Transactional
-    public void updatePositionAtWork(Long positionAtWorkId, String nameIt) {
+    public void updatePositionAtWork(Long positionAtWorkId, String nameIt, String name) {
             Optional<PositionAtWork> positionAtWorkOptional = this.positionAtWorkRepository.findById(positionAtWorkId);
             if (positionAtWorkOptional.isPresent()) {
                 PositionAtWork positionAtWork = positionAtWorkOptional.get();
                 if (nameIt != null) {
                     positionAtWork.setNameIt(nameIt);
+                    positionAtWorkRepository.save(positionAtWork);
+                }
+                if (name != null) {
+                    positionAtWork.setName(name);
                     positionAtWorkRepository.save(positionAtWork);
                 }
             } else {
